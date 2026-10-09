@@ -1,0 +1,11 @@
+{
+  "name": "planet-pulse",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "npx serve ."
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3"
+  }
+}

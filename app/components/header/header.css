@@ -1,0 +1,9 @@
+.navbar-brand {
+  font-weight: 700;
+}
+
+.navbar .nav-link.active {
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 0.35rem;
+}
