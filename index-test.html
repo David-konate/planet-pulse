@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preview Bootstrap 5.3</title>
+
+    <!-- Bootstrap 5.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css" rel="stylesheet">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Styles tailor (font and color) -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <main class="container py-5 flex-grow-1">
+
+        <!-- Section 1 : head / Hero -->
+        <section class="mb-5">
+            <h1 class="display-5 fw-bold mb-3">Titre principal</h1>
+            <p class="lead mb-4">
+                This is an example of text so we can visualize colors, fonts and spaces.
+            </p>
+            <div class="d-flex flex-wrap gap-2">
+                <button type="button" class="btn btn-primary">Discover</button>
+                <button type="button" class="btn btn-secondary">Contact Us</button>
+            </div>
+        </section>
+
+        <!-- Section 2 : Text content -->
+        <section class="mb-5">
+            <h2 class="h2 mb-3">Second Title</h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                This a paragprah longer to test the visual
+                
+            </p>
+
+            <h3 class="h4 mt-4 mb-3">Petit titre</h3>
+            <ul>
+                <li>First element</li>
+                <li>Second element</li>
+                <li>Third element</li>
+            </ul>
+        </section>
+
+        <!-- Section 3 : Cards grid -->
+        <section class="row row-cols-1 row-cols-md-3 g-4">
+
+            <div class="col">
+                <article class="card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title h5">Card 1</h3>
+                        <p class="card-text">An example of content in card.</p>
+                        <a href="#" class="card-link">Read more <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="col">
+                <article class="card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title h5">Carte 2</h3>
+                        <p class="card-text">Second card to text the design</p>
+                        <a href="#" class="card-link">Read more <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </article>
+            </div>
+
+            <div class="col">
+                <article class="card h-100">
+                    <div class="card-body">
+                        <h3 class="card-title h5">Carte 3</h3>
+                        <p class="card-text">Third card to text the color</p>
+                        <a href="#" class="card-link">Read more <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+                    </div>
+                </article>
+            </div>
+
+        </section>
+
+    </main>
+
+    <footer class="footer-custom text-center py-4">
+        <p class="mb-0">© 2026 - Preview CSS</p>
+    </footer>
+
+    <!-- JS Bootstrap (nécessaire pour certains composants interactifs) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

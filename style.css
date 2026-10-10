@@ -1,0 +1,50 @@
+/* 1. Polices et couleurs de base (variables Bootstrap) */
+:root {
+  --bs-body-font-family: 'Poppins', sans-serif;
+  --bs-body-color: #0A2239;
+  --bs-link-color-rgb: 23, 105, 154;
+  --bs-link-hover-color-rgb: 10, 34, 57;
+}
+
+/* 2. Polices des titres */
+h1, h2, h3, h4, h5, h6, .display-5 {
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* 3. Boutons : taille, police et survol communs */
+.btn {
+  --bs-btn-padding-x: 1.6rem;
+  --bs-btn-padding-y: 0.8rem;
+  --bs-btn-font-weight: 600;
+  --bs-btn-border-radius: 6px;
+
+  --bs-btn-hover-bg: #5AB4F4;
+  --bs-btn-hover-border-color: #5AB4F4;
+  --bs-btn-hover-color: #0A2239;
+  --bs-btn-active-bg: #5AB4F4;
+  --bs-btn-active-border-color: #5AB4F4;
+  --bs-btn-active-color: #0A2239;
+}
+
+/* Seule la couleur change entre les deux boutons */
+.btn-primary {
+  --bs-btn-bg: #17699A;
+  --bs-btn-border-color: #17699A;
+}
+
+.btn-secondary {
+  --bs-btn-bg: #276A7A;
+  --bs-btn-border-color: #276A7A;
+}
+
+/* 4. Cartes : contour vert */
+.card {
+  --bs-card-border-width: 3px;
+  --bs-card-border-color: #367627;
+}
+
+/* 5. Footer : bleu nuit, texte blanc */
+.footer-custom {
+  background-color: #0A2239;
+  color: #ffffff;
+}
