@@ -1,0 +1,56 @@
+/* components/header/header.css */
+
+app-header {
+  display: block;
+  --pp-primary: #0A2239;
+  --pp-secondary: #367627;
+  --pp-blue: #17699A;
+  --pp-hover: #5AB4F4;
+  --bs-tertiary-bg-rgb: 255, 255, 255;
+}
+
+app-header .navbar {
+  --bs-navbar-color: var(--pp-primary);
+  --bs-navbar-hover-color: var(--pp-blue);
+  --bs-navbar-active-color: var(--pp-secondary);
+  --bs-navbar-brand-color: var(--pp-primary);
+  --bs-navbar-brand-hover-color: var(--pp-primary);
+  border-bottom: 3px solid var(--pp-secondary);
+  font-family: var();
+  border-radius: 10px;
+
+}
+
+app-header .navbar-brand { font-weight: 700; font-size: 1.4rem; }
+app-header .navbar-brand .text-pulse { color: var(--pp-secondary); }
+app-header .navbar-brand img { height: 50px; width: auto; }
+
+app-header .nav-link {
+  font-weight: 600;
+  border-bottom: 3px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+app-header .nav-link:hover { border-bottom-color: var(--pp-hover); }
+app-header .nav-link.active { border-bottom-color: var(--pp-secondary); }
+
+/* Focus clavier visible */
+app-header .nav-link:focus-visible,
+app-header .navbar-brand:focus-visible,
+app-header .navbar-toggler:focus-visible {
+  outline: 3px solid var(--pp-blue);
+  outline-offset: 2px;
+  box-shadow: none;
+}
+
+app-header .navbar-toggler { border-color: var(--pp-primary); }
+
+/* Mobile : menu déplié, barre à gauche au lieu du soulignement */
+@media (max-width: 767.98px) {
+  app-header .nav-link {
+    border-bottom: 0;
+    border-left: 3px solid transparent;
+    padding-left: 0.75rem;
+  }
+  app-header .nav-link:hover { border-left-color: var(--pp-hover); }
+  app-header .nav-link.active { border-left-color: var(--pp-secondary); }
+}
