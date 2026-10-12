@@ -1,4 +1,5 @@
-node_modules
-data/mockData.json
+node_modules/
+.env
 .vscode
-
+.DS_Store
+data/
