@@ -1,0 +1,18 @@
+/* frontend/js/components/Countries/countries-item.css */
+country-item { display: block; }
+
+country-item .country-flag {
+  display: block;
+  width: 100%;
+  height: 80px;
+  object-fit: contain;
+}
+country-item .country-flag--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+
+country-item .card { color: inherit; }
+country-item .card:hover { box-shadow: 0 0.25rem 0.75rem rgba(0, 0, 0, 0.15); }

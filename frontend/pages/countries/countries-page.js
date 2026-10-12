@@ -1,0 +1,34 @@
+// frontend/pages/countries-page.js
+import AppComponent from '../../js/components/lib/AppComponents.js';
+import '../../js/components/Header/AppHeader.js';
+import '../../js/components/Countries/CountriesList.js';
+import { getCountries } from '../../services/countries-services.js';
+
+class CountriesPage extends AppComponent {
+
+    template() {
+        return /*html*/`
+            <main class="container py-4">
+              <h1 class="h3 text-center mb-4">List Countries</h1>
+              <div id="countries-content">
+                <p class="text-center">Chargement…</p>
+              </div>
+            </main>
+        `;
+    }
+
+    async afterRender() {
+        const content = this.querySelector('#countries-content');
+        try {
+            const countries = await getCountries();
+            content.innerHTML = '';
+            this.attachChild(content, 'country-list', { countries });
+        } catch (error) {
+            console.error(error);
+            content.innerHTML = `<div class="alert alert-danger" role="alert">
+                Impossible de charger les pays.</div>`;
+        }
+    }
+}
+
+customElements.define('countries-page', CountriesPage);
