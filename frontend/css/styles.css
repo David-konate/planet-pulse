@@ -1,50 +1,140 @@
-/* 1. Polices et couleurs de base (variables Bootstrap) */
+/* ======================================================
+   COMMON STYLE SHEET
+   ====================================================== */
+
+/* === ROOT VARIABLES === */
 :root {
-  --bs-body-font-family: 'Poppins', sans-serif;
-  --bs-body-color: #0A2239;
+  /* COLORS */
+  --color-aqua: #68AEC0;
+  --color-sky: #5AB4F4;
+  --color-blue: #17699A;
+  --color-teal: #276A7A;
+  --color-navy: #0A2239;
+  --color-green: #367627;
+  --color-white: #ffffff;
+
+  /* TYPOGRAPHY */
+  --font-family-base: 'Poppins', sans-serif;
+  --font-family-title: 'Montserrat', sans-serif;
+
+  /* SPACING */
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+}
+
+/* === BOOTSTRAP VARIABLES (body font and colors) === */
+:root {
+  --bs-body-font-family: var(--font-family-base);
+  --bs-body-color: var(--color-navy);
   --bs-link-color-rgb: 23, 105, 154;
   --bs-link-hover-color-rgb: 10, 34, 57;
 }
 
-/* 2. Polices des titres */
-h1, h2, h3, h4, h5, h6, .display-5 {
-  font-family: 'Montserrat', sans-serif;
+/* === GENERAL RESET === */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
-/* 3. Boutons : taille, police et survol communs */
+/* === HTML & BODY === */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  background-color: var(--color-white);
+  color: var(--color-navy);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* === TITLES === */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-title);
+  margin-top: var(--space-lg);
+  margin-bottom: var(--space-md);
+}
+
+/* === BUTTONS === */
 .btn {
   --bs-btn-padding-x: 1.6rem;
-  --bs-btn-padding-y: 0.8rem; 
+  --bs-btn-padding-y: 0.8rem;
   --bs-btn-font-weight: 600;
   --bs-btn-border-radius: 6px;
 
-  --bs-btn-hover-bg: #5AB4F4;
-  --bs-btn-hover-border-color: #5AB4F4;
-  --bs-btn-hover-color: #0A2239;
-  --bs-btn-active-bg: #5AB4F4;
-  --bs-btn-active-border-color: #5AB4F4;
-  --bs-btn-active-color: #0A2239;
+  --bs-btn-hover-bg: var(--color-sky);
+  --bs-btn-hover-border-color: var(--color-sky);
+  --bs-btn-hover-color: var(--color-navy);
+  --bs-btn-active-bg: var(--color-sky);
+  --bs-btn-active-border-color: var(--color-sky);
+  --bs-btn-active-color: var(--color-navy);
 }
 
-/* Seule la couleur change entre les deux boutons */
 .btn-primary {
-  --bs-btn-bg: #17699A;
-  --bs-btn-border-color: #17699A;
+  --bs-btn-bg: var(--color-blue);
+  --bs-btn-border-color: var(--color-blue);
 }
 
 .btn-secondary {
-  --bs-btn-bg: #276A7A;
-  --bs-btn-border-color: #276A7A;
+  --bs-btn-bg: var(--color-teal);
+  --bs-btn-border-color: var(--color-teal);
 }
 
-/* 4. Cartes : contour vert */
+/* === CARDS === */
 .card {
   --bs-card-border-width: 3px;
-  --bs-card-border-color: #367627;
+  --bs-card-border-color: var(--color-green);
 }
 
-/* 5. Footer : bleu nuit, texte blanc */
+/* === FORM FIELDS === */
+.form-label {
+  font-weight: 600;
+  color: var(--color-navy);
+}
+
+.form-control {
+  border: 2px solid var(--color-blue);
+  border-radius: 6px;
+}
+
+.form-control:focus {
+  border-color: var(--color-sky);
+  box-shadow: 0 0 0 0.25rem rgba(90, 180, 244, 0.4);
+}
+
+/* === ALERTS === */
+.alert {
+  --bs-alert-border-radius: 6px;
+}
+
+.alert-success {
+  --bs-alert-bg: var(--color-green);
+  --bs-alert-border-color: var(--color-green);
+  --bs-alert-color: var(--color-white);
+}
+
+.alert-info {
+  --bs-alert-bg: var(--color-aqua);
+  --bs-alert-border-color: var(--color-aqua);
+  --bs-alert-color: var(--color-navy);
+}
+
+.alert-warning {
+  --bs-alert-bg: var(--color-sky);
+  --bs-alert-border-color: var(--color-sky);
+  --bs-alert-color: var(--color-navy);
+}
+
+.alert-danger {
+  --bs-alert-bg: var(--color-navy);
+  --bs-alert-border-color: var(--color-navy);
+  --bs-alert-color: var(--color-white);
+}
+
+/* === FOOTER === */
 .footer-custom {
-  background-color: #0A2239;
-  color: #ffffff;
+  background-color: var(--color-navy);
+  color: var(--color-white);
 }
