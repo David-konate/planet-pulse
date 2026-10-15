@@ -7,3 +7,12 @@ export async function getCountries() {
     const json = await response.json();
     return json.data.objects.sort((a, b) => a.names.common.localeCompare(b.names.common));
 }
+
+//call aleatory country from countries.json file
+export async function getRandomCountry() {
+    const countries = await getCountries();
+    if (countries.length === 0) throw new Error('Aucun pays disponible');
+
+    const index = Math.floor(Math.random() * countries.length);
+    return countries[index];
+}
