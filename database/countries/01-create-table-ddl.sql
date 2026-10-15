@@ -6,7 +6,7 @@ DROP TABLE IF EXISTS t_regions;
  
 -- region table 
 CREATE TABLE t_regions (
-    id_regions      INT GENERATED ALWAYS AS IDENTITY,
+    id_region      INT GENERATED ALWAYS AS IDENTITY,
     region  VARCHAR(10) NOT NULL,
     CONSTRAINT pk_regions        PRIMARY KEY (id_region),
     CONSTRAINT uk_regions_region UNIQUE (region)
@@ -14,7 +14,7 @@ CREATE TABLE t_regions (
  
 -- subregion table 
 CREATE TABLE t_subregions (
-    id_subregions     INT GENERATED ALWAYS AS IDENTITY,
+    id_subregion     INT GENERATED ALWAYS AS IDENTITY,
     subregion  VARCHAR(30) NOT NULL,
     region_id  INT         NOT NULL,
     CONSTRAINT pk_subregions           PRIMARY KEY (id_subregion),
@@ -25,7 +25,7 @@ CREATE TABLE t_subregions (
  
 -- countries table 
 CREATE TABLE t_countries (
-    id_countries          INT GENERATED ALWAYS AS IDENTITY,
+    id_country          INT GENERATED ALWAYS AS IDENTITY,
     iso               CHAR(2)       NOT NULL,
     country_name      VARCHAR(50)   NOT NULL,
     flag_url          VARCHAR(50)      NOT NULL,
