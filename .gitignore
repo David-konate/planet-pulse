@@ -3,4 +3,7 @@ node_modules/
 .vscode
 .DS_Store
 data/
-.idea
+prepa/
+.idea/
+
+

@@ -1,5 +1,6 @@
 
 import AppComponent from '../../js/components/lib/AppComponents.js';
+import '../../js/components/Header/AppHeader.js';
 import '../../js/components/indicator/IndicatorForm.js';
 
 class AddIndicatorPage extends AppComponent {
