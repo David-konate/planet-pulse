@@ -1,10 +1,14 @@
 spring:
+  config:
+    import:
+      - optional:file:.env[.properties]
+      - optional:file:backend/.env[.properties]
   application:
     name: planetpulse-api
   datasource:
     url: jdbc:postgresql://localhost:5433/planet_pulse
-    username: admin
-    password: ${DB_PASSWORD:change}
+    username: postgres
+    password: ${DB_PASSWORD}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
