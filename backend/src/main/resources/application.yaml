@@ -1,3 +1,10 @@
 spring:
   application:
     name: planetpulse-api
+  datasource:
+    url: jdbc:postgresql://localhost:5432/planet_pulse
+    username: admin
+    password: ${DB_PASSWORD:change}
+  jpa:
+    hibernate:
+      ddl-auto: update
