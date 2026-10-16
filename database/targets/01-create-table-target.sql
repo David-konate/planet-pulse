@@ -1,7 +1,7 @@
 DO $$
 BEGIN
     IF to_regclass('public.t_countries') IS NULL THEN
-        RAISE EXCEPTION 'La table t_countries do no exist.';
+        RAISE EXCEPTION 'The table t_countries do not exist.';
 END IF;
 END
 $$;

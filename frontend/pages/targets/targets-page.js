@@ -60,7 +60,7 @@ class TargetsPage extends AppComponent {
           </div>
 
           <div id="indicators-error" class="alert alert-danger d-none" role="alert">
-            Renseigne au moins un des quatre indicateurs.
+            Provide information for at least one of the four indicators.
           </div>
 
           <button id="change-target-btn" type="submit" class="btn btn-primary">Save target</button>
@@ -97,7 +97,7 @@ class TargetsPage extends AppComponent {
       console.error(error);
       content.innerHTML = /*html*/ `
         <div class="alert alert-danger" role="alert">
-          Impossible de charger le pays.
+          Unable to load countries.
         </div>`;
     }
 
