@@ -19,5 +19,8 @@ export async function importCountries() {
 
     if (!response.ok) throw new Error(`Import failed (${response.status})`);
 
+    // 204 = success without a body: there is nothing to read
+    if (response.status === 204) return undefined;
+
     return response.json();
 }

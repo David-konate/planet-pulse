@@ -21,7 +21,7 @@ class CountriesPage extends AppComponent {
 
     async afterRender() {
         this.attachChild(this.querySelector('#import-zone'), 'import-button', {
-            imported: false,
+            imported: false, //TODO: to delete when backend is settled
             onImport: importCountries,
         });
         const content = this.querySelector('#countries-content');
