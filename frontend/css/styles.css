@@ -2,7 +2,28 @@
    COMMON STYLE SHEET
    ====================================================== */
 
-/* === ROOT VARIABLES === */
+/* === IMPORT FONTS === */
+/* Poppins : text */
+@font-face {
+  font-family: 'Poppins';
+  src: url('../../frontend/assets/fonts/Poppins/Poppins-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Poppins';
+  src: url('../../frontend/assets/fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+/* Montserrat : title */
+@font-face {
+  font-family: 'Montserrat';
+  src: url('../../frontend/assets/fonts/Montserrat/Montserrat-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+
 :root {
   /* COLORS */
   --color-aqua: #68AEC0;
@@ -16,6 +37,7 @@
   /* TYPOGRAPHY */
   --font-family-base: 'Poppins', sans-serif;
   --font-family-title: 'Montserrat', sans-serif;
+
 
   /* SPACING */
   --space-sm: 0.5rem;
@@ -133,8 +155,3 @@ h1, h2, h3, h4, h5, h6 {
   --bs-alert-color: var(--color-white);
 }
 
-/* === FOOTER === */
-.footer-custom {
-  background-color: var(--color-navy);
-  color: var(--color-white);
-}

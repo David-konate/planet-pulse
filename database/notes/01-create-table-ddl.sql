@@ -1,4 +1,5 @@
--- check that t_country exists before creating t_note
+
+-- Check that t_country exists before creating t_note
 DO $$
 BEGIN
   IF to_regclass('public.t_country') IS NULL THEN
@@ -7,13 +8,15 @@ BEGIN
 END
 $$;
 
--- notes table
+-- Notes table
 CREATE TABLE t_note (
-   id_notes bigint GENERATED ALWAYS AS IDENTITY,
-   title VARCHAR(255) NOT NULL,
-   date DATE NOT NULL,
-   content VARCHAR(10000) NOT NULL,
-   id_country bigint,
-   PRIMARY KEY(id_notes),
-   CONSTRAINT FK_ISO FOREIGN KEY (id_country) REFERENCES t_country(id_country)
+    note_timestamp TIMESTAMP NOT NULL,
+    id_country BIGINT NOT NULL,
+    note_title VARCHAR(255) NOT NULL,
+    note_content VARCHAR(10000) NOT NULL,
+
+    PRIMARY KEY (note_timestamp, id_country),
+    CONSTRAINT fk_t_note_country
+        FOREIGN KEY (id_country)
+        REFERENCES t_country (id_country)
 );
