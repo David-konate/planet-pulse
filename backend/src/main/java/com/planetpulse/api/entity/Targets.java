@@ -38,4 +38,6 @@ public class Targets {
 
     @Column(name = "renewable_energy_share", precision = 5, scale = 2)
     private BigDecimal renewableEnergyShare;
+
+
 }
