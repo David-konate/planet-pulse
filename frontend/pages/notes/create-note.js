@@ -3,13 +3,11 @@ import AppComponents from "../../js/components/lib/AppComponents.js"
 
 // defining a new component call MonitorinfNoteForm and display html
 class MonitoringNoteForm extends AppComponents {
-    // by default
-    constructor() {
-        super();
-    }
+   
     template() {
         return `
         <main class="container py-4">
+           <h2>Create a Note</h2> 
             <div class="form-field" id="form-content">
 
                 <form id="note-form">
@@ -37,7 +35,6 @@ class MonitoringNoteForm extends AppComponents {
     async afterRender() {
         // connection to HTML elements
         const title = this.querySelector("#note-title");
-        //const date = this.querySelector("#note-date");
         const content = this.querySelector("#note-content");
         const form = this.querySelector("#note-form");
         // constrenght
