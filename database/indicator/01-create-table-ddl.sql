@@ -6,7 +6,7 @@ CREATE TABLE t_indicators
 (
     id_indicator     INT GENERATED ALWAYS AS IDENTITY,
     id_country       INT      NOT NULL,
-    year             INTEGER NOT NULL,
+    year_             INTEGER NOT NULL,
     co2_emissions    DECIMAL(14, 2), -- Mt
     renewable_energy DECIMAL(5, 2),  -- %
     forest_area      DECIMAL(5, 2),  -- %
