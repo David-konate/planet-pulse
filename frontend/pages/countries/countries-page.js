@@ -32,7 +32,7 @@ class CountriesPage extends AppComponent {
         } catch (error) {
             console.error(error);
             content.innerHTML = `<div class="alert alert-danger" role="alert">
-                Impossible de charger les pays.</div>`;
+              Unable to load countries.</div>`;
         }
     }
 }
