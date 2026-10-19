@@ -11,39 +11,46 @@ const FIELDS = [
 class IndicatorForm extends AppComponent {
 
     beforeRender() {
-        // The country comes from the URL: add-indicator.html?country=FR
-        const code = new URLSearchParams(window.location.search).get('country');
-        // Only accept 2 capital letters, so nothing else can end up in the HTML
-        this.state = { countryCode: /^[A-Z]{2}$/.test(code) ? code : null };
+        // The country id comes from the URL: add-indicator.html?country=1
+        const id = new URLSearchParams(window.location.search).get('country');
+        // Only accept a whole number, so nothing else can end up in the HTML
+        this.state = { countryId: /^\d+$/.test(id) ? Number(id) : null };
     }
 
     template() {
         return /*html*/`
             <h1 class="h3 mb-3">Add indicator values</h1>
-            <p>Country: <strong>${this.state.countryCode ?? 'not selected'}</strong></p>
+            <p>Country: <strong>${this.state.countryId ?? 'not selected'}</strong></p>
 
             <div id="message"></div>
 
-            <form id="form" novalidate>
-                <div class="mb-3">
-                    <label for="year" class="form-label">Year *</label>
-                    <input id="year" type="number" class="form-control">
+            <div class="card">
+                <div class="card-body">
+                    <form id="form" novalidate>
+                        <div class="row g-3">
+                            <div class="col-12 col-md-6">
+                                <label for="year" class="form-label">Year *</label>
+                                <input id="year" type="number" class="form-control">
+                            </div>
+
+                            ${FIELDS.map((field) => /*html*/`
+                                <div class="col-12 col-md-6">
+                                    <label for="${field.name}" class="form-label">${field.label} (${field.unit})</label>
+                                    <input id="${field.name}" type="number" step="0.01" class="form-control">
+                                </div>
+                            `).join('')}
+                        </div>
+
+
+                        <div class="d-flex gap-2 mt-3">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-check-lg"></i> Save
+                            </button>
+                            <button type="button" id="cancel" class="btn btn-secondary">Reset</button>
+                        </div>
+                    </form>
                 </div>
-
-                ${FIELDS.map((field) => /*html*/`
-                    <div class="mb-3">
-                        <label for="${field.name}" class="form-label">${field.label} (${field.unit})</label>
-                        <input id="${field.name}" type="number" step="0.01" class="form-control">
-                    </div>
-                `).join('')}
-
-                <p class="text-muted">Fill in at least one indicator.</p>
-
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-check-lg"></i> Save
-                </button>
-                <button type="button" id="cancel" class="btn btn-outline-secondary">Reset</button>
-            </form>
+            </div>
         `;
     }
 
@@ -52,13 +59,13 @@ class IndicatorForm extends AppComponent {
             event.preventDefault(); // stop the page from reloading
             this.#save();
         });
-            this.querySelector('#cancel').addEventListener('click', () => {
-            this.querySelector('#form').reset();   // empties the fields
-            this.#clearMessage();                  // removes the error or success message
-});
+        this.querySelector('#cancel').addEventListener('click', () => {
+            this.querySelector('#form').reset(); // empties the fields
+            this.#clearMessage();                // removes the error or success message
+        });
     }
 
-    async #save() {
+    #save() {
         const data = this.#readForm();
         const error = this.#validate(data);
         if (error) {
@@ -66,13 +73,10 @@ class IndicatorForm extends AppComponent {
             return;
         }
 
-        try {
-            await addIndicator(data);
-            this.#showMessage('Indicator values were added.', 'success');
-            this.querySelector('#form').reset();
-        } catch (error) {
-            this.#showMessage(error.message, 'danger');
-        }
+        //send "data" to the backend when it is ready (see /services)
+        console.log('Valid data:', data);
+        this.#showMessage('Indicator values were added.', 'success');
+        this.querySelector('#form').reset();
     }
 
     // Reads the inputs. An empty input becomes null.
@@ -82,7 +86,7 @@ class IndicatorForm extends AppComponent {
             return text === '' ? null : Number(text);
         };
 
-        const data = { countryCode: this.state.countryCode, year: read('year') };
+        const data = { countryId: this.state.countryId, year: read('year') };
         FIELDS.forEach((field) => {
             data[field.name] = read(field.name);
         });
@@ -91,7 +95,7 @@ class IndicatorForm extends AppComponent {
 
     // Returns an error message, or null if everything is valid
     #validate(data) {
-        if (!data.countryCode) return 'The country is missing.';
+        if (!data.countryId) return 'The country is missing.';
         if (!Number.isInteger(data.year)) return 'The year is required and must be a whole number.';
 
         const filled = FIELDS.filter((field) => data[field.name] !== null);
@@ -107,17 +111,17 @@ class IndicatorForm extends AppComponent {
         return null;
     }
 
+    #clearMessage() {
+        const box = this.querySelector('#message');
+        box.className = '';
+        box.textContent = '';
+    }
+
     #showMessage(text, type) {
         const box = this.querySelector('#message');
         box.className = `alert alert-${type}`; // Bootstrap alert
         box.textContent = text;                // textContent is safe (no HTML injected)
     }
-
-    #clearMessage() {
-    const box = this.querySelector('#message');
-    box.className = '';
-    box.textContent = '';
-}
 }
 
 customElements.define('indicator-form', IndicatorForm);
