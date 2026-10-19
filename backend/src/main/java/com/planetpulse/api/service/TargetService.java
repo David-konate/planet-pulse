@@ -2,7 +2,6 @@ package com.planetpulse.api.service;
 
 import com.planetpulse.api.dto.response.TargetResponse;
 import com.planetpulse.api.entity.Targets;
-import com.planetpulse.api.exception.ResourceNotFoundException;
 import com.planetpulse.api.repository.TargetRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +28,7 @@ public class TargetService {
     public TargetResponse findById(Integer id) {
         return repository.findByIdWithCountry(id)
                 .map(this::targetResponse)
-                .orElseThrow(() -> new ResourceNotFoundException("Target not found"));
+                .orElseThrow(() -> new RuntimeException("Target not found "));
     }
 
     @Transactional(readOnly = true)
