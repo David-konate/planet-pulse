@@ -3,7 +3,7 @@ import AppComponents from "../../js/components/lib/AppComponents.js"
 
 // defining a new component call MonitorinfNoteForm and display html
 class MonitoringNoteForm extends AppComponents {
-   
+
     template() {
         return `
         <main class="container py-4">
@@ -50,8 +50,8 @@ class MonitoringNoteForm extends AppComponents {
 
             const formData = new FormData(form);
             const noteData = {
-                // transfert de la valeurs contenu dans la constante dans le formulaire
-                // construction + transfert du contenu de la const
+                //Transferring the value contained in the constant to the form
+                // Construction + transferring the content of the const
                 title_input: formData.get("note_title"),
                 date_input: formData.get("note_date"),
                 content_input: formData.get("note_content"),

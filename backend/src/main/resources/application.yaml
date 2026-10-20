@@ -6,7 +6,7 @@ spring:
   application:
     name: planetpulse-api
   datasource:
-    url: jdbc:postgresql://localhost:5432/planet_pulse
+    url: ${URL_DATABASE}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
