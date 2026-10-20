@@ -1,5 +1,5 @@
 
--- Check that t_countries exists before creating t_note
+-- Check that t_countries exists before creating t_notes
 DO $$
 BEGIN
   IF to_regclass('public.t_countries') IS NULL THEN
@@ -9,7 +9,7 @@ END
 $$;
 
 -- Notes table
-CREATE TABLE t_note (
+CREATE TABLE t_notes (
     note_timestamp TIMESTAMP NOT NULL,
     id_country BIGINT NOT NULL,
     note_title VARCHAR(255) NOT NULL,
