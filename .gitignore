@@ -1,43 +1,7 @@
-# ===== Backend (Spring Boot / Maven) =====
-target/
-*.class
-*.jar
-*.war
-*.log
-HELP.md
-dependency-reduced-pom.xml
-
-
-
-# ===== Secrets / config locale =====
-.env
-.env.*
-!.env.example
-application-local.yaml
-application-local.yml
-application-local.properties
-
-# ===== IDE =====
-.idea/
-*.iml
-*.ipr
-*.iws
-.vscode/
-.classpath
-.project
-.settings/
-.factorypath
-.apt_generated/
-.springBeans
-.sts4-cache/
-
-# ===== OS =====
-.DS_Store
-Thumbs.db
-
-# ===== Frontend / divers =====
 node_modules/
-
-# ===== Données et dossiers perso =====
+.env
+.vscode
+.DS_Store
 data/
 prepa/
+.idea/
