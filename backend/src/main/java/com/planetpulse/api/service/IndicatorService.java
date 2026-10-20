@@ -1,6 +1,7 @@
 package com.planetpulse.api.service;
 
 import com.planetpulse.api.dto.IndicatorDto;
+import com.planetpulse.api.dto.request.IndicatorCreateRequest;
 import com.planetpulse.api.entity.Country;
 import com.planetpulse.api.entity.Indicator;
 import com.planetpulse.api.exception.CountryNotFoundException;
@@ -8,7 +9,6 @@ import com.planetpulse.api.exception.FutureYearException;
 import com.planetpulse.api.exception.IndicatorAlreadyExistsException;
 import com.planetpulse.api.exception.NoIndicatorValueException;
 import com.planetpulse.api.mapper.IndicatorMapper;
-import com.planetpulse.api.dto.request.IndicatorRequest;
 import com.planetpulse.api.repository.CountryRepository;
 import com.planetpulse.api.repository.IndicatorRepository;
 import lombok.AllArgsConstructor;
@@ -22,7 +22,7 @@ public class IndicatorService {
     private final CountryRepository countryRepository;
     private final IndicatorMapper indicatorMapper;
 
-    public IndicatorDto addIndicator(IndicatorRequest request) {
+    public IndicatorDto addIndicator(IndicatorCreateRequest request) {
         // Rule: at least one indicator must be filled in
         if (hasNoValue(request)) {
            throw new NoIndicatorValueException("CO2 emissions, renewable energy, forest area or PM2.5 exposure.");
@@ -48,7 +48,7 @@ public class IndicatorService {
         return indicatorMapper.toDto(saved);
     }
 
-    private boolean hasNoValue(IndicatorRequest request) {
+    private boolean hasNoValue(IndicatorCreateRequest request) {
         return request.co2Emissions() == null
                 && request.renewableEnergy() == null
                 && request.forestArea() == null

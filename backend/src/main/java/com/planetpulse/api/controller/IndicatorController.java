@@ -1,7 +1,7 @@
 package com.planetpulse.api.controller;
 
 import com.planetpulse.api.dto.IndicatorDto;
-import com.planetpulse.api.dto.request.IndicatorRequest;
+import com.planetpulse.api.dto.request.IndicatorCreateRequest;
 import com.planetpulse.api.service.IndicatorService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -20,7 +20,7 @@ public class IndicatorController {
     private final IndicatorService indicatorService;
 
     @PostMapping
-    public ResponseEntity<IndicatorDto> add(@Valid @RequestBody IndicatorRequest request) {
+    public ResponseEntity<IndicatorDto> add(@Valid @RequestBody IndicatorCreateRequest request) {
         IndicatorDto indicator = indicatorService.addIndicator(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(indicator);
     }

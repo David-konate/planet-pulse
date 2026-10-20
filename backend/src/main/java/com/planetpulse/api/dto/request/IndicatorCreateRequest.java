@@ -5,7 +5,7 @@ import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
-public record IndicatorRequest(
+public record IndicatorCreateRequest(
 
         @JsonProperty("countryId")
         @NotNull(message = "The country is required.")
