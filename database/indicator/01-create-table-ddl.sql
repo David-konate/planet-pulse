@@ -6,14 +6,14 @@ CREATE TABLE t_indicators
 (
     id_indicator     INT GENERATED ALWAYS AS IDENTITY,
     id_country       INT      NOT NULL,
-    year_             INTEGER NOT NULL,
+    year_indicator           INTEGER NOT NULL,
     co2_emissions    DECIMAL(14, 2), -- Mt
     renewable_energy DECIMAL(5, 2),  -- %
     forest_area      DECIMAL(5, 2),  -- %
     pm25_exposure    DECIMAL(7, 2),  -- µg/m³
 
     CONSTRAINT pk_indicators PRIMARY KEY (id_indicator),
-    CONSTRAINT uk_indicators_country_year UNIQUE (id_country, year),
+    CONSTRAINT uk_indicators_country_year UNIQUE (id_country, year_indicator),
     CONSTRAINT ck_indicators_co2_emissions     CHECK (co2_emissions >= 0),
     CONSTRAINT ck_indicators_renewable_energy  CHECK (renewable_energy BETWEEN 0 AND 100),
     CONSTRAINT ck_indicators_forest_area       CHECK (forest_area BETWEEN 0 AND 100),
