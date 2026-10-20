@@ -12,8 +12,6 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
-  config:
-    import: optional:file:.env[.properties]
 
 restcountries:
   base-url: https://api.restcountries.com/countries/v5
