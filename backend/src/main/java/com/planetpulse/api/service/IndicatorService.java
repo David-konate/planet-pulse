@@ -8,13 +8,11 @@ import com.planetpulse.api.exception.FutureYearException;
 import com.planetpulse.api.exception.IndicatorAlreadyExistsException;
 import com.planetpulse.api.exception.NoIndicatorValueException;
 import com.planetpulse.api.mapper.IndicatorMapper;
-import com.planetpulse.api.payload.request.IndicatorRequest;
+import com.planetpulse.api.dto.request.IndicatorRequest;
 import com.planetpulse.api.repository.CountryRepository;
 import com.planetpulse.api.repository.IndicatorRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.server.ResponseStatusException;
 
 @Service
 @AllArgsConstructor

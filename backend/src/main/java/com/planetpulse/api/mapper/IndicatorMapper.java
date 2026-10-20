@@ -4,7 +4,7 @@ package com.planetpulse.api.mapper;
 import com.planetpulse.api.dto.IndicatorDto;
 import com.planetpulse.api.entity.Country;
 import com.planetpulse.api.entity.Indicator;
-import com.planetpulse.api.payload.request.IndicatorRequest;
+import com.planetpulse.api.dto.request.IndicatorRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 

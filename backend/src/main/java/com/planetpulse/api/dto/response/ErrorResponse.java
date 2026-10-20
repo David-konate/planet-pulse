@@ -1,3 +1,3 @@
-package com.planetpulse.api.payload.response;
+package com.planetpulse.api.dto.response;
 
 public record ErrorResponse(String message) { }

@@ -1,4 +1,4 @@
-package com.planetpulse.api.payload.request;
+package com.planetpulse.api.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.validation.constraints.*;

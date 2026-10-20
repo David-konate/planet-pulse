@@ -1,6 +1,6 @@
 package com.planetpulse.api.exception;
 
-import com.planetpulse.api.payload.response.ErrorResponse;
+import com.planetpulse.api.dto.response.ErrorResponse;
 import org.springframework.dao.DataIntegrityViolationException;
 
 

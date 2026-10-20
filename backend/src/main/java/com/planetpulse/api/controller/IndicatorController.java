@@ -1,7 +1,7 @@
 package com.planetpulse.api.controller;
 
 import com.planetpulse.api.dto.IndicatorDto;
-import com.planetpulse.api.payload.request.IndicatorRequest;
+import com.planetpulse.api.dto.request.IndicatorRequest;
 import com.planetpulse.api.service.IndicatorService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
