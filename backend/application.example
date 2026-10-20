@@ -2,14 +2,14 @@
 spring:
   application:
     # Name of the application
-    name: <nom_de_ton_appli>
+    name: DB_NAME
   datasource:
     # JDBC URL of the PostgreSQL database
-    url: <url>
+    url: DB_URL
     # Database user
-    username: <ton_utilisateur>
+    username: DB_USER
     # Database password
-    password: <ton_mot_de_passe>
+    password: DB_PASSWORD
   jpa:
     hibernate:
       # Schema strategy
