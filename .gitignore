@@ -7,3 +7,4 @@ prepa/
 .idea/
 out/
 .out/.env
+target/
