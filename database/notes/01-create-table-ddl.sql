@@ -1,9 +1,9 @@
 
--- Check that t_country exists before creating t_note
+-- Check that t_countries exists before creating t_note
 DO $$
 BEGIN
-  IF to_regclass('public.t_country') IS NULL THEN
-    RAISE EXCEPTION 'Table t_country does not exist. Run the t_country script first.';
+  IF to_regclass('public.t_countries') IS NULL THEN
+    RAISE EXCEPTION 'Table t_countries does not exist. Run the t_countries script first.';
   END IF;
 END
 $$;
@@ -18,5 +18,5 @@ CREATE TABLE t_note (
     PRIMARY KEY (note_timestamp, id_country),
     CONSTRAINT fk_t_note_country
         FOREIGN KEY (id_country)
-        REFERENCES t_country (id_country)
+        REFERENCES t_countries (id_country)
 );

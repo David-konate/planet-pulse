@@ -7,20 +7,20 @@ class MonitoringNoteForm extends AppComponents {
     template() {
         return `
         <main class="container py-4">
-           <h2>Create a Note</h2> 
+           <h1>Create a Note</h1> 
             <div class="form-field" id="form-content">
 
                 <form id="note-form">
                     <div class="mb-3">
-                        <label for="note-title" class="form-label">Title</label>
+                        <label for="note-title" class="form-label">Title *</label>
                         <input type="text" class="form-control" id="note-title" name="note_title" placeholder="Enter title" required>
                     </div>
                     <div class="mb-3">
-                        <label for="note-date" class="form-label">Date</label>
+                        <label for="note-date" class="form-label">Date *</label>
                         <input type="date" class="form-control" id="note-date" name="note_date" required>
                     </div>
                     <div class="mb-3">
-                        <label for="note-content" class="form-label">Text</label>
+                        <label for="note-content" class="form-label">Text *</label>
                         <input type="text" class="form-control" id="note-content" name="note_content" placeholder="Content" required>
                     </div>
                     <div class="text-center">
