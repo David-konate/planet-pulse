@@ -1,11 +1,11 @@
 package com.planetpulse.api.controller;
 
-import com.planetpulse.api.dto.response.TargetResponse;
+import com.planetpulse.api.dto.request.CreateTargetRequestDto;
 import com.planetpulse.api.service.TargetService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,21 +19,17 @@ public class TargetController {
         this.service = service;
     }
 
-    @GetMapping
-    public List<TargetResponse> getAll() {
-        return service.findAll();
-    }
+
 
 
     // @PathVariable récupère une valeur dans l’URL et la passe en paramètre à ta méthode Java.
-    @GetMapping("/{id}")
-    public TargetResponse getById(@PathVariable Integer id) {
-        return service.findById(id);
+    @PostMapping
+    public ResponseEntity<CreateTargetRequestDto> create(
+            //@valid = in connection with the DTO control annotations
+            @Valid @RequestBody CreateTargetRequestDto request) {
+        CreateTargetRequestDto target = service.createTarget(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(target);
     }
 
-    @GetMapping("/country/{idCountry}")
-    //ajouté une vérification sur lexistence du pays via un apele au controlleur pays
-    public List<TargetResponse> getByIdCountry(@PathVariable Integer idCountry) {
-        return service.findByIdCountry(idCountry);
-    }
+
 }

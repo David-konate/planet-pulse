@@ -8,7 +8,12 @@ import lombok.Setter;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name = "t_targets")
+@Table( name = "t_targets",
+
+        uniqueConstraints = @UniqueConstraint(
+                name = "uk_target_country_year",
+                columnNames = {"id_country", "year_"}
+        ))
 @Getter
 @Setter
 @NoArgsConstructor
@@ -19,10 +24,9 @@ public class Targets {
     @Column(name = "id_target")
     private Integer idTarget;
 
-    // Plusieurs objectifs pour un même pays
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_country", nullable = false)
-    private Country country;
+
+    @Column(name = "id_country", nullable = false)
+    private Integer countryId;
 
     @Column(name = "year_", nullable = false)
     private Integer year;
