@@ -1,9 +1,3 @@
-
--- delete the tables
-DROP TABLE IF EXISTS t_countries CASCADE;
-DROP TABLE IF EXISTS t_subregions CASCADE;
-DROP TABLE IF EXISTS t_regions CASCADE;
- 
 -- region table 
 CREATE TABLE t_regions (
     id_region      INT GENERATED ALWAYS AS IDENTITY,
