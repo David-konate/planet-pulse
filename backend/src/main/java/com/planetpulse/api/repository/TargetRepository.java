@@ -1,0 +1,12 @@
+package com.planetpulse.api.repository;
+
+import com.planetpulse.api.entity.Targets;
+import org.jspecify.annotations.NonNull;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface TargetRepository extends JpaRepository<Targets, Integer> {
+
+    // "existsBy" + "CountryId" + "And" + "Year"
+    // -> SELECT ... WHERE id_country = ? AND year_ = ?
+    boolean existsByCountryIdAndYear(Integer countryId, Integer year);
+}
