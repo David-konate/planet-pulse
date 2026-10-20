@@ -1,0 +1,16 @@
+# src/main/resources/
+spring:
+  application:
+    # Name of the application
+    name: DB_NAME
+  datasource:
+    # JDBC URL of the PostgreSQL database
+    url: DB_URL
+    # Database user
+    username: DB_USER
+    # Database password
+    password: DB_PASSWORD
+  jpa:
+    hibernate:
+      # Schema strategy
+      ddl-auto: <validate>
