@@ -7,4 +7,4 @@ spring:
     password: ${DB_PASSWORD:change}
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
