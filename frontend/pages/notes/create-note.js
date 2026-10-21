@@ -16,7 +16,7 @@ class MonitoringNoteForm extends AppComponents {
                         <input type="text" class="form-control" id="note-title" name="note_title" placeholder="Enter title" required>
                     </div>
                     <div class="mb-3">
-                        <label for="note-date" class="form-label">Date </label>
+                        <label for="note-date" class="form-label">Date *</label>
                         <input type="date" class="form-control" id="note-date" name="note_date" required>
                     </div>
                     <div class="mb-3">
@@ -35,12 +35,12 @@ class MonitoringNoteForm extends AppComponents {
     async afterRender() {
         // connection to HTML elements
         const title = this.querySelector("#note-title");
-        const date = this.querySelector("#note-date");
+        //const date = this.querySelector("#note-date");
         const content = this.querySelector("#note-content");
         const form = this.querySelector("#note-form");
 
         // default value: today's date  
-        date.value = new Date().toLocaleDateString("sv-SE");
+        //gitdate.value = new Date().toLocaleDateString("en-CA");
         
         // constrenght
         title.minLength = 1;
