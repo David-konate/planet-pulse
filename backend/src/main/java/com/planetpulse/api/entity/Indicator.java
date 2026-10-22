@@ -23,8 +23,8 @@ public class Indicator {
     @JoinColumn(name = "id_country")
     private Country country;
 
-    @Column(name = "year_")
-    private Integer year;
+    @Column(name = "year_indicator")
+    private Integer yearIndicator;
 
     @Column(name = "co2_emissions")
     private BigDecimal co2Emissions;

@@ -1,4 +1,4 @@
-.env
+backend/.env
 node_modules/
 .vscode
 .DS_Store
