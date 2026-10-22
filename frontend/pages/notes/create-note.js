@@ -11,13 +11,24 @@ class MonitoringNoteForm extends AppComponents {
             <div class="form-field" id="form-content">
 
                 <form id="note-form">
+                <div id="date-warning" class="alert alert-warning d-none" role="alert">
+                <p>No date entered. Do you want to use today's date?</p>
+                <div class="d-flex flex-column flex-sm-row gap-2">
+                <button type="button" id="use-today" class="btn btn-primary">
+                    Use today's date
+                </button>
+                <button type="button" id="enter-date" class="btn btn-secondary">
+                    Enter a date
+                </button>
+            </div>
+        </div>
                     <div class="mb-3">
                         <label for="note-title" class="form-label">Title *</label>
                         <input type="text" class="form-control" id="note-title" name="note_title" placeholder="Enter title" required>
                     </div>
                     <div class="mb-3">
                         <label for="note-date" class="form-label">Date *</label>
-                        <input type="date" class="form-control" id="note-date" name="note_date" required>
+                        <input type="date" class="form-control" id="note-date" name="note_date">
                     </div>
                     <div class="mb-3">
                         <label for="note-content" class="form-label">Text *</label>
@@ -34,9 +45,15 @@ class MonitoringNoteForm extends AppComponents {
     // retrieve elements of the form and prepare their behavior
     async afterRender() {
         // connection to HTML elements
-        const title = this.querySelector("#note-title");
-        const content = this.querySelector("#note-content");
         const form = this.querySelector("#note-form");
+        const title = this.querySelector("#note-title");
+        const date = this.querySelector("#note-date");
+        const content = this.querySelector("#note-content");
+        
+        const dateWarning = this.querySelector("#date-warning");
+        const useTodayButton = this.querySelector("#use-today");
+        const enterDateButton = this.querySelector("#enter-date");
+
         // constrenght
         title.minLength = 1;
         title.maxLength = 255;
@@ -48,7 +65,17 @@ class MonitoringNoteForm extends AppComponents {
             // not allowing normal reload
             event.preventDefault();
 
+            // Check if the date field is empty
+        if (date.value === "") {
+
+            // NEW: Show the Bootstrap alert
+            dateWarning.classList.remove("d-none");
+
+            return; // Stop here and wait for the user's choice
+        }
+
             const formData = new FormData(form);
+            
             const noteData = {
                 //Transferring the value contained in the constant to the form
                 // Construction + transferring the content of the const
