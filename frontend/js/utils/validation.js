@@ -3,6 +3,7 @@ const messages = {
   typeMismatch: "The format is invalid",
   tooShort: "The text is too short",
   tooLong: "The text is too long",
+  patternMismatch: "The format is invalid",
 };
 
 function validateField(field) {
