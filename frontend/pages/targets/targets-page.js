@@ -2,6 +2,10 @@
 import AppComponent from "../../js/components/lib/AppComponents.js";
 import "../../js/components/Header/AppHeader.js";
 import { getRandomCountry } from "../../services/countries-services.js";
+import { createTarget } from "../../services/target-service.js";
+
+// Converts an empty form value ("") to null, so the API receives null instead of ""
+const emptyToNull = (value) => (value === null || value === "" ? null : value);
 
 class TargetsPage extends AppComponent {
   constructor() {
@@ -15,11 +19,13 @@ class TargetsPage extends AppComponent {
       <h1 class="h3 text-center mb-4" id="page-title"></h1>
 
       <div class="form-field" id="form-content">
-        <form id="target-form" >
+        <div id="form-feedback"></div>
+
+        <form id="target-form">
 
           <div class="mb-3">
             <label for="target-year" class="form-label">Target year</label>
-            <input id="target-year" name="year_" type="number" class="form-control"
+            <input id="target-year" name="target_year" type="number" class="form-control"
                    step="1" placeholder="Enter target year (YYYY)" required>
           </div>
 
@@ -72,12 +78,15 @@ class TargetsPage extends AppComponent {
 
   async afterRender() {
     const titleElement = this.querySelector("#page-title");
-    const content = this.querySelector("#form-content");
     const yearInput = this.querySelector("#target-year");
     const co2Input = this.querySelector("#co2-emissions");
     const pm25Input = this.querySelector("#pm25-emissions");
     const forestInput = this.querySelector("#forest-area");
     const renewableInput = this.querySelector("#renewable-energy-share");
+    const form = this.querySelector("#target-form");
+    const feedback = this.querySelector("#form-feedback");
+    const errorDiv = this.querySelector("#indicators-error");
+    const submitBtn = this.querySelector("#change-target-btn");
     const currentYear = new Date().getFullYear();
 
     // Validation constraints for the input fields
@@ -95,34 +104,60 @@ class TargetsPage extends AppComponent {
       titleElement.textContent = `Target Countries for ${this.country.names.common}`;
     } catch (error) {
       console.error(error);
-      content.innerHTML = /*html*/ `
-        <div class="alert alert-danger" role="alert">
-          Unable to load countries.
-        </div>`;
     }
 
-    const form = this.querySelector("#target-form");
-
-    form.addEventListener("submit", (event) => {
+    form.addEventListener("submit", async (event) => {
       event.preventDefault();
+      feedback.innerHTML = "";
 
       const formData = new FormData(form);
       const targetData = {
-        iso3166: this.country.codes.alpha_2,
-        year: formData.get("year_"),
-        co2_emissions: formData.get("co2_emissions"),
-        pm25_emissions: formData.get("pm25_emissions"),
-        forest_area: formData.get("forest_area"),
-        renewable_energy_share: formData.get("renewable_energy_share")
+        countryId: 1, // TODO: use the id of the country loaded above (this.country)
+        targetYear: emptyToNull(formData.get("target_year")),
+        co2Emissions: emptyToNull(formData.get("co2_emissions")),
+        pm25Emissions: emptyToNull(formData.get("pm25_emissions")),
+        forestArea: emptyToNull(formData.get("forest_area")),
+        renewableEnergyShare: emptyToNull(
+          formData.get("renewable_energy_share"),
+        ),
       };
-      if (!targetData.co2_emissions && !targetData.pm25_emissions && !targetData.forest_area && !targetData.renewable_energy_share) {
-        const errorDiv = this.querySelector("#indicators-error");
+
+      // At least one indicator is required
+      if (
+        targetData.co2Emissions === null &&
+        targetData.pm25Emissions === null &&
+        targetData.forestArea === null &&
+        targetData.renewableEnergyShare === null
+      ) {
         errorDiv.classList.remove("d-none");
         return;
-      } else {
-        console.log("form soumis:", targetData);
       }
-    
+      errorDiv.classList.add("d-none");
+
+      // Prevent double submission while the request is running
+      submitBtn.disabled = true;
+
+      try {
+        const created = await createTarget(targetData);
+        console.log("Target saved:", created);
+        feedback.innerHTML = /*html*/ `
+          <div class="alert alert-success alert-dismissible" role="alert">
+            Target saved successfully.
+            <button type="button" class="btn-close" id="close-feedback" aria-label="Close"></button>
+          </div>`;
+        this.querySelector("#close-feedback").addEventListener("click", () => {
+          feedback.innerHTML = "";
+        });
+        form.reset();
+      } catch (error) {
+        console.error(error);
+        feedback.innerHTML = /*html*/ `
+          <div class="alert alert-danger" role="alert">
+            Unable to save the target. Please try again.
+          </div>`;
+      } finally {
+        submitBtn.disabled = false;
+      }
     });
   }
 }

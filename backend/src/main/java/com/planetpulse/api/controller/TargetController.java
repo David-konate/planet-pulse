@@ -12,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import lombok.extern.slf4j.Slf4j;
 
 import java.time.Year;
+@Slf4j
 
 @RestController
 @RequestMapping("/api/targets")
@@ -29,13 +31,13 @@ public class TargetController {
     @PostMapping
     public ResponseEntity<TargetCreateRequest> create(
             @Valid @RequestBody TargetCreateRequest request) {
-
+        log.info("Create target request: {}", request);
         // Business checks done at controller level
         if (service.existsTarget(request.getCountryId(), request.getTargetYear())) {
             throw new TargetExistsException(request.getCountryId(), request.getTargetYear());
         }
 
-        if (request.getTargetYear() > Year.now().getValue()) {
+        if (request.getTargetYear() < Year.now().getValue()) {
             throw new FutureYearException();
         }
 

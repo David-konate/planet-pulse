@@ -7,9 +7,11 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.DecimalMax;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
+@ToString
 @Setter
 @Getter
 public class TargetCreateRequest {
