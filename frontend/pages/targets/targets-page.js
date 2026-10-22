@@ -122,7 +122,6 @@ class TargetsPage extends AppComponent {
         ),
       };
 
-      // At least one indicator is required
       if (
         targetData.co2Emissions === null &&
         targetData.pm25Emissions === null &&
@@ -134,7 +133,6 @@ class TargetsPage extends AppComponent {
       }
       errorDiv.classList.add("d-none");
 
-      // Prevent double submission while the request is running
       submitBtn.disabled = true;
 
       try {
@@ -155,9 +153,7 @@ class TargetsPage extends AppComponent {
           <div class="alert alert-danger" role="alert">
             Unable to save the target. Please try again.
           </div>`;
-      } finally {
-        submitBtn.disabled = false;
-      }
+      } 
     });
   }
 }
