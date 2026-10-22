@@ -1,4 +1,3 @@
--- Prérequis : la table t_countries doit exister
 DO $$
 BEGIN
     IF to_regclass('public.t_countries') IS NULL THEN
@@ -7,8 +6,6 @@ END IF;
 END
 $$;
 
--- Supprime l'ancienne version de la table (attention : efface ses données)
-DROP TABLE IF EXISTS t_targets;
 
 CREATE TABLE t_targets (
                            id_target              INT GENERATED ALWAYS AS IDENTITY,
