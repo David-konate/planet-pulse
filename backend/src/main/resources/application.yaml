@@ -6,8 +6,8 @@ spring:
   application:
     name: planetpulse-api
   datasource:
-    url: ${URL_DATABASE}
-    username: ${DB_USERNAME}
+    url: ${DB_URL}
+    username: ${DB_NAME}
     password: ${DB_PASSWORD}
   jpa:
     hibernate:
@@ -15,4 +15,5 @@ spring:
 
 restcountries:
   base-url: https://api.restcountries.com/countries/v5
-  api-key: ${APIRC_TOKEN}
+  api-key: ${API_KEY}
+  
