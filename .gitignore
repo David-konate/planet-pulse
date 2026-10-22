@@ -8,3 +8,4 @@ prepa/
 out/
 .out/.env
 target/
+frontend/js/config.js
