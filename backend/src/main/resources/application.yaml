@@ -6,9 +6,12 @@ spring:
   application:
     name: planetpulse-api
   datasource:
-    url: ${URL_DATABASE}
+    url: ${DB_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
+  logging:
+    level:
+      org.springframework.web: DEBUG
