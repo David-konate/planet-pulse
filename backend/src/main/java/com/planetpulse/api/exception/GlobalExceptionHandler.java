@@ -25,6 +25,13 @@ public class GlobalExceptionHandler {
                 .body(Map.of("status", 409, "message", ex.getMessage()));
     }
 
+    @ExceptionHandler(NotTargetRecordingException.class)
+    public ResponseEntity<Map<String, Object>> handleNotTargetRecording(NotTargetRecordingException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)   // 400
+                .body(Map.of("status", 400, "message", ex.getMessage()));
+    }
+
+
     // ---------- Indicators ----------
 
     @ExceptionHandler(NoIndicatorValueException.class)

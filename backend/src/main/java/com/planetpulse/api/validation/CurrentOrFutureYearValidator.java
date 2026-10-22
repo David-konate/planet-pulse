@@ -10,7 +10,9 @@ public class CurrentOrFutureYearValidator
 
     @Override
     public boolean isValid(Integer value, ConstraintValidatorContext context) {
-        // Valide si l'année est l'année en cours ou une année future
+        if (value == null) {
+            return true; // @NotNull on the field handles this case
+        }
         return value >= Year.now().getValue();
     }
 }
