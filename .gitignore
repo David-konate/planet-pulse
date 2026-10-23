@@ -1,4 +1,4 @@
-.env
+backend/.env
 node_modules/
 .vscode
 .DS_Store
@@ -10,5 +10,3 @@ out/
 target/
 frontend/js/config.js
 config.js
-
-

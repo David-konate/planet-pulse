@@ -1,4 +1,4 @@
-package com.planetpulse.api.exception;
+package com.planetpulse.api.exception.indicator;
 
 public class FutureYearException extends RuntimeException{
 
