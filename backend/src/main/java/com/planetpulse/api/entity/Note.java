@@ -24,11 +24,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 
-public class NoteId implements Serializable {
+public class Note
+ implements Serializable {
 
     // this class cannot be import as an id in an other entity
     @EmbeddedId
-    private NoteId id;
+    private Note id;
 
     @MapsId("idCountry")
     // specify that a multiple notes can be relate to the same country ( do not charge if i don't need it) 
