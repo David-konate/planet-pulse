@@ -1,6 +1,3 @@
--- delete the tables
-DROP TABLE IF EXISTS t_indicators;
-
 --create table t_indicators
 CREATE TABLE t_indicators
 (
@@ -13,7 +10,7 @@ CREATE TABLE t_indicators
     pm25_exposure    DECIMAL(7, 2),  -- µg/m³
 
     CONSTRAINT pk_indicators PRIMARY KEY (id_indicator),
-    CONSTRAINT uk_indicators_country_year UNIQUE (id_country, year),
+    CONSTRAINT uk_indicators_country_year UNIQUE (id_country, year_),
     CONSTRAINT ck_indicators_co2_emissions     CHECK (co2_emissions >= 0),
     CONSTRAINT ck_indicators_renewable_energy  CHECK (renewable_energy BETWEEN 0 AND 100),
     CONSTRAINT ck_indicators_forest_area       CHECK (forest_area BETWEEN 0 AND 100),
