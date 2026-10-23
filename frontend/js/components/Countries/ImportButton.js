@@ -21,7 +21,7 @@ class ImportButton extends AppComponent {
 
         //prevent importation if already imported
         if (this.props.imported) {
-            this.markAsImported(this.props.importedCount ?? FALLBACK_IMPORTED_COUNT);
+            this.markAsImported(`${this.props.importedCount} countries are already imported.`);
         }
 
         // 'this' is the component instance, so we can use it to access the component's methods and properties
@@ -37,21 +37,28 @@ class ImportButton extends AppComponent {
         this.message.hidden = true;
 
         try {
-            const result = await onImport();  // undefined today, { count: 245 } tomorrow
-            this.markAsImported(result?.count ?? FALLBACK_IMPORTED_COUNT); //if success = state imported
+            const result = await onImport();  // count, message
+            this.markAsImported(`The import was successful: ${result.count} countries were imported.`);
         } catch (error) {
             console.error(error);
+            if (error.status === 409) {
+                this.markAsImported(error.message);
+                return;
+            }
+
+
+            const text = error.status ? error.message : 'The server is unreachable';
             this.button.disabled = false;
             this.button.textContent = "Import countries";
-            this.showMessage("The countries could not be imported.", 'text-danger');
+            this.showMessage(text, 'text-danger');
         }
     }
 
     // it desact the button when the import is a success
-    markAsImported(count){
+    markAsImported(text){
         this.button.disabled = true;
-        this.button.textContent = "Import countries";
-        this.showMessage(`The import was successful: ${count} countries were imported`, 'text-success');
+        this.button.textContent = "Countries imported";
+        this.showMessage(text, 'text-success');
     }
 
     showMessage(text, cssClass) {

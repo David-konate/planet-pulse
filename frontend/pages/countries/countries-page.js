@@ -3,7 +3,7 @@ import AppComponent from '../../js/components/lib/AppComponents.js';
 import '../../js/components/Header/AppHeader.js';
 import '../../js/components/Countries/ImportButton.js';
 import '../../js/components/Countries/CountriesList.js';
-import { getCountries, importCountries } from '../../services/countries-services.js';
+import { getCountries, getImportStatus, importCountries } from '../../services/countries-services.js';
 
 class CountriesPage extends AppComponent {
 
@@ -20,10 +20,20 @@ class CountriesPage extends AppComponent {
     }
 
     async afterRender() {
+        //default state, like this the btn stays clickable
+        let status = { imported: false, count: 0};
+        try {
+            status = await getImportStatus();
+        } catch (error) {
+            console.error(error);
+        }
+
         this.attachChild(this.querySelector('#import-zone'), 'import-button', {
-            imported: false, //TODO: to delete when backend is settled
+            imported: status.imported,
+            importedCount: status.count,
             onImport: importCountries,
         });
+        
         const content = this.querySelector('#countries-content');
         try {
             const countries = await getCountries();
