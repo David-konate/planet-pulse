@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IndicatorRepository extends JpaRepository<Indicator, Integer> {
 
-    boolean existsByCountryIdCountryAndYearIndicator(Integer idCountry, Integer iearIndicator);
+    boolean existsByCountryIdCountryAndYearIndicator(Integer idCountry, Integer yearIndicator);
 }

@@ -8,9 +8,6 @@ class IndicatorForm extends AppComponent {
     const params = new URLSearchParams(window.location.search);
     const id = params.get('countryId');
 
-    console.log('Current URL:', window.location.href);
-    console.log('Search params:', window.location.search);
-    console.log('Country ID:', id);
 
     this.state = {
         countryId: /^\d+$/.test(id ?? '') ? Number(id) : null,
