@@ -2,14 +2,14 @@
 package com.planetpulse.api.entity;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.EmbeddedId;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.MapsId;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -17,22 +17,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-// this clas represent a table 
 @Entity
 @Table(name = "t_notes")
 @Getter
 @Setter
 @NoArgsConstructor
+public class Note implements Serializable {
 
-public class Note
- implements Serializable {
+    @Id
+    @Column(name = "note_timestamp", nullable = false)
+    private LocalDateTime noteTimestamp;
 
-    // this class cannot be import as an id in an other entity
-    @EmbeddedId
-    private Note id;
-
-    @MapsId("idCountry")
-    // specify that a multiple notes can be relate to the same country ( do not charge if i don't need it) 
+    // allow to creat multiple notes to the same country
+    // only charge teh data when i need them
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_country", nullable = false)
     private Country country;
