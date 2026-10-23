@@ -119,33 +119,3 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--color-sky);
   box-shadow: 0 0 0 0.25rem rgba(90, 180, 244, 0.4);
 }
-
-/* === ALERTS === */
-.alert {
-  --bs-alert-border-radius: 6px;
-}
-
-.alert-success {
-  --bs-alert-bg: var(--color-green);
-  --bs-alert-border-color: var(--color-green);
-  --bs-alert-color: var(--color-white);
-}
-
-.alert-info {
-  --bs-alert-bg: var(--color-aqua);
-  --bs-alert-border-color: var(--color-aqua);
-  --bs-alert-color: var(--color-navy);
-}
-
-.alert-warning {
-  --bs-alert-bg: var(--color-sky);
-  --bs-alert-border-color: var(--color-sky);
-  --bs-alert-color: var(--color-navy);
-}
-
-.alert-danger {
-  --bs-alert-bg: var(--color-navy);
-  --bs-alert-border-color: var(--color-navy);
-  --bs-alert-color: var(--color-white);
-}
-
