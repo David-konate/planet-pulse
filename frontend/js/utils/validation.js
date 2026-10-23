@@ -6,6 +6,15 @@ const messages = {
   patternMismatch: "The format is invalid",
 };
 
+function isValidDate(dateString) {
+  // split in 3 parts then convert in number
+  const [month, day, year] = dateString.split("-").map(Number);
+
+  // constrcut a date -1 because for JS months from 0 to 11
+  const date = new Date(year, month - 1, day);
+  return date.getFullYear() === year && date.getMonth() === month - 1 && date.getDate() === day;
+}
+
 function validateField(field) {
   field.setCustomValidity("");
 
@@ -15,7 +24,15 @@ function validateField(field) {
       break;
     }
   }
+  // check if the date is valid
+  if (field.id === "note-date") {
+    if (field.value && !isValidDate(field.value)) {
+      field.setCustomValidity("Please enter a valid date")
+    }
+  }
 }
+
+
 
 // when the user types in a field, validate it
 document.addEventListener("input", function (event) {
