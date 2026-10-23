@@ -1,9 +1,9 @@
 package com.planetpulse.api.controller;
 
 import com.planetpulse.api.dto.request.TargetCreateRequest;
-import com.planetpulse.api.exception.FutureYearException;
 import com.planetpulse.api.exception.NotTargetRecordingException;
 import com.planetpulse.api.exception.TargetExistsException;
+import com.planetpulse.api.exception.indicator.FutureYearException;
 import com.planetpulse.api.service.TargetService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

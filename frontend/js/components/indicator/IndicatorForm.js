@@ -1,20 +1,18 @@
 import AppComponent from '../lib/AppComponents.js';
-
-// The 4 indicators with their unit and maximum value (null = no maximum)
-const FIELDS = [
-    { name: 'co2Emissions',    label: 'CO₂ emissions',          unit: 'Mt',    max: null },
-    { name: 'renewableEnergy', label: 'Renewable energy share', unit: '%',     max: 100 },
-    { name: 'forestArea',      label: 'Forest area',            unit: '%',     max: 100 },
-    { name: 'pm25Exposure',    label: 'PM2.5 exposure',         unit: 'µg/m³', max: null }
-];
+import { addIndicator, getIndicatorTypes } from '../../../services/indicatorServices.js';
 
 class IndicatorForm extends AppComponent {
 
     beforeRender() {
-        // The country id comes from the URL: add-indicator.html?country=1
-        const id = new URLSearchParams(window.location.search).get('country');
-        // Only accept a whole number, so nothing else can end up in the HTML
-        this.state = { countryId: /^\d+$/.test(id) ? Number(id) : null };
+        
+    const params = new URLSearchParams(window.location.search);
+    const id = params.get('countryId');
+
+
+    this.state = {
+        countryId: /^\d+$/.test(id ?? '') ? Number(id) : null,
+        indicators: []
+    };
     }
 
     template() {
@@ -27,23 +25,16 @@ class IndicatorForm extends AppComponent {
             <div class="card">
                 <div class="card-body">
                     <form id="form" novalidate>
-                        <div class="row g-3">
+                        <!-- The indicator fields are added here when they are loaded -->
+                        <div id="fields" class="row g-3">
                             <div class="col-12 col-md-6">
                                 <label for="year" class="form-label">Year *</label>
                                 <input id="year" type="number" class="form-control">
                             </div>
-
-                            ${FIELDS.map((field) => /*html*/`
-                                <div class="col-12 col-md-6">
-                                    <label for="${field.name}" class="form-label">${field.label} (${field.unit})</label>
-                                    <input id="${field.name}" type="number" step="0.01" class="form-control">
-                                </div>
-                            `).join('')}
                         </div>
 
-
                         <div class="d-flex gap-2 mt-3">
-                            <button type="submit" class="btn btn-primary">
+                            <button type="submit" id="save" class="btn btn-primary" disabled>
                                 <i class="bi bi-check-lg"></i> Save
                             </button>
                             <button type="button" id="cancel" class="btn btn-secondary">Reset</button>
@@ -54,7 +45,7 @@ class IndicatorForm extends AppComponent {
         `;
     }
 
-    afterRender() {
+    async afterRender() {
         this.querySelector('#form').addEventListener('submit', (event) => {
             event.preventDefault(); // stop the page from reloading
             this.#save();
@@ -63,9 +54,30 @@ class IndicatorForm extends AppComponent {
             this.querySelector('#form').reset(); // empties the fields
             this.#clearMessage();                // removes the error or success message
         });
+
+        // Load the indicators, then build the fields
+        try {
+            this.state.indicators = await getIndicatorTypes();
+            this.#showFields();
+        } catch (err) {
+            this.#showMessage(err.message, 'danger');
+        }
     }
 
-    #save() {
+    // Adds one input per indicator. The texts come from our own backend, not from the user.
+    #showFields() {
+        const html = this.state.indicators.map((indicator) => /*html*/`
+            <div class="col-12 col-md-6">
+                <label for="${indicator.field}" class="form-label">${indicator.label} (${indicator.unit})</label>
+                <input id="${indicator.field}" type="number" step="0.01" class="form-control">
+            </div>
+        `).join('');
+
+        this.querySelector('#fields').insertAdjacentHTML('beforeend', html);
+        this.querySelector('#save').disabled = false; // the form can be used now
+    }
+
+    async #save() {
         const data = this.#readForm();
         const error = this.#validate(data);
         if (error) {
@@ -73,10 +85,13 @@ class IndicatorForm extends AppComponent {
             return;
         }
 
-        //send "data" to the backend when it is ready (see /services)
-        console.log('Valid data:', data);
-        this.#showMessage('Indicator values were added.', 'success');
-        this.querySelector('#form').reset();
+        try {
+            await addIndicator(data);
+            this.#showMessage('Indicator values were added.', 'success');
+            this.querySelector('#form').reset();
+        } catch (err) {
+            this.#showMessage(err.message, 'danger');
+        }
     }
 
     // Reads the inputs. An empty input becomes null.
@@ -86,9 +101,9 @@ class IndicatorForm extends AppComponent {
             return text === '' ? null : Number(text);
         };
 
-        const data = { countryId: this.state.countryId, year: read('year') };
-        FIELDS.forEach((field) => {
-            data[field.name] = read(field.name);
+        const data = { countryId: this.state.countryId, yearIndicator: read('year') };
+        this.state.indicators.forEach((indicator) => {
+            data[indicator.field] = read(indicator.field);
         });
         return data;
     }
@@ -96,16 +111,16 @@ class IndicatorForm extends AppComponent {
     // Returns an error message, or null if everything is valid
     #validate(data) {
         if (!data.countryId) return 'The country is missing.';
-        if (!Number.isInteger(data.year)) return 'The year is required and must be a whole number.';
+        if (!Number.isInteger(data.yearIndicator)) return 'The year is required and must be a whole number.';
 
-        const filled = FIELDS.filter((field) => data[field.name] !== null);
+        const filled = this.state.indicators.filter((indicator) => data[indicator.field] !== null);
         if (filled.length === 0) return 'Fill in at least one indicator.';
 
-        for (const field of filled) {
-            const value = data[field.name];
-            if (value < 0) return `${field.label} must be 0 or more.`;
-            if (field.max !== null && value > field.max) {
-                return `${field.label} must be between 0 and ${field.max}.`;
+        for (const indicator of filled) {
+            const value = data[indicator.field];
+            if (value < 0) return `${indicator.label} must be 0 or more.`;
+            if (indicator.max !== null && value > indicator.max) {
+                return `${indicator.label} must be between 0 and ${indicator.max}.`;
             }
         }
         return null;
@@ -122,6 +137,13 @@ class IndicatorForm extends AppComponent {
         box.className = `alert alert-${type}`; // Bootstrap alert
         box.textContent = text;                // textContent is safe (no HTML injected)
     }
+
+    
 }
+
+    
+
+
+
 
 customElements.define('indicator-form', IndicatorForm);

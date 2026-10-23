@@ -13,11 +13,9 @@ public record IndicatorCreateRequest(
         Integer countryId,
 
         // Year range to confirm with the PO
-        @JsonProperty("indicator_year")
+        @JsonProperty("yearIndicator")
         @NotNull(message = "The year is required.")
-        @Min(value = 1900, message = "The year must be between 1900 and 2100.")
-        @Max(value = 2100, message = "The year must be between 1900 and 2100.")
-        Integer indicator_year,
+        Integer yearIndicator,
 
         @JsonProperty("co2Emissions")
         // The 4 indicators are optional, but at least one is needed (checked in the service)
