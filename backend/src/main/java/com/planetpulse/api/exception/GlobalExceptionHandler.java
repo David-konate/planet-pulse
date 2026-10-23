@@ -70,4 +70,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.badRequest()
                 .body(Map.of("status", 400, "message", "Invalid data", "details", details));
     }
+
+    // ---------- Countries ----------
+
+    @ExceptionHandler(CountriesAlreadyImportedException.class)
+    public ResponseEntity<ErrorResponse> handleAlreadyImported(CountriesAlreadyImportedException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(ex.getMessage()));
+    }
+
+    @ExceptionHandler(ExternalApiException.class)
+    public ResponseEntity<ErrorResponse> handleExternalApi(ExternalApiException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ErrorResponse(ex.getMessage()));
+    }
 }
