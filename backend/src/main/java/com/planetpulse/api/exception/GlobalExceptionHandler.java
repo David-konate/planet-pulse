@@ -1,6 +1,10 @@
 package com.planetpulse.api.exception;
 
 import com.planetpulse.api.dto.response.ErrorResponse;
+import com.planetpulse.api.exception.indicator.CountryNotFoundException;
+import com.planetpulse.api.exception.indicator.FutureYearException;
+import com.planetpulse.api.exception.indicator.IndicatorAlreadyExistsException;
+import com.planetpulse.api.exception.indicator.NoIndicatorValueException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
