@@ -7,7 +7,7 @@ spring:
     name: planetpulse-api
   datasource:
     url: ${DB_URL}
-    username: ${DB_USERNAME}
+    username: ${DB_NAME}
     password: ${DB_PASSWORD}
   jpa:
     hibernate:
