@@ -9,3 +9,4 @@ out/
 .out/.env
 target/
 frontend/js/config.js
+config.js
