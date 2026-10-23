@@ -30,7 +30,7 @@ public class IndicatorService {
 
         // RULE: The year must not be in the future
         int currentYear = java.time.Year.now().getValue();
-        if (request.year() > currentYear) {
+        if (request.indicator_year() > currentYear) {
            throw new FutureYearException();
         }
 
@@ -39,8 +39,8 @@ public class IndicatorService {
                 .orElseThrow(() -> new CountryNotFoundException(request.countryId()));
 
         // Rule: only one row per country and year
-        if (indicatorRepository.existsByCountryIdCountryAndYear(request.countryId(), request.year())) {
-            throw new IndicatorAlreadyExistsException(country.getIdCountry(), request.year());
+        if (indicatorRepository.existsByCountryIdCountryAndIndicatorYear(request.countryId(), request.indicator_year())) {
+            throw new IndicatorAlreadyExistsException(country.getIdCountry(), request.indicator_year());
         }
 
         Indicator indicator = indicatorMapper.toEntity(request, country);

@@ -7,12 +7,14 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.DecimalMax;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 
+@ToString
 @Setter
 @Getter
-public class CreateTargetRequestDto {
+public class TargetCreateRequest {
 
     // Setter: lets other classes WRITE the private field "countryId".
     // "this.countryId" is the class field, "countryId" (without "this") is the method parameter:
@@ -24,7 +26,7 @@ public class CreateTargetRequestDto {
 
     @NotNull(message = "A target must be associated with a year.")
     @CurrentOrFutureYear(message = "Year cannot be earlier than the current year")
-    private Integer year;
+    private Integer targetYear;
 
     @Digits(integer = 13, fraction = 2, message = "CO2 emissions: max 13 digits before and 2 after the decimal point")
     @DecimalMin(value = "0.0", message = "CO2 emissions cannot be negative")

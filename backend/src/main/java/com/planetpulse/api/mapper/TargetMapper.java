@@ -1,23 +1,14 @@
 package com.planetpulse.api.mapper;
 
-
-import com.planetpulse.api.dto.request.CreateTargetRequestDto;
+import com.planetpulse.api.dto.request.TargetCreateRequest;
 import com.planetpulse.api.entity.Targets;
-import org.springframework.stereotype.Component;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class TargetMapper {
+@Mapper(componentModel = "spring")
+public interface TargetMapper {
 
-    public Targets toEntity(CreateTargetRequestDto dto) {
-        Targets target = new Targets();
-        target.setCountryId(dto.getCountryId());
-        target.setYear(dto.getYear());
-        target.setCo2Emissions(dto.getCo2Emissions());
-        target.setPm25Emissions(dto.getPm25Emissions());
-        target.setForestArea(dto.getForestArea());
-        target.setRenewableEnergyShare(dto.getRenewableEnergyShare());
-        return target;
-    }
-
+    @Mapping(target = "idTarget", ignore = true)
+    Targets toEntity(TargetCreateRequest request);
 
 }

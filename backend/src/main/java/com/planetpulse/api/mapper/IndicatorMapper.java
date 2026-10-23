@@ -11,11 +11,11 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface IndicatorMapper {
 
+    @Mapping(target = "idIndicator", ignore = true)
     @Mapping(target = "country", source = "country")
     Indicator toEntity(IndicatorCreateRequest request, Country country);
 
     // entity -> dto: the country id is taken inside the country object
     @Mapping(target = "countryId", source = "country.idCountry")
     IndicatorDto toDto(Indicator indicator);
-
 }

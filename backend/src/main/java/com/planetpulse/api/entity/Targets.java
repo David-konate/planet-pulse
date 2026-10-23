@@ -28,8 +28,8 @@ public class Targets {
     @Column(name = "id_country", nullable = false)
     private Integer countryId;
 
-    @Column(name = "year_", nullable = false)
-    private Integer year;
+    @Column(name = "target_year")   // garde ici le nom réel de la colonne en base
+    private Integer targetYear;
 
     @Column(name = "co2_emissions", precision = 15, scale = 2)
     private BigDecimal co2Emissions;
