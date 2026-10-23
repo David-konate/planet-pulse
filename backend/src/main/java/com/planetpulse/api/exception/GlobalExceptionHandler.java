@@ -1,6 +1,8 @@
 package com.planetpulse.api.exception;
 
 import com.planetpulse.api.dto.response.ErrorResponse;
+import com.planetpulse.api.exception.countries.CountriesAlreadyImportedException;
+import com.planetpulse.api.exception.countries.ExternalApiException;
 import com.planetpulse.api.exception.indicator.CountryNotFoundException;
 import com.planetpulse.api.exception.indicator.FutureYearException;
 import com.planetpulse.api.exception.indicator.IndicatorAlreadyExistsException;

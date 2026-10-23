@@ -2,7 +2,7 @@ package com.planetpulse.api.service;
 
 import com.planetpulse.api.dto.request.RestCountriesPage;
 import com.planetpulse.api.dto.request.RestCountryDto;
-import com.planetpulse.api.exception.ExternalApiException;
+import com.planetpulse.api.exception.countries.ExternalApiException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;

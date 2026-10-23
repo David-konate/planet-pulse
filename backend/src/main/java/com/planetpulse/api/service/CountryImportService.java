@@ -4,7 +4,7 @@ import com.planetpulse.api.dto.request.RestCountryDto;
 import com.planetpulse.api.entity.Country;
 import com.planetpulse.api.entity.Region;
 import com.planetpulse.api.entity.Subregion;
-import com.planetpulse.api.exception.CountriesAlreadyImportedException;
+import com.planetpulse.api.exception.countries.CountriesAlreadyImportedException;
 import com.planetpulse.api.repository.CountryRepository;
 import com.planetpulse.api.repository.RegionRepository;
 import com.planetpulse.api.repository.SubregionRepository;

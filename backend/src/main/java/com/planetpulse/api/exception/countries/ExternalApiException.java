@@ -1,4 +1,4 @@
-package com.planetpulse.api.exception;
+package com.planetpulse.api.exception.countries;
 
 public class ExternalApiException extends RuntimeException {
     public ExternalApiException(String message) {
