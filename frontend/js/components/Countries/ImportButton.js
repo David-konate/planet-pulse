@@ -1,9 +1,6 @@
 // frontend/js/components/Countries/ImportButton.js
 import AppComponent from '../lib/AppComponents.js';
 
-// TODO: remove when the backend returns { count }: temporary value only
-const FALLBACK_IMPORTED_COUNT = 245;
-
 class ImportButton extends AppComponent {
 
     template() {
