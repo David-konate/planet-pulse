@@ -1,12 +1,4 @@
-DO $$
-BEGIN
-    IF to_regclass('public.t_countries') IS NULL THEN
-        RAISE EXCEPTION 'The table t_countries do not exist.';
-END IF;
-END
-$$;
-
-CREATE TABLE t_target (
+CREATE TABLE t_targets (
     id_target              INT GENERATED ALWAYS AS IDENTITY,
     id_country             INT           NOT NULL,
     year_                  INTEGER       NOT NULL,
