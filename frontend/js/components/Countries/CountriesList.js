@@ -1,6 +1,7 @@
 // frontend/js/components/Countries/countries-list.js
 import AppComponent from '../lib/AppComponents.js';
-import './CountriesItem.js';   // import "à effet de bord" : enregistre <country-item>
+import './CountriesItem.js';  
+import { MESSAGES } from '../../../utils/dictionary-objets.js';
 
 class CountryList extends AppComponent {
 
@@ -8,7 +9,7 @@ class CountryList extends AppComponent {
         const { countries = [] } = this.props;
 
         if (countries.length === 0) {
-            return /*html*/`<p class="text-center">Aucun pays à afficher.</p>`;
+            return /*html*/`<p class="text-center">${MESSAGES.NO_COUNTRY}</p>`;
         }
         
         return /*html*/`<div class="row row-cols-2 row-cols-md-3 row-cols-lg-4 g-3"></div>`;
