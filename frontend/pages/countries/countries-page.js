@@ -4,7 +4,7 @@ import '../../js/components/Header/AppHeader.js';
 import '../../js/components/Countries/ImportButton.js';
 import '../../js/components/Countries/CountriesList.js';
 import { getCountries, importCountries } from '../../services/countries-services.js';
-import { MESSAGES } from './../../utils/config.js';   
+import { MESSAGES } from './../../utils/dictionary-objets.js';   
 
 class CountriesPage extends AppComponent {
 

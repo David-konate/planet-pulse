@@ -1,7 +1,7 @@
 // frontend/js/components/Countries/countries-list.js
 import AppComponent from '../lib/AppComponents.js';
 import './CountriesItem.js';  
-import { MESSAGES } from '../../../utils/config.js';
+import { MESSAGES } from '../../../utils/dictionary-objets.js';
 
 class CountryList extends AppComponent {
 
