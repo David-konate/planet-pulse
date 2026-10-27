@@ -12,7 +12,7 @@ export async function getCountries() {
 
 //Ask the back if the countries are already in database
 export async function getImportStatus() {
-    const response = await fetch(`${API_BASE_URL}/api/countries/import/status`);
+    const response = await fetch(`${API_BASE_URL}/countries/import/status`);
     if(!response.ok) throw new Error(`Status check failed (${response.status})`);
 
     return response.json(); // it show the imported and count
@@ -20,7 +20,7 @@ export async function getImportStatus() {
 
 // Ask the backend to import countries from the external API
 export async function importCountries() {
-    const response = await fetch(`${API_BASE_URL}/api/countries/import`, {
+    const response = await fetch(`${API_BASE_URL}/countries/import`, {
         method: 'POST',
     });
 
