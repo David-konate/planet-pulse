@@ -1,3 +1,5 @@
+import {API_BASE_URL} from "../config.js";
+
 //call data from countries.json file
 export async function getCountries() {
     const url = new URL('../../data/countries-clean.json', import.meta.url);
@@ -8,12 +10,9 @@ export async function getCountries() {
     return json.data.objects.sort((a, b) => a.names.common.localeCompare(b.names.common));
 }
 
-// Backend base URL (Spring Boot default port)
-const API_BASE_URL = 'http://localhost:8080/api';
-
 //Ask the back if the countries are already in database
 export async function getImportStatus() {
-    const response = await fetch(`${API_BASE_URL}/countries/import/status`);
+    const response = await fetch(`${API_BASE_URL}/api/countries/import/status`);
     if(!response.ok) throw new Error(`Status check failed (${response.status})`);
 
     return response.json(); // it show the imported and count
@@ -21,7 +20,7 @@ export async function getImportStatus() {
 
 // Ask the backend to import countries from the external API
 export async function importCountries() {
-    const response = await fetch(`${API_BASE_URL}/countries/import`, {
+    const response = await fetch(`${API_BASE_URL}/api/countries/import`, {
         method: 'POST',
     });
 
