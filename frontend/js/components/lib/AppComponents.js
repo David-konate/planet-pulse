@@ -10,8 +10,8 @@ export default class AppComponent extends HTMLElement {
 
     /* Functions NOT to override, defines the lifecycle of a component */
 
-    connectedCallback() { // template method!
-        this.beforeRender();
+    async connectedCallback() { // template method!
+        await this.beforeRender();
         this.#render();
         this.afterRender();
     }
@@ -43,7 +43,7 @@ export default class AppComponent extends HTMLElement {
     }
 
     // "Step" 1 hook
-    beforeRender() { // Usually fetch some data
+    async beforeRender() { // Usually fetch some data
         return; // Default does nothing
     }
 
