@@ -1,7 +1,7 @@
-import { API_URL } from "../js/config.js";
+import { API_BASE_URL } from "../config.js";
 
 export async function createTarget(target) {
-  const response = await fetch(`${API_URL}/targets`, {
+  const response = await fetch(`${API_BASE_URL}/targets`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(target),
