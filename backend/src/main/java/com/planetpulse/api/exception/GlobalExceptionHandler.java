@@ -1,6 +1,12 @@
 package com.planetpulse.api.exception;
 
 import com.planetpulse.api.dto.response.ErrorResponse;
+import com.planetpulse.api.exception.countries.CountriesAlreadyImportedException;
+import com.planetpulse.api.exception.countries.ExternalApiException;
+import com.planetpulse.api.exception.indicator.CountryNotFoundException;
+import com.planetpulse.api.exception.indicator.FutureYearException;
+import com.planetpulse.api.exception.indicator.IndicatorAlreadyExistsException;
+import com.planetpulse.api.exception.indicator.NoIndicatorValueException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
@@ -76,5 +82,17 @@ public class GlobalExceptionHandler {
                 .forEach(fe -> details.putIfAbsent(fe.getField(), fe.getDefaultMessage()));
         return ResponseEntity.badRequest()
                 .body(Map.of("status", 400, "message", "Invalid data", "details", details));
+    }
+
+    // ---------- Countries ----------
+
+    @ExceptionHandler(CountriesAlreadyImportedException.class)
+    public ResponseEntity<ErrorResponse> handleAlreadyImported(CountriesAlreadyImportedException ex) {
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(new ErrorResponse(ex.getMessage()));
+    }
+
+    @ExceptionHandler(ExternalApiException.class)
+    public ResponseEntity<ErrorResponse> handleExternalApi(ExternalApiException ex) {
+        return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ErrorResponse(ex.getMessage()));
     }
 }
