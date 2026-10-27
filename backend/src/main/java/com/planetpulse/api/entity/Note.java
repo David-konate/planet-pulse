@@ -29,7 +29,7 @@ public class Note implements Serializable {
     private LocalDateTime noteTimestamp;
 
     // allow to creat multiple notes to the same country
-    // only charge teh data when i need them
+    // only charge teh data when I need them
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_country", nullable = false)
     private Country country;
