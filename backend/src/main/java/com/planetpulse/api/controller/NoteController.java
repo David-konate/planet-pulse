@@ -1,4 +1,6 @@
-// reception of http query
+// STEP 1
+// reception of http query POST, entry point of note creation
+// will receive data send by frontend and ask service to create note
 package com.planetpulse.api.controller;
 
 import com.planetpulse.api.dto.request.NoteCreateRequest;
@@ -14,8 +16,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
-@RestController
-@RequestMapping("/api/notes")
+@RestController // say to spring that this class handling http query and send them in JSON
+@RequestMapping("/api/notes") // define the begining of the URL
 public class NoteController {
 
     private final NoteService service;

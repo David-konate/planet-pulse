@@ -1,4 +1,5 @@
-// Business logic
+// STEP 2
+// Business logic, handling the creation of the note
 package com.planetpulse.api.service;
 
 import com.planetpulse.api.dto.request.NoteCreateRequest;
