@@ -7,6 +7,9 @@ import com.planetpulse.api.exception.indicator.CountryNotFoundException;
 import com.planetpulse.api.exception.indicator.FutureYearException;
 import com.planetpulse.api.exception.indicator.IndicatorAlreadyExistsException;
 import com.planetpulse.api.exception.indicator.NoIndicatorValueException;
+import com.planetpulse.api.exception.targets.NotTargetRecordingException;
+import com.planetpulse.api.exception.targets.TargetExistsException;
+
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
