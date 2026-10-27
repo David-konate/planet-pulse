@@ -20,12 +20,17 @@ import java.util.Arrays;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class IndicatorService {
 
     private final IndicatorRepository indicatorRepository;
     private final CountryRepository countryRepository;
     private final IndicatorMapper indicatorMapper;
+
+    public IndicatorService(IndicatorRepository indicatorRepository, CountryRepository countryRepository, IndicatorMapper indicatorMapper) {
+        this.indicatorRepository = indicatorRepository;
+        this.countryRepository = countryRepository;
+        this.indicatorMapper = indicatorMapper;
+    }
 
     public IndicatorDto addIndicator(IndicatorCreateRequest request) {
         // Rule: at least one indicator must be filled in

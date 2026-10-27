@@ -1,6 +1,6 @@
 import { API_BASE_URL } from '../config.js';
 
-const API_URL = `${API_BASE_URL}/api/indicators`;
+const API_URL = `${API_BASE_URL}/indicators`;
 
 // Sends the new indicator values to the backend.
 // Throws an Error with a message that can be shown to the user.
