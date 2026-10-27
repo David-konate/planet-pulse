@@ -7,7 +7,7 @@ export async function getCountries() {
     if (!response.ok) throw new Error('Unable to load countries');
 
     const json = await response.json();
-    return json.data.objects.sort((a, b) => a.names.common.localeCompare(b.names.common));
+    return json.countries.sort((a, b) => a.names.common.localeCompare(b.names.common));
 }
 
 //Ask the back if the countries are already in database

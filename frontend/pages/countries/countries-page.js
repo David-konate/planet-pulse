@@ -4,22 +4,12 @@ import '../../js/components/Header/AppHeader.js';
 import '../../js/components/Countries/ImportButton.js';
 import '../../js/components/Countries/CountriesList.js';
 import { getCountries, getImportStatus, importCountries } from '../../services/countries-services.js';
+import { MESSAGES } from './../../utils/dictionary-objets.js';   
 
 class CountriesPage extends AppComponent {
 
-    template() {
-        return /*html*/`
-            <main class="container py-4">
-              <h1 class="h3 text-center mb-4">List Countries</h1>
-              <div id="import-zone" class="mb-4"></div>
-              <div id="countries-content">
-                <p class="text-center">Chargement…</p>
-              </div>
-            </main>
-        `;
-    }
-
-    async afterRender() {
+    // Step 1: load the data
+    async beforeRender() {
         //default state, like this the btn stays clickable
         let status = { imported: false, count: 0};
         try {
@@ -28,21 +18,41 @@ class CountriesPage extends AppComponent {
             console.error(error);
         }
 
-        this.attachChild(this.querySelector('#import-zone'), 'import-button', {
-            imported: status.imported,
-            importedCount: status.count,
-            onImport: importCountries,
-        });
-        
-        const content = this.querySelector('#countries-content');
         try {
-            const countries = await getCountries();
-            content.innerHTML = '';
-            this.attachChild(content, 'country-list', { countries });
+            this.state = { countries: await getCountries() };
         } catch (error) {
             console.error(error);
-            content.innerHTML = `<div class="alert alert-danger" role="alert">
-              Unable to load countries.</div>`;
+            this.state = { error: MESSAGES.LOAD_ERROR };
+        }
+    }
+
+    // Step 2: display based on the state
+    template() {
+        const { error } = this.state;
+
+        return /*html*/`
+            <main class="container py-4">
+              <h1 class="h3 text-center mb-4">${MESSAGES.PAGE_TITLE}</h1>
+              <div id="import-zone" class="mb-4"></div>
+              ${error
+                ? `<div class="alert alert-danger" role="alert">${error}</div>`
+                : `<div id="countries-content"></div>`}
+            </main>
+        `;
+    }
+
+    // Step 3: only attach the children
+    afterRender() {
+        const { ImportStatus } = this.state;
+        this.attachChild(this.querySelector('#import-zone'), 'import-button', {
+            imported: ImportStatus.imported,
+            importedCount: ImportStatus.count,
+            onImport: importCountries,
+        });
+
+        const content = this.querySelector('#countries-content');
+        if (content) {
+            this.attachChild(content, 'country-list', { countries: this.state.countries });
         }
     }
 }
