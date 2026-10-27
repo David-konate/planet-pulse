@@ -1,4 +1,4 @@
-package com.planetpulse.api.exception;
+package com.planetpulse.api.exception.targets;
 
 public class TargetExistsException extends RuntimeException {
     public TargetExistsException(Integer countryId, Integer year) {

@@ -1,6 +1,17 @@
 import AppComponent from "../lib/AppComponents.js";
+import { setRangeMessages } from "../../../utils/setRangeMessages.js";
+import { emptyToNull } from "../../../utils/emptyToNull.js";
+import { successMessage } from "../messages/SuccesMessage.js";
 
 class TargetForm extends AppComponent {
+    beforeRender() {
+    this.form = null;
+    this.feedback = null;
+    this.errorDiv = null;
+    this.submitBtn = null;
+  }
+
+
   template() {
     return /*html*/ `
       <div class="form-field" id="form-content">
@@ -58,6 +69,7 @@ class TargetForm extends AppComponent {
       </div>
     `;
   }
+
 
   afterRender() {
     this.form = this.querySelector("#target-form");
@@ -131,17 +143,7 @@ class TargetForm extends AppComponent {
 
   // --- API publique, appelée par la page parente ---
 
-  showSuccess() {
-    this.feedback.innerHTML = /*html*/ `
-      <div class="alert alert-success alert-dismissible" role="alert">
-        Target saved successfully.
-        <button type="button" class="btn-close" id="close-feedback" aria-label="Close"></button>
-      </div>`;
-    this.querySelector("#close-feedback").addEventListener("click", () => {
-      this.feedback.innerHTML = "";
-    });
-    this.form.reset();
-  }
+
 
   showError(message = "Unable to save the target. Please try again.") {
     this.feedback.innerHTML = /*html*/ `
@@ -153,42 +155,7 @@ class TargetForm extends AppComponent {
   }
 }
 
-function emptyToNull(value) {
-  if (value === null) {
-    return null;
-  }
-  if (value === "") {
-    return null;
-  }
-  return value;
-}
-
-function setRangeMessages(input, messages) {
-
-  const underflowMessage = messages.underflow;
-  const overflowMessage = messages.overflow;
-
-  function onInputChange() {
-
-    const validity = input.validity;
-    const isTooLow = validity.rangeUnderflow; // valeur < min
-    const isTooHigh = validity.rangeOverflow; // valeur > max
-
-    let message;
-
-    if (isTooLow) {
-      message = underflowMessage;
-    } else if (isTooHigh) {
-      message = overflowMessage;
-    } else {
-      message = ""; // no erreur
-    }
 
 
-    input.setCustomValidity(message);
-  }
-
-  input.addEventListener("input", onInputChange);
-}
 
 customElements.define("target-form", TargetForm);
