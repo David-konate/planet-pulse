@@ -2,9 +2,9 @@ package com.planetpulse.api.service;
 
 import com.planetpulse.api.dto.request.TargetCreateRequest;
 import com.planetpulse.api.entity.Targets;
-import com.planetpulse.api.exception.FutureYearException;
 import com.planetpulse.api.exception.NotTargetRecordingException;
 import com.planetpulse.api.exception.TargetExistsException;
+import com.planetpulse.api.exception.indicator.FutureYearException;
 import com.planetpulse.api.mapper.TargetMapper;
 import com.planetpulse.api.repository.TargetRepository;
 import lombok.extern.slf4j.Slf4j;
