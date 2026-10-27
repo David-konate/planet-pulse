@@ -37,7 +37,8 @@ public class Country {
     @Column(name = "population", nullable = false)
     private Integer population;
 
-    // Simple colonne pour l'instant : à remplacer par un @ManyToOne vers Subregion plus tard
-    @Column(name = "subregion_id", nullable = false)
-    private Integer subregionId;
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "subregion_id", nullable = false)
+    private Subregion subregion;
+
 }

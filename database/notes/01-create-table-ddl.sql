@@ -18,5 +18,5 @@ CREATE TABLE t_notes
     note_content   VARCHAR(10000) NOT NULL,
     CONSTRAINT fk_t_note_country
         FOREIGN KEY (id_country)
-            REFERENCES t_countries (id_country)
+        REFERENCES t_countries (id_country)
 );

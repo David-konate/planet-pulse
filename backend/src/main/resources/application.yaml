@@ -12,6 +12,11 @@ spring:
   jpa:
     hibernate:
       ddl-auto: validate
+      open-in-view: false
   logging:
     level:
       org.springframework.web: DEBUG
+
+restcountries:
+  base-url: ${API_URL}
+  api-key: ${API_KEY}
