@@ -1,4 +1,4 @@
-// STEP 2
+// STEP 3
 // Business logic, handling the creation of the note
 package com.planetpulse.api.service;
 
@@ -8,13 +8,12 @@ import com.planetpulse.api.entity.Note;
 import com.planetpulse.api.mapper.NoteMapper;
 import com.planetpulse.api.repository.CountryRepository;
 import com.planetpulse.api.repository.NoteRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 
-@Slf4j
+
 @Service
 @Transactional(readOnly = true)
 public class NoteService {
@@ -46,9 +45,10 @@ public class NoteService {
 
         Note saved = repository.save(note);
 
-        log.info("Note created: timestamp={}, country={}",
-                saved.getNoteTimestamp(),
-                saved.getCountry().getIdCountry());
+        System.out.println("Note created: timestamp="
+                + saved.getNoteTimestamp()
+                + ", country="
+                + saved.getCountry().getIdCountry());
 
         return saved;
     }

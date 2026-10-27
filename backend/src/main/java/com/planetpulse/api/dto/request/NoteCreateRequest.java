@@ -1,4 +1,5 @@
-
+// STEP 2
+// Receiving datas and defining validations
 package com.planetpulse.api.dto.request;
 
 import jakarta.validation.constraints.NotBlank;

@@ -13,23 +13,17 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Table(name = "t_notes")
-@Getter
-@Setter
-@NoArgsConstructor
 public class Note implements Serializable {
 
     @Id
     @Column(name = "note_timestamp", nullable = false)
     private LocalDateTime noteTimestamp;
 
-    // allow to creat multiple notes to the same country
-    // only charge teh data when I need them
+    // Allows multiple notes to be associated with the same country
+    // Loads country data only when needed.
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_country", nullable = false)
     private Country country;
@@ -43,4 +37,40 @@ public class Note implements Serializable {
     @Size(max = 10000)
     @Column(name = "note_content", nullable = false, length = 10000)
     private String noteContent;
+
+    // Required by JPA
+    public Note() {
+    }
+
+    public LocalDateTime getNoteTimestamp() {
+        return noteTimestamp;
+    }
+
+    public void setNoteTimestamp(LocalDateTime noteTimestamp) {
+        this.noteTimestamp = noteTimestamp;
+    }
+
+    public Country getCountry() {
+        return country;
+    }
+
+    public void setCountry(Country country) {
+        this.country = country;
+    }
+
+    public String getNoteTitle() {
+        return noteTitle;
+    }
+
+    public void setNoteTitle(String noteTitle) {
+        this.noteTitle = noteTitle;
+    }
+
+    public String getNoteContent() {
+        return noteContent;
+    }
+
+    public void setNoteContent(String noteContent) {
+        this.noteContent = noteContent;
+    }
 }

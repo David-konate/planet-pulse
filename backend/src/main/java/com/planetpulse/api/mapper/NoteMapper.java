@@ -1,4 +1,4 @@
-// Conversion of data to an object
+// STEP 4 convert Conversion of data to an object
 // Converts a NoteCreateRequest into a Note entity
 package com.planetpulse.api.mapper;
 
