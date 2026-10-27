@@ -3,18 +3,26 @@ import AppComponent from '../../js/components/lib/AppComponents.js';
 import '../../js/components/Header/AppHeader.js';
 import '../../js/components/Countries/ImportButton.js';
 import '../../js/components/Countries/CountriesList.js';
-import { getCountries, importCountries } from '../../services/countries-services.js';
+import { getCountries, getImportStatus, importCountries } from '../../services/countries-services.js';
 import { MESSAGES } from './../../utils/dictionary-objets.js';   
 
 class CountriesPage extends AppComponent {
 
     // Step 1: load the data
     async beforeRender() {
+        //default state, like this the btn stays clickable
+        let status = { imported: false, count: 0};
         try {
-            this.state = { countries: await getCountries() };
+            status = await getImportStatus();
         } catch (error) {
             console.error(error);
-            this.state = { error: MESSAGES.LOAD_ERROR };
+        }
+
+        try {
+            this.state = { importStatus: status, countries: await getCountries() };
+        } catch (error) {
+            console.error(error);
+            this.state = { importStatus: status, error: MESSAGES.LOAD_ERROR };
         }
     }
 
@@ -35,8 +43,10 @@ class CountriesPage extends AppComponent {
 
     // Step 3: only attach the children
     afterRender() {
+        const { importStatus } = this.state;
         this.attachChild(this.querySelector('#import-zone'), 'import-button', {
-            imported: false, 
+            imported: importStatus.imported,
+            importedCount: importStatus.count,
             onImport: importCountries,
         });
 

@@ -15,3 +15,7 @@ spring:
   logging:
     level:
       org.springframework.web: DEBUG
+
+restcountries:
+  base-url: ${API_URL}
+  api-key: ${API_KEY}

@@ -10,11 +10,9 @@ Run them **in this order**. A script that references another table
 
 | Order | File | What it does |
 |---|---|---|
-| 1 | `01-countries.sql` | Deletes then creates `t_regions`, `t_subregions` and `t_countries` |
+| 1 | `01-create-table-countries-region-subregion-ddl.sql` | creates `t_regions`, `t_subregions` and `t_countries` |
 | … | `02-….sql` | *(add your script here)* |
 
-> Each script starts by deleting its tables (`DROP TABLE IF EXISTS`).
-> **Running a script again erases the data in its tables.**
 
 ### Adding a script
 
@@ -69,7 +67,7 @@ psql -U postgres -d planet_pulse -v ON_ERROR_STOP=1 -f database/folder/<script>.
 Replace `<script>` with the name of the file. For example, for the countries script:
 
 ```bash
-psql -U postgres -d planet_pulse -v ON_ERROR_STOP=1 -f database/countries/01-create-table-ddl.sql
+psql -U postgres -d planet_pulse -v ON_ERROR_STOP=1 -f database/countries/01-create-table-countries-region-subregion-ddl.sql
 ```
 
 - `-d planet_pulse`: the database the script runs in.
@@ -91,7 +89,7 @@ List the tables of the database:
 psql -U postgres -d planet_pulse -c "\dt"
 ```
 
-For example, after `01-countries.sql`, you should see:
+For example, after `01-create-table-countries-region-subregion-ddl.sql`, you should see:
 
 ```
  Schema |     Name     | Type  |  Owner   
