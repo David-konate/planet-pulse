@@ -17,5 +17,5 @@ spring:
       org.springframework.web: DEBUG
 
 restcountries:
-  base-url: https://api.restcountries.com/
+  base-url: ${API_URL}
   api-key: ${API_KEY}

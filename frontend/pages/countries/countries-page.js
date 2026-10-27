@@ -19,10 +19,10 @@ class CountriesPage extends AppComponent {
         }
 
         try {
-            this.state = { countries: await getCountries() };
+            this.state = { importStatus: status, countries: await getCountries() };
         } catch (error) {
             console.error(error);
-            this.state = { error: MESSAGES.LOAD_ERROR };
+            this.state = { importStatus: status, error: MESSAGES.LOAD_ERROR };
         }
     }
 
@@ -43,10 +43,10 @@ class CountriesPage extends AppComponent {
 
     // Step 3: only attach the children
     afterRender() {
-        const { ImportStatus } = this.state;
+        const { importStatus } = this.state;
         this.attachChild(this.querySelector('#import-zone'), 'import-button', {
-            imported: ImportStatus.imported,
-            importedCount: ImportStatus.count,
+            imported: importStatus.imported,
+            importedCount: importStatus.count,
             onImport: importCountries,
         });
 
