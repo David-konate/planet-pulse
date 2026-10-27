@@ -1,3 +1,13 @@
+
+-- Check that t_countries exists before creating t_notes
+DO $$
+BEGIN
+  IF to_regclass('public.t_countries') IS NULL THEN
+    RAISE EXCEPTION 'Table t_countries does not exist. Run the t_countries script first.';
+  END IF;
+END
+$$;
+
 -- Notes table
 CREATE TABLE t_notes (
     note_timestamp TIMESTAMP NOT NULL,
