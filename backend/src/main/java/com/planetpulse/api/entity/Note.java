@@ -24,9 +24,9 @@ public class Note implements Serializable {
 
     // Allows multiple notes to be associated with the same country
     // Loads country data only when needed.
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_country", nullable = false)
-    private Country country;
+   // @ManyToOne(fetch = FetchType.LAZY)
+    @Column(name = "id_country")
+    private Integer countryId;
 
     @NotBlank
     @Size(max = 255)
@@ -50,12 +50,12 @@ public class Note implements Serializable {
         this.noteTimestamp = noteTimestamp;
     }
 
-    public Country getCountry() {
-        return country;
+    public Integer getCountryId() {
+        return countryId;
     }
 
-    public void setCountry(Country country) {
-        this.country = country;
+    public void setCountryId(Integer country) {
+        this.countryId = countryId;
     }
 
     public String getNoteTitle() {

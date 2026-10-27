@@ -33,14 +33,9 @@ public class NoteService {
 
     @Transactional
     public Note createNote(NoteCreateRequest request) {
-        // check the country associated to the note from id
-        Country country = countryRepository.findById(request.getCountryId())
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Country not found: " + request.getCountryId()));
         //Mapper change data to object Note
-        Note note = mapper.toEntity(request);
         // The note associated to the country receive the current date and time
-        note.setCountry(country);
+        Note note = mapper.toEntity(request);
         note.setNoteTimestamp(LocalDateTime.now());
 
         Note saved = repository.save(note);
@@ -48,7 +43,7 @@ public class NoteService {
         System.out.println("Note created: timestamp="
                 + saved.getNoteTimestamp()
                 + ", country="
-                + saved.getCountry().getIdCountry());
+                + saved.getCountryId());
 
         return saved;
     }
