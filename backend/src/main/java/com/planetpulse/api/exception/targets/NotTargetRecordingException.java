@@ -1,4 +1,4 @@
-package com.planetpulse.api.exception;
+package com.planetpulse.api.exception.targets;
 
 public class NotTargetRecordingException extends RuntimeException {
     public NotTargetRecordingException() {
