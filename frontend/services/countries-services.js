@@ -1,18 +1,8 @@
 import {API_BASE_URL} from "../config.js";
 
-//call data from countries.json file
-// export async function getCountries() {
-//     const url = new URL('../../data/countries-clean.json', import.meta.url);
-//     const response = await fetch(url);
-//     if (!response.ok) throw new Error('Unable to load countries');
-
-//     const json = await response.json();
-//     return json.countries.sort((a, b) => a.names.common.localeCompare(b.names.common));
-// }
-
 //Get the countries list from the backend
 export async function getCountries() {
-    const response = await fetch(`${API_BASE_URL}/api/countries`);
+    const response = await fetch(`${API_BASE_URL}/countries`);
     if (!response.ok) throw new Error(`Unable to load countries (${response.status})`);
 
     return response.json();
@@ -20,7 +10,7 @@ export async function getCountries() {
 
 //Ask the back if the countries are already in database
 export async function getImportStatus() {
-    const response = await fetch(`${API_BASE_URL}/api/countries/import/status`);
+    const response = await fetch(`${API_BASE_URL}/countries/import/status`);
     if(!response.ok) throw new Error(`Status check failed (${response.status})`);
 
     return response.json(); // it show the imported and count
@@ -28,7 +18,7 @@ export async function getImportStatus() {
 
 // Ask the backend to import countries from the external API
 export async function importCountries() {
-    const response = await fetch(`${API_BASE_URL}/api/countries/import`, {
+    const response = await fetch(`${API_BASE_URL}/countries/import`, {
         method: 'POST',
     });
 
@@ -48,7 +38,6 @@ export async function importCountries() {
 
     return response.json(); // count, message
 }
-
 //call aleatory country from countries.json file
 export async function getRandomCountry() {
     const countries = await getCountries();
