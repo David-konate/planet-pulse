@@ -20,7 +20,7 @@ public interface NoteMapper {
 
     // The country is retrieved by NoteService using countryId,
     // MapStruct must not try to map it from the request.
-    @Mapping(target = "country", ignore = true)
+    @Mapping(target = "countryId", ignore = true)
 
     // Converts the received request into a Note object.
     Note toEntity(NoteCreateRequest request);
