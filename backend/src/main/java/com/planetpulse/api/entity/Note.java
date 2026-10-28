@@ -50,13 +50,15 @@ public class Note implements Serializable {
         this.noteTimestamp = noteTimestamp;
     }
 
+
     public Integer getCountryId() {
         return countryId;
     }
 
-    public void setCountryId(Integer country) {
+    public void setCountryId(Integer countryId) {
         this.countryId = countryId;
     }
+
 
     public String getNoteTitle() {
         return noteTitle;
@@ -65,6 +67,7 @@ public class Note implements Serializable {
     public void setNoteTitle(String noteTitle) {
         this.noteTitle = noteTitle;
     }
+
 
     public String getNoteContent() {
         return noteContent;

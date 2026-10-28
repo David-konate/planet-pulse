@@ -9,6 +9,7 @@ import com.planetpulse.api.exception.indicator.IndicatorAlreadyExistsException;
 import com.planetpulse.api.exception.indicator.NoIndicatorValueException;
 import com.planetpulse.api.exception.targets.NotTargetRecordingException;
 import com.planetpulse.api.exception.targets.TargetExistsException;
+import com.planetpulse.api.exception.notes.NoteCountryNotFoundException;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -97,5 +98,15 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(ExternalApiException.class)
     public ResponseEntity<ErrorResponse> handleExternalApi(ExternalApiException ex) {
         return ResponseEntity.status(HttpStatus.BAD_GATEWAY).body(new ErrorResponse(ex.getMessage()));
+    }
+
+
+    // ------------ Notes -------------
+
+    @ExceptionHandler(NoteCountryNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handleNoteCountryNotFound(
+            NoteCountryNotFoundException exception) {
+        return new ErrorResponse(exception.getMessage());
     }
 }
