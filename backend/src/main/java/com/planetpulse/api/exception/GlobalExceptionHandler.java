@@ -7,9 +7,11 @@ import com.planetpulse.api.exception.indicator.CountryNotFoundException;
 import com.planetpulse.api.exception.indicator.FutureYearException;
 import com.planetpulse.api.exception.indicator.IndicatorAlreadyExistsException;
 import com.planetpulse.api.exception.indicator.NoIndicatorValueException;
+import com.planetpulse.api.exception.notes.EmptyNoteFieldException;
 import com.planetpulse.api.exception.targets.NotTargetRecordingException;
 import com.planetpulse.api.exception.targets.TargetExistsException;
 import com.planetpulse.api.exception.notes.NoteCountryNotFoundException;
+
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -104,9 +106,17 @@ public class GlobalExceptionHandler {
     // ------------ Notes -------------
 
     @ExceptionHandler(NoteCountryNotFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+
     public ErrorResponse handleNoteCountryNotFound(
             NoteCountryNotFoundException exception) {
         return new ErrorResponse(exception.getMessage());
     }
+
+    @ExceptionHandler(EmptyNoteFieldException.class)
+    public ErrorResponse EmptyNoteFieldException(
+            EmptyNoteFieldException exception) {
+        return new ErrorResponse(exception.getMessage());
+    }
+
+
 }

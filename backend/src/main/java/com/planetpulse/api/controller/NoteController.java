@@ -19,20 +19,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController // Tells Spring that this class handles HTTP requests and returns data as JSON
 @RequestMapping("/api/notes") // Defines the beginning of the URL
 public class NoteController {
-
+    //Retrieve a copy of NoteService
     private final NoteService service;
 
-    // Constructor: receives the service needed by this controller
+    // Constructor: give access of NoteService created up there
     public NoteController(NoteService service) {
         this.service = service;
     }
 
     @PostMapping
-    public ResponseEntity<Note> create(
+    public ResponseEntity<NoteCreateRequest> create(
             @Valid @RequestBody NoteCreateRequest request) {
 
         // Ask the service to create the note
-        Note note = service.createNote(request);
+        NoteCreateRequest note = service.createNote(request);
 
         // Return HTTP 201 Created with the created note
         return ResponseEntity.status(HttpStatus.CREATED).body(note);

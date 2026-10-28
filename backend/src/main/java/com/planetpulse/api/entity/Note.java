@@ -16,6 +16,7 @@ import jakarta.validation.constraints.Size;
 
 @Entity
 @Table(name = "t_notes")
+// TO DEFINE !!!!!
 public class Note implements Serializable {
 
     @Id
@@ -28,14 +29,16 @@ public class Note implements Serializable {
     @Column(name = "id_country")
     private Integer countryId;
 
-    @NotBlank
-    @Size(max = 255)
-    @Column(name = "note_title", nullable = false, length = 255)
+    //@NotBlank
+    //@Size(max = 255)
+    //@Column(name = "note_title", nullable = false, length = 255)
+    @Column(name = "note_title")
     private String noteTitle;
 
-    @NotBlank
-    @Size(max = 10000)
-    @Column(name = "note_content", nullable = false, length = 10000)
+    //@NotBlank
+    //@Size(max = 10000)
+    //@Column(name = "note_content", nullable = false, length = 10000)
+    @Column(name = "note_content")
     private String noteContent;
 
     // Required by JPA

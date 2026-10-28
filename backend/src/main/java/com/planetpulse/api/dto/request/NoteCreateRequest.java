@@ -1,4 +1,5 @@
 // STEP 2
+// Defining the errors messages according to what I set in the entity
 // Receiving datas and defining validations
 package com.planetpulse.api.dto.request;
 

@@ -33,7 +33,7 @@ public class NoteService {
     }
 
     @Transactional
-    public Note createNote(NoteCreateRequest request) {
+    public NoteCreateRequest createNote(NoteCreateRequest request) {
 
 
         countryRepository.findById(request.getCountryId())
@@ -56,6 +56,7 @@ public class NoteService {
                 + ", country="
                 + saved.getCountryId());
 
-        return saved;
+        // to change with method to saved when a dto of response
+        return request;
     }
 }
