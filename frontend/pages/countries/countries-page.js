@@ -32,7 +32,7 @@ class CountriesPage extends AppComponent {
 
         return /*html*/`
             <main class="container py-4">
-              <h1 class="h3 text-center mb-4">${MESSAGES.PAGE_TITLE}</h1>
+              <h1 class="h1 text-center mb-4">${MESSAGES.PAGE_TITLE}</h1>
               <div id="import-zone" class="mb-4"></div>
               ${error
                 ? `<div class="alert alert-danger" role="alert">${error}</div>`
