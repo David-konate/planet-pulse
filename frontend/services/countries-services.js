@@ -1,13 +1,21 @@
 import {API_BASE_URL} from "../config.js";
 
 //call data from countries.json file
-export async function getCountries() {
-    const url = new URL('../../data/countries-clean.json', import.meta.url);
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Unable to load countries');
+// export async function getCountries() {
+//     const url = new URL('../../data/countries-clean.json', import.meta.url);
+//     const response = await fetch(url);
+//     if (!response.ok) throw new Error('Unable to load countries');
 
-    const json = await response.json();
-    return json.countries.sort((a, b) => a.names.common.localeCompare(b.names.common));
+//     const json = await response.json();
+//     return json.countries.sort((a, b) => a.names.common.localeCompare(b.names.common));
+// }
+
+//Get the countries list from the backend
+export async function getCountries() {
+    const response = await fetch(`${API_BASE_URL}/api/countries`);
+    if (!response.ok) throw new Error(`Unable to load countries (${response.status})`);
+
+    return response.json();
 }
 
 //Ask the back if the countries are already in database
