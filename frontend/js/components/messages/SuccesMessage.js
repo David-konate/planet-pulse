@@ -1,8 +1,5 @@
-export function SuccessMessage(message) { 
-       this.feedback.innerHTML = /*html*/ `
-      <div class="alert alert-success alert-dismissible" role="alert">
-       ${message}
-        <button type="button" class="btn-close" id="close-feedback" aria-label="Close"></button>
-      </div>`;
+import { createAlert } from "./createAlert.js";
 
+export function SuccesMessage(message) {
+  return createAlert(message, "success");
 }
