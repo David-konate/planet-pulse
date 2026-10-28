@@ -1,4 +1,4 @@
-export function SuccessMessage(message) { 
+export function successMessage(message) { 
        this.feedback.innerHTML = /*html*/ `
       <div class="alert alert-success alert-dismissible" role="alert">
        ${message}
