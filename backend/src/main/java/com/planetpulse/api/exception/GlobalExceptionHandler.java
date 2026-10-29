@@ -13,7 +13,6 @@ import com.planetpulse.api.exception.targets.TargetExistsException;
 import com.planetpulse.api.exception.notes.NoteCountryNotFoundException;
 
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,6 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-@Slf4j
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
@@ -74,7 +72,6 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Map<String, Object>> handleIntegrity(DataIntegrityViolationException ex) {
-        log.warn("Constraint violation : {}", ex.getMostSpecificCause().getMessage());
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Map.of("status", 409,
                         "message", "Data incompatible with the database (non-existent country or duplicate)"));
