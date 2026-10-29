@@ -9,11 +9,9 @@ import com.planetpulse.api.enums.IndicatorType;
 import com.planetpulse.api.exception.indicator.CountryNotFoundException;
 import com.planetpulse.api.exception.indicator.FutureYearException;
 import com.planetpulse.api.exception.indicator.IndicatorAlreadyExistsException;
-import com.planetpulse.api.exception.indicator.NoIndicatorValueException;
 import com.planetpulse.api.mapper.IndicatorMapper;
 import com.planetpulse.api.repository.CountryRepository;
 import com.planetpulse.api.repository.IndicatorRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
@@ -33,10 +31,6 @@ public class IndicatorService {
     }
 
     public IndicatorDto addIndicator(IndicatorCreateRequest request) {
-        // Rule: at least one indicator must be filled in
-        if (hasNoValue(request)) {
-           throw new NoIndicatorValueException("CO2 emissions, renewable energy, forest area or PM2.5 exposure.");
-        }
 
         // RULE: The year must not be in the future
         int currentYear = java.time.Year.now().getValue();
@@ -63,13 +57,6 @@ public class IndicatorService {
         return Arrays.stream(IndicatorType.values())
                 .map(type -> new IndicatorTypeDto(type.getField(), type.getLabel(), type.getUnit(), type.getMax()))
                 .toList();
-    }
-
-    private boolean hasNoValue(IndicatorCreateRequest request) {
-        return request.co2Emissions() == null
-                && request.renewableEnergy() == null
-                && request.forestArea() == null
-                && request.pm25Exposure() == null;
     }
 
 }
