@@ -1,11 +1,9 @@
 package com.planetpulse.api.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
 
 @Entity
 @Table(name = "t_subregions")
-@Getter
 public class Subregion {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

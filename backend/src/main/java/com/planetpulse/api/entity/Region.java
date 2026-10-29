@@ -1,11 +1,10 @@
 package com.planetpulse.api.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
 
 @Entity
 @Table(name= "t_regions")
-@Getter
+
 public class Region {
 
     @Id

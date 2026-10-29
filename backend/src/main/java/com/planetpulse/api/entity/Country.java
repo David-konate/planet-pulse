@@ -1,9 +1,7 @@
 package com.planetpulse.api.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 
@@ -11,9 +9,7 @@ import java.math.BigDecimal;
 
 @Entity
 @Table(name = "t_countries")
-@Getter
-@Setter
-@NoArgsConstructor
+
 public class Country {
 
     @Id
