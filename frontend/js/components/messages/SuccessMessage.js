@@ -1,5 +1,5 @@
 import { createAlert } from "./createAlert.js";
 
-export function SuccesMessage(message) {
+export function SuccessMessage(message) {
   return createAlert(message, "success");
 }

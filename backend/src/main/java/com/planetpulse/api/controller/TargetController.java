@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/targets")
+
 public class TargetController {
 
     private final TargetService service;
