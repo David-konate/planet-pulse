@@ -1,4 +1,4 @@
-import AppComponent from "../../js/components/lib/AppComponent.js";
+import AppComponent from "../../js/components/lib/AppComponents.js";
 import "../../js/components/Header/AppHeader.js";
 import "../../js/components/TargetForm/TargetForm.js";
 import { SuccessMessage } from "../../js/components/messages/SuccessMessage.js";
