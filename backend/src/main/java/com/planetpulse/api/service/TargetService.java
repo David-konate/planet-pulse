@@ -9,14 +9,12 @@ import com.planetpulse.api.exception.targets.NotTargetRecordingException;
 import com.planetpulse.api.exception.targets.TargetExistsException;
 import com.planetpulse.api.mapper.TargetMapper;
 import com.planetpulse.api.repository.TargetRepository;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.Year;
 
-@Slf4j
 @Service
 // lecture seule par défaut, @Transactional sur les méthodes d'écriture
 @Transactional(readOnly = true)
@@ -42,10 +40,7 @@ public class TargetService {
             throw new TargetExistsException(request.countryId(), request.targetYear());
         }
 
-        log.info("Target created : id={}, country={}, year={}",
-                saved.getIdTarget(),
-                saved.getCountryId(),
-                saved.getTargetYear());
+ 
 
         // TODO: remplacer par toResponse(saved) quand un DTO de réponse existera
         return request;
