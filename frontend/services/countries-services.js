@@ -1,13 +1,11 @@
 import {API_BASE_URL} from "../config.js";
 
-//call data from countries.json file
+//Get the countries list from the backend
 export async function getCountries() {
-    const url = new URL('../../data/countries-clean.json', import.meta.url);
-    const response = await fetch(url);
-    if (!response.ok) throw new Error('Unable to load countries');
+    const response = await fetch(`${API_BASE_URL}/countries`);
+    if (!response.ok) throw new Error(`Unable to load countries (${response.status})`);
 
-    const json = await response.json();
-    return json.countries.sort((a, b) => a.names.common.localeCompare(b.names.common));
+    return response.json();
 }
 
 //Ask the back if the countries are already in database
@@ -40,7 +38,6 @@ export async function importCountries() {
 
     return response.json(); // count, message
 }
-
 //call aleatory country from countries.json file
 export async function getRandomCountry() {
     const countries = await getCountries();
