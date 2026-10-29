@@ -1,7 +1,7 @@
 import AppComponent from "../../js/components/lib/AppComponents.js";
 import "../../js/components/Header/AppHeader.js";
 import "../../js/components/TargetForm/TargetForm.js";
-import { successMessage } from "../../js/components/messages/SuccessMessage.js";
+import { SuccessMessage } from "../../js/components/messages/SuccessMessage.js";
 import { ErrorMessage } from "../../js/components/messages/ErrorMessage.js";
 import { getRandomCountry } from "../../services/countries-services.js";
 import { createTarget } from "../../services/target-service.js";
@@ -54,7 +54,7 @@ class TargetsPage extends AppComponent {
       try {
         await createTarget(targetData);
         feedback.replaceChildren(
-          new successMessage("Target saved successfully."),
+          new SuccessMessage("Target saved successfully."),
         );
         targetForm.reset();
       } catch (error) {
