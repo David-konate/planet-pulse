@@ -5,7 +5,6 @@ import com.planetpulse.api.dto.request.IndicatorCreateRequest;
 import com.planetpulse.api.dto.request.IndicatorTypeDto;
 import com.planetpulse.api.service.IndicatorService;
 import jakarta.validation.Valid;
-import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,11 +12,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@AllArgsConstructor
 @RequestMapping("/api/indicators")
 public class IndicatorController {
 
     private final IndicatorService indicatorService;
+
+    public IndicatorController(IndicatorService indicatorService) {
+        this.indicatorService = indicatorService;
+    }
 
     @GetMapping("/types")
     public List<IndicatorTypeDto> getIndicatorTypes() {
