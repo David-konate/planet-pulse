@@ -31,7 +31,7 @@ public class NoteController {
     @PostMapping
     public ResponseEntity<NoteCreateRequest> create(
             // @Valid = trigger validations define on the received object
-            // @ equestBody = Ask spring to convert the JSON file in a Java object
+            // @ RequestBody = Ask spring to convert the JSON file in a Java object
             @Valid @RequestBody NoteCreateRequest request) {
 
         // Ask the service to create the note
