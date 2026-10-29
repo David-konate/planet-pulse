@@ -49,6 +49,14 @@ class TargetsPage extends AppComponent {
       const targetData = {
         countryId: this.country.id,
         ...event.detail,
+        countryId: 4, // TODO: use the id of the country loaded above (this.country)
+        targetYear: emptyToNull(formData.get("target_year")),
+        co2Emissions: emptyToNull(formData.get("co2_emissions")),
+        pm25Emissions: emptyToNull(formData.get("pm25_emissions")),
+        forestArea: emptyToNull(formData.get("forest_area")),
+        renewableEnergyShare: emptyToNull(
+          formData.get("renewable_energy_share"),
+        ),
       };
 
       try {

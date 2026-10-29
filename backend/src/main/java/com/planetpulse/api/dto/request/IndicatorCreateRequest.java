@@ -1,10 +1,12 @@
 package com.planetpulse.api.dto.request;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.planetpulse.api.validation.AtLeastOneIndicator;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
 
+@AtLeastOneIndicator
 public record IndicatorCreateRequest(
 
         @JsonProperty("countryId")

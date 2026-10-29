@@ -8,36 +8,36 @@ import com.planetpulse.api.exception.countries.CountriesAlreadyImportedException
 import com.planetpulse.api.repository.CountryRepository;
 import com.planetpulse.api.repository.RegionRepository;
 import com.planetpulse.api.repository.SubregionRepository;
-import lombok.extern.slf4j.Slf4j;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
 import java.util.*;
 
-@Slf4j
 @Service
 public class CountryImportService {
+
+    private static final Logger log = LoggerFactory.getLogger(CountryImportService.class);
 
     private final RestCountriesService restCountriesService;
     private final CountryRepository countryRepository;
     private final RegionRepository regionRepository;
     private final SubregionRepository subregionRepository;
-
-    //Same limits as the columns in countries create table sql.
-    private static final int max_country_name = 50;
-    private static final int max_flag_url = 50;
-    private static final int max_region = 10;
-    private static final int max_subregion = 30;
+    private final Validator validator;
 
     public CountryImportService(RestCountriesService restCountriesService,
                                 CountryRepository countryRepository,
                                 RegionRepository regionRepository,
-                                SubregionRepository subregionRepository) {
+                                SubregionRepository subregionRepository,
+                                Validator validator) {
         this.restCountriesService = restCountriesService;
         this.countryRepository = countryRepository;
         this.regionRepository = regionRepository;
         this.subregionRepository = subregionRepository;
+        this.validator = validator;
     }
 
     @Transactional
@@ -55,8 +55,10 @@ public class CountryImportService {
         List<Country> countries = new ArrayList<>();
 
         for (RestCountryDto dto : dtos) {
-            if (!isComplete(dto)) {
-                log.info("Country skipped (incomplete or too long): {}", dto);
+            Set<ConstraintViolation<RestCountryDto>> violations = validator.validate(dto);
+            if (!violations.isEmpty()) {
+                log.info("Country skipped: {} -> {}", dto,
+                        violations.stream().map(ConstraintViolation::getMessage).toList());
                 continue; // incomplete or inconsistent country: ignored
             }
 
@@ -90,22 +92,5 @@ public class CountryImportService {
 
     public long countImportedCountries(){
         return countryRepository.count();
-    }
-
-    //A country is kept only if every field is present and consistent and fits in database columns.
-    private boolean isComplete(RestCountryDto dto) {
-        return dto.names() != null && hasText(dto.names().common(), max_country_name)
-                && dto.codes() != null && dto.codes().alpha2() != null
-                && dto.codes().alpha2().matches("[A-Z]{2}")
-                && dto.flag() != null && hasText(dto.flag().urlSvg(), max_flag_url)
-                && hasText(dto.region(), max_region)
-                && hasText(dto.subregion(), max_subregion)
-                && dto.area() != null && dto.area().kilometers() != null
-                && dto.area().kilometers().compareTo(BigDecimal.ZERO) > 0
-                && dto.population() != null && dto.population() > 0;
-    }
-
-    private boolean hasText(String value, int maxLength) {
-        return value != null && !value.isBlank() && value.length() <= maxLength;
     }
 }

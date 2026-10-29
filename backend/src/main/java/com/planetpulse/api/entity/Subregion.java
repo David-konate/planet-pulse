@@ -10,14 +10,26 @@ public class Subregion {
     @Column(name = "id_subregion")
     private Integer id;
 
-    @Column(name = "subregion", nullable = false, length = 30)
+    @Column(name = "subregion")
     private String subregion;
 
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "region_id", nullable = false)
+    @JoinColumn(name = "region_id")
     private Region region;
 
     protected Subregion() {}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getSubregion() {
+        return subregion;
+    }
+
+    public Region getRegion() {
+        return region;
+    }
 
     public Subregion(String subregion, Region region) {
         this.subregion = subregion;

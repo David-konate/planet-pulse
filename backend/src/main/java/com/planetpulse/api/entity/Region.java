@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name= "t_regions")
-
 public class Region {
 
     @Id
@@ -12,10 +11,18 @@ public class Region {
     @Column(name = "id_region")
     private Integer id;
 
-    @Column(name = "region", nullable = false, length = 10)
+    @Column(name = "region")
     private String region;
 
     protected Region() {}
+
+    public Integer getId() {
+        return id;
+    }
+
+    public String getRegion() {
+        return region;
+    }
 
     public Region(String region) {
         this.region = region;
