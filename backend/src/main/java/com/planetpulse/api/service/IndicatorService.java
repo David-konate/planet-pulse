@@ -13,14 +13,12 @@ import com.planetpulse.api.exception.indicator.NoIndicatorValueException;
 import com.planetpulse.api.mapper.IndicatorMapper;
 import com.planetpulse.api.repository.CountryRepository;
 import com.planetpulse.api.repository.IndicatorRepository;
-import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Arrays;
 import java.util.List;
 
 @Service
-@AllArgsConstructor
 public class IndicatorService {
 
     private final IndicatorRepository indicatorRepository;
