@@ -1,4 +1,4 @@
-
+// this is the representation Java of the note in the DB
 package com.planetpulse.api.entity;
 
 import java.io.Serializable;

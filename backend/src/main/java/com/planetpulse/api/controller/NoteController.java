@@ -1,6 +1,6 @@
 // STEP 1
-// Reception of HTTP POST request, entry point of note creation
-// Will receive data sent by frontend and ask service to create note
+// Reception of HTTP POST/api/notes, ENTRY POINT of note creation
+// Will receive JSON data sent by frontend and ask service to create note
 package com.planetpulse.api.controller;
 
 import com.planetpulse.api.dto.request.NoteCreateRequest;
@@ -27,8 +27,11 @@ public class NoteController {
         this.service = service;
     }
 
+    // indicate that this method treat a POST query
     @PostMapping
     public ResponseEntity<NoteCreateRequest> create(
+            // @Valid = trigger validations define on the received object
+            // @ equestBody = Ask spring to convert the JSON file in a Java object
             @Valid @RequestBody NoteCreateRequest request) {
 
         // Ask the service to create the note

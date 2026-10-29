@@ -1,9 +1,12 @@
 // STEP 3
-// Business logic, handling the creation of the note
+// Business logic treatment, handling the creation of the note with the rules set before
+// Answering to what are the operation needed to creat a note :
+// - the service search the corresponding country
+// -prepare the note
+// - ask to save
 package com.planetpulse.api.service;
 
 import com.planetpulse.api.dto.request.NoteCreateRequest;
-import com.planetpulse.api.entity.Country;
 import com.planetpulse.api.entity.Note;
 import com.planetpulse.api.mapper.NoteMapper;
 import com.planetpulse.api.repository.CountryRepository;
@@ -11,7 +14,6 @@ import com.planetpulse.api.repository.NoteRepository;
 import com.planetpulse.api.exception.notes.NoteCountryNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import java.time.LocalDateTime;
 
 
