@@ -3,7 +3,8 @@ package com.planetpulse.api.service;
 import com.planetpulse.api.dto.request.RestCountriesPage;
 import com.planetpulse.api.dto.request.RestCountryDto;
 import com.planetpulse.api.exception.countries.ExternalApiException;
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClient;
 import org.springframework.web.client.RestClientException;
@@ -11,9 +12,10 @@ import org.springframework.web.client.RestClientException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Slf4j
 @Service
 public class RestCountriesService {
+
+    private static final Logger log = LoggerFactory.getLogger(RestCountriesService.class);
 
     private static final String FIELDS =
             "names.common,codes.alpha_2,flag.url_svg,region,subregion,area.kilometers,population";
