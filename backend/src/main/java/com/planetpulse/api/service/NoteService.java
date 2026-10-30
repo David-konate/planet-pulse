@@ -14,6 +14,8 @@ import com.planetpulse.api.repository.NoteRepository;
 import com.planetpulse.api.exception.notes.NoteCountryNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 
@@ -38,18 +40,24 @@ public class NoteService {
     public NoteCreateRequest createNote(NoteCreateRequest request) {
 
 
-        countryRepository.findById(request.getCountryId())
+        countryRepository.findById(request.countryId())
                 .orElseThrow(() -> new NoteCountryNotFoundException(
-                        "Country not found: " + request.getCountryId()
+                        "Country not found: " + request.countryId()
                 ));
 
         //Mapper change data to object Note
         //Convert the request into a Note object
         Note note = mapper.toEntity(request);
         // Set the country ID
-        note.setCountryId(request.getCountryId());
+        note.setCountryId(request.countryId());
         // Set the current date and time
         note.setNoteTimestamp(LocalDateTime.now().withNano(0));
+        // Set a condition : if the user do not enter a date sett the current date
+        note.setNoteDate(
+                request.noteDate() != null
+                        ? request.noteDate()
+                        : LocalDate.now()
+        );
         // Save the note
         Note saved = repository.save(note);
 

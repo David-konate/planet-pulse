@@ -1,6 +1,7 @@
 // this is the representation Java of the note in the DB
 package com.planetpulse.api.entity;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import jakarta.persistence.Column;
@@ -22,6 +23,9 @@ public class Note {
 
     @Column(name = "note_title")
     private String noteTitle;
+
+    @Column(name = "note_date")
+    private LocalDate noteDate;
 
     @Column(name = "note_content")
     private String noteContent;
@@ -55,6 +59,10 @@ public class Note {
     public void setNoteTitle(String noteTitle) {
         this.noteTitle = noteTitle;
     }
+
+    public LocalDate getNoteDate() { return noteDate; }
+
+    public void setNoteDate(LocalDate noteDate) { this.noteDate = noteDate; }
 
 
     public String getNoteContent() {

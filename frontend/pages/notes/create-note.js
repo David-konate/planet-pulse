@@ -1,11 +1,13 @@
 // Import the AppComponents class
 import AppComponents from "../../js/components/lib/AppComponents.js";
+import "../../js/utils/validation.js";
 
 // Define the MonitoringNoteForm component
 class MonitoringNoteForm extends AppComponents {
 
     template() {
         return /*html*/ `
+            
             <main class="container py-4">
                 <h1>Create a Note</h1>
 
