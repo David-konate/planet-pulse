@@ -38,16 +38,16 @@ public class NoteService {
     public NoteCreateRequest createNote(NoteCreateRequest request) {
 
 
-        countryRepository.findById(request.getCountryId())
+        countryRepository.findById(request.countryId())
                 .orElseThrow(() -> new NoteCountryNotFoundException(
-                        "Country not found: " + request.getCountryId()
+                        "Country not found: " + request.countryId()
                 ));
 
         //Mapper change data to object Note
         //Convert the request into a Note object
         Note note = mapper.toEntity(request);
         // Set the country ID
-        note.setCountryId(request.getCountryId());
+        note.setCountryId(request.countryId());
         // Set the current date and time
         note.setNoteTimestamp(LocalDateTime.now().withNano(0));
         // Save the note
