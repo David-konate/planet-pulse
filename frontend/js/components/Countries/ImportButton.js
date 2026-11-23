@@ -7,7 +7,7 @@ class ImportButton extends AppComponent {
 
         return /*html*/`
             <button class="btn btn-primary" type="button"> Import countries </button>
-            <p class="import-message small mb-0" role="status" hidden></p>
+            <p class="import-message small mb-0 fade" role="status"></p>
         `;
     }
 
@@ -25,17 +25,22 @@ class ImportButton extends AppComponent {
         this.button.addEventListener('click', () => this.handleClick());
     }
 
+    // called by the browser when the component is removed from the page
+    disconnectedCallback() {
+        clearTimeout(this.hideTimer);
+    }
+
     async handleClick() {
         const { onImport } = this.props;
         if (!onImport) return;
 
         this.button.disabled = true; // avoid the double click
         this.button.textContent = 'The import is loading...';
-        this.message.hidden = true;
+        this.hideMessage();
 
         try {
             const result = await onImport();  // count, message
-            this.markAsImported(`The import was successful: ${result.count} countries were imported.`);
+            this.markAsImported(`The import was successful: ${result.count} countries were imported.`, 4000);
         } catch (error) {
             console.error(error);
             if (error.status === 409) {
@@ -52,16 +57,38 @@ class ImportButton extends AppComponent {
     }
 
     // it desact the button when the import is a success
-    markAsImported(text){
+    markAsImported(text, autoHideMs = 0){
         this.button.disabled = true;
         this.button.textContent = "Countries imported";
-        this.showMessage(text, 'text-success');
+        this.showMessage(text, 'text-success', autoHideMs);
     }
 
-    showMessage(text, cssClass) {
+    // autoHideMs > 0 : the message disappears after this delay (in milliseconds)
+    // Bootstrap: "fade" = opacity 0 with a transition, "fade show" = opacity 1
+    showMessage(text, cssClass, autoHideMs = 0) {
+        clearTimeout(this.hideTimer); // cancel a previous timer so it doesn't hide the new message
+        this.message.className = `import-message small mb-0 fade ${cssClass}`;
         this.message.textContent = text;
-        this.message.className = `import-message small mb-0 ${cssClass}`;
-        this.message.hidden = false;
+
+        // wait one frame so the browser paints opacity 0 first, otherwise the fade in is skipped
+        requestAnimationFrame(() => this.message.classList.add('show'));
+
+        if (autoHideMs > 0) {
+            this.hideTimer = setTimeout(() => this.hideMessage(), autoHideMs);
+        }
+    }
+
+    // fade out, then empty the text so the paragraph doesn't keep its height
+    hideMessage() {
+        clearTimeout(this.hideTimer);
+        const text = this.message.textContent;
+        this.message.classList.remove('show');
+        this.message.addEventListener('transitionend', () => {
+            // only clear if no new message was shown during the fade out
+            if (!this.message.classList.contains('show') && this.message.textContent === text) {
+                this.message.textContent = '';
+            }
+        }, { once: true });
     }
 }
 
