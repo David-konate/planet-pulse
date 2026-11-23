@@ -86,16 +86,26 @@ h1, h2, h3, h4, h5, h6 {
   --bs-btn-active-bg: var(--color-sky);
   --bs-btn-active-border-color: var(--color-sky);
   --bs-btn-active-color: var(--color-navy);
+  --bs-btn-disabled-opacity: 0.5;
+  --bs-btn-disabled-color: var(--color-white);
 }
 
 .btn-primary {
   --bs-btn-bg: var(--color-blue);
   --bs-btn-border-color: var(--color-blue);
+  --bs-btn-disabled-bg: var(--color-blue);
+  --bs-btn-disabled-border-color: var(--color-blue);
 }
 
 .btn-secondary {
   --bs-btn-bg: var(--color-teal);
   --bs-btn-border-color: var(--color-teal);
+  --bs-btn-disabled-bg: var(--color-teal);
+  --bs-btn-disabled-border-color: var(--color-teal);
+}
+
+.import-btn-wrapper:has(.btn:disabled) {
+  cursor: not-allowed;
 }
 
 /* === CARDS === */
@@ -119,6 +129,3 @@ h1, h2, h3, h4, h5, h6 {
   border-color: var(--color-sky);
   box-shadow: 0 0 0 0.25rem rgba(90, 180, 244, 0.4);
 }
-
-
-
