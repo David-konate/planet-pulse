@@ -6,13 +6,16 @@ class ImportButton extends AppComponent {
     template() {
 
         return /*html*/`
-            <button class="btn btn-primary" type="button"> Import countries </button>
+            <span class="import-btn-wrapper d-inline-block">
+                <button class="btn btn-primary" type="button"> Import countries </button>
+            </span>
             <p class="import-message small mb-0 fade" role="status"></p>
         `;
     }
 
     afterRender() {
         // Get references to the button and message elements
+        this.wrapper = this.querySelector('.import-btn-wrapper');
         this.button = this.querySelector('button');
         this.message = this.querySelector('.import-message');
 
@@ -26,8 +29,10 @@ class ImportButton extends AppComponent {
     }
 
     // called by the browser when the component is removed from the page
+    // prevent the memory leak of the tooltip (it keeps a reference to the button)
     disconnectedCallback() {
         clearTimeout(this.hideTimer);
+        this.tooltip?.dispose();
     }
 
     async handleClick() {
@@ -40,14 +45,14 @@ class ImportButton extends AppComponent {
 
         try {
             const result = await onImport();  // count, message
-            this.markAsImported(`The import was successful: ${result.count} countries were imported.`, 4000);
+            this.markAsImported(`${result.count} countries are already imported.`);
+            this.showMessage(`The import was successful: ${result.count} countries were imported.`, 'text-success', 4000);
         } catch (error) {
             console.error(error);
             if (error.status === 409) {
                 this.markAsImported(error.message);
                 return;
             }
-
 
             const text = error.status ? error.message : 'The server is unreachable';
             this.button.disabled = false;
@@ -57,10 +62,13 @@ class ImportButton extends AppComponent {
     }
 
     // it desact the button when the import is a success
-    markAsImported(text, autoHideMs = 0){
+    markAsImported(tooltipText){
         this.button.disabled = true;
         this.button.textContent = "Countries imported";
-        this.showMessage(text, 'text-success', autoHideMs);
+
+        this.wrapper.tabIndex = 0;
+        this.tooltip = bootstrap.Tooltip.getOrCreateInstance(this.wrapper, { title: tooltipText });
+        this.tooltip.setContent({ '.tooltip-inner': tooltipText }); // update the text if called again
     }
 
     // autoHideMs > 0 : the message disappears after this delay (in milliseconds)
@@ -78,7 +86,6 @@ class ImportButton extends AppComponent {
         }
     }
 
-    // fade out, then empty the text so the paragraph doesn't keep its height
     hideMessage() {
         clearTimeout(this.hideTimer);
         const text = this.message.textContent;
