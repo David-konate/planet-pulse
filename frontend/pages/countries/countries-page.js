@@ -68,7 +68,7 @@ class CountriesPage extends AppComponent {
 
         try {
             const countries = await getCountries();
-            content.innerHTML = '';
+            content.replaceChildren();
             this.attachChild(content, 'country-list', { countries });
         } catch (error) {
             console.error(error);
