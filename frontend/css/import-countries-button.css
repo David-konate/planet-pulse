@@ -1,0 +1,5 @@
+/* frontend/css/import-countries-button.css */
+
+.import-message.fade {
+    transition: opacity .6s ease;
+}
