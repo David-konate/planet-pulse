@@ -19,7 +19,7 @@ class Header extends AppComponent {
                 <ul class="navbar-nav ms-md-auto gap-md-3">
                   <li class="nav-item"><a class="nav-link" href="/frontend/pages/countries/countries-page.html">Countries</a></li>
                   <li class="nav-item"><a class="nav-link" href="/frontend/pages/indicator/add-indicator.html">Indicators</a></li>
-                  <li class="nav-item"><a class="nav-link" href="/frontend/pages/targets/targets-page.html">Targets</a></li>
+                  <!-- <li class="nav-item"><a class="nav-link" href="/frontend/pages/targets/targets-page.html">Targets</a></li> -->
                   <li class="nav-item"><a class="nav-link" href="/frontend/pages/notes/create-note.html">Monitoring note</a></li>
                 </ul>
               </div>

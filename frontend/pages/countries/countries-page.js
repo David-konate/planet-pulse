@@ -30,13 +30,15 @@ class CountriesPage extends AppComponent {
     template() {
         const { error } = this.state;
 
-        return /*html*/`
-            <main class="container py-4">
+        return /*html*/ `
+           <main class="container pt-5 pb-4 pt-md-4">
               <h1 class="h1 text-center mb-4">${MESSAGES.PAGE_TITLE}</h1>
               <div id="import-zone" class="mb-4"></div>
-              ${error
-                ? `<div class="alert alert-danger" role="alert">${error}</div>`
-                : `<div id="countries-content"></div>`}
+              ${
+                error
+                  ? `<div class="alert alert-danger" role="alert">${error}</div>`
+                  : `<div id="countries-content"></div>`
+              }
             </main>
         `;
     }

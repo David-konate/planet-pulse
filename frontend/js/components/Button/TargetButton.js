@@ -1,0 +1,42 @@
+import { slugify } from "../../../utils/slugify.js";
+import AppComponent from "../lib/AppComponents.js";
+
+class TargetButton extends AppComponent {
+  template() {
+    return /*html*/ `
+<button type="button"
+        class="btn btn-light btn-sm py-0 px-1"
+        id="target-button"
+        aria-label="Access targets"
+        title="Access targets">
+    <svg id="svg-target" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 16 16"
+         fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <circle cx="8" cy="8" r="5"/>
+        <line x1="8" y1="1" x2="8" y2="5"/>    <!-- nord -->
+        <line x1="8" y1="11" x2="8" y2="15"/>  <!-- sud -->
+        <line x1="1" y1="8" x2="5" y2="8"/>    <!-- ouest -->
+        <line x1="11" y1="8" x2="15" y2="8"/>  <!-- est -->
+    </svg>
+</button>
+        `;
+  }
+
+  afterRender() {
+    const button = this.querySelector("#target-button");
+
+button.addEventListener("click", (event) => {
+  event.stopPropagation();
+  const countryName = this.getAttribute("country-name");
+  const countryId = this.getAttribute("country-id");
+history.pushState(
+  { countryId, countryName },
+  "",
+  `#/countries/${slugify(countryName)}/targets`,
+);
+window.dispatchEvent(new HashChangeEvent("hashchange"));
+
+});
+  }
+}
+
+customElements.define("target-button", TargetButton);

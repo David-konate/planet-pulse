@@ -13,3 +13,14 @@ export async function createTarget(target) {
   console.log("Target created:", result);
   return result;
 }
+
+export async function getTargetsByCountryId(countryId) {
+  const response = await fetch(`${API_BASE_URL}/targets/country/${countryId}`);
+
+  if (!response.ok) {
+    const body = await response.json().catch(() => null);
+    throw new Error(body?.message ?? "Unexpected error.");
+  }
+
+  return response.json();
+}
