@@ -1,7 +1,7 @@
 // Import the AppComponents class
 import AppComponents from "../../js/components/lib/AppComponents.js";
 import "../../js/utils/validation.js";
-import { createNote } from "../../services/notes-services.js";
+import { createNote } from "../../services/note-services.js";
 
 // Convert MM-DD-YYYY into YYYY-MM-DD for Java
 function convertDate(date) {
@@ -146,9 +146,9 @@ class MonitoringNoteForm extends AppComponents {
             //console.log("Form submitted:", noteData);
 
             try {
-                const createNote = await createNote(noteData);
-                console.log("Note created successfully:", createNote);
-                
+                const createdNote = await createNote(noteData);
+                console.log("Note created successfully:", createdNote);
+
             } catch (error) {
                 console.log("Error creating note:", error);
                 
