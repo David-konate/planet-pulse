@@ -1,5 +1,3 @@
--- delete the tables
-DROP TABLE IF EXISTS t_indicators;
 
 --create table t_indicators
 CREATE TABLE t_indicators
