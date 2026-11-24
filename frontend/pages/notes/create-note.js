@@ -1,6 +1,13 @@
 // Import the AppComponents class
 import AppComponents from "../../js/components/lib/AppComponents.js";
 import "../../js/utils/validation.js";
+import { createNote } from "../../services/notes-services.js";
+
+// Convert MM-DD-YYYY into YYYY-MM-DD for Java
+function convertDate(date) {
+    const [month, day, year] = date.split("-");
+    return `${year}-${month}-${day}`;
+}
 
 // Define the MonitoringNoteForm component
 class MonitoringNoteForm extends AppComponents {
@@ -107,7 +114,7 @@ class MonitoringNoteForm extends AppComponents {
         });
 
         // Handle form submission
-        form.addEventListener("submit", (event) => {
+        form.addEventListener("submit", async (event) => {
 
             // Prevent the default page reload
             event.preventDefault();
@@ -130,12 +137,22 @@ class MonitoringNoteForm extends AppComponents {
 
             // Create an object containing the note data
             const noteData = {
-                title_input: formData.get("note_title"),
-                date_input: date,
-                content_input: formData.get("note_content"),
+                countryId: 1,
+                noteTitle: formData.get("note_title"),
+                noteDate: convertDate(date),
+                noteContent: formData.get("note_content"),
             };
 
-            console.log("Form submitted:", noteData);
+            //console.log("Form submitted:", noteData);
+
+            try {
+                const createNote = await createNote(noteData);
+                console.log("Note created successfully:", createNote);
+                
+            } catch (error) {
+                console.log("Error creating note:", error);
+                
+            }
         });
     }
 }
