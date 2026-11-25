@@ -1,5 +1,5 @@
 package com.planetpulse.api.dto.response;
 
-public record CountryListResponse(Integer id, String countryName, String flagUrl, String region) {
+public record CountryListResponse(String iso, String countryName, String flagUrl, String region) {
     //
 }
