@@ -4,10 +4,10 @@ import { escapeHtml, safeUrl } from '../../../utils/sanitize.js';
 class CountryItem extends AppComponent {
 
     template() {
-        const { id, countryName, flagUrl, region } = this.props;
+        const { iso, countryName, flagUrl, region } = this.props;
 
         return /*html*/`
-            <a href="../indicator/country-indicators.html?country=${escapeHtml(String(id))}" class="card h-100 text-center text-decoration-none p-3" data-id="${escapeHtml(String(id))}">
+            <a href="/countries/${escapeHtml(iso)}" class="card h-100 text-center text-decoration-none p-3" data-iso="${escapeHtml(iso)}">
               <img src="${escapeHtml(safeUrl(flagUrl))}" alt="" class="country-flag" loading="lazy">
               <div class="card-body p-0 pt-3">
                 <h2 class="card-title h6 mb-1">${escapeHtml(countryName)}</h2>
