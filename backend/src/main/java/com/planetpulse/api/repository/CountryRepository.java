@@ -11,7 +11,7 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
 
     @Query("""
         SELECT new com.planetpulse.api.dto.response.CountryListResponse(
-            c.idCountry, c.countryName, c.flagUrl, r.region)
+            c.iso, c.countryName, c.flagUrl, r.region)
         FROM Country c
         JOIN c.subregion s
         JOIN s.region r
