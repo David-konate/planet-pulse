@@ -31,4 +31,9 @@ public class IndicatorController {
         IndicatorDto indicator = indicatorService.addIndicator(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(indicator);
     }
+
+    @GetMapping
+    public List<IndicatorDto> getByCountry(@RequestParam Integer countryId) {
+        return indicatorService.getIndicatorsByCountry(countryId);
+    }
 }

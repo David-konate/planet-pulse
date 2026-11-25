@@ -8,6 +8,8 @@ import com.planetpulse.api.entity.Indicator;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface IndicatorMapper {
 
@@ -18,4 +20,6 @@ public interface IndicatorMapper {
     // entity -> dto: the country id is taken inside the country object
     @Mapping(target = "countryId", source = "country.idCountry")
     IndicatorDto toDto(Indicator indicator);
+
+    List<IndicatorDto> toDtos(List<Indicator> indicators);
 }

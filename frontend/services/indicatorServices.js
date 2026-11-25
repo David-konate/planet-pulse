@@ -26,6 +26,22 @@ export async function addIndicator(data) {
     return response.json();
 }
 
+export async function getIndicatorsByCountry(countryId) {
+    let response;
+    try {
+        response = await fetch(`${API_URL}?countryId=${countryId}`);
+    } catch {
+        throw new Error('The server is not reachable. Please try again later.');
+    }
+
+    if (!response.ok) {
+        const body = await response.json().catch(() => ({}));
+        throw new Error(body.message || 'The indicators could not be loaded. Please try again.');
+    }
+
+    return response.json();
+}
+
 // Gets the list of indicators (field name, label, unit, maximum) to build the form.
 export async function getIndicatorTypes() {
     let response;
