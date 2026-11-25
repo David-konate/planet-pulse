@@ -29,6 +29,7 @@ class TargetForm extends AppComponent {
                      step="0.01" placeholder="Total CO2 emissions">
               <span class="input-group-text">t</span>
             </div>
+            
           </div>
 
           <div class="mb-3">
