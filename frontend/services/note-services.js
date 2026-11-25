@@ -25,4 +25,3 @@ export async function createNote(noteData) {
     // convert the JSON response into a JS object
     return response.json();
 }
-c
