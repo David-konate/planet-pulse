@@ -8,15 +8,9 @@ class TargetForm extends AppComponent {
     this.feedback = null;
     this.errorDiv = null;
     this.submitBtn = null;
-
-    const year = this.getAttribute("target-year");
-    this.isEdit = year !== null;
-    this.editYear = year;
   }
 
   template() {
-    const year = history.state?.targetYear;
-
     return /*html*/ `
       <div class="form-field" id="form-content">
         <div id="form-feedback"></div>
@@ -24,17 +18,15 @@ class TargetForm extends AppComponent {
         <form id="target-form">
           <div class="mb-3">
             <label for="target-year" class="form-label">Target year</label>
-          <input id="target-year" name="target_year" type="number"
-            class="form-control ${this.isEdit ? "bg-body-secondary" : ""}"
-            step="1" placeholder="Enter target year (YYYY)" required
-            ${this.isEdit ? `value="${this.editYear}" readonly` : ""}>
+            <input id="target-year" name="target_year" type="number" class="form-control"
+                   step="1" placeholder="Enter target year (YYYY)" required>
           </div>
 
           <div class="mb-3">
             <label for="co2-emissions" class="form-label">CO2 emissions</label>
             <div class="input-group">
               <input id="co2-emissions" name="co2_emissions" type="number" class="form-control"
-                     step="2" placeholder="Total CO2 emissions">
+                     step="0.01" placeholder="Total CO2 emissions">
               <span class="input-group-text">t</span>
             </div>
           </div>
@@ -43,7 +35,7 @@ class TargetForm extends AppComponent {
             <label for="pm25-emissions" class="form-label">PM2.5 emissions</label>
             <div class="input-group">
               <input id="pm25-emissions" name="pm25_emissions" type="number" class="form-control"
-                     step="3" placeholder="Total fine particulate matter">
+                     step="0.01" placeholder="Total fine particulate matter">
               <span class="input-group-text">µg/m³</span>
             </div>
           </div>
@@ -52,7 +44,7 @@ class TargetForm extends AppComponent {
             <label for="forest-area" class="form-label">Forest area</label>
             <div class="input-group">
               <input id="forest-area" name="forest_area" type="number" class="form-control"
-                     step="4" placeholder="Share of total land area">
+                     step="0.01" placeholder="Share of total land area">
               <span class="input-group-text">%</span>
             </div>
           </div>
@@ -61,7 +53,7 @@ class TargetForm extends AppComponent {
             <label for="renewable-energy-share" class="form-label">Share of renewable energy</label>
             <div class="input-group">
               <input id="renewable-energy-share" name="renewable_energy_share" type="number" class="form-control"
-                     step="6" placeholder="Share of total energy consumption">
+                     step="0.01" placeholder="Share of total energy consumption">
               <span class="input-group-text">%</span>
             </div>
           </div>
@@ -70,9 +62,8 @@ class TargetForm extends AppComponent {
             Provide information for at least one of the four indicators.
           </div>
 
-<button id="change-target-btn" type="submit" class="btn btn-primary">
-  ${this.isEdit ? "Update target" : "Save target"}
-</button>        </form>
+          <button id="change-target-btn" type="submit" class="btn btn-primary">Save target</button>
+        </form>
       </div>
     `;
   }
@@ -85,12 +76,11 @@ class TargetForm extends AppComponent {
 
     // Validation constraints for the input fields
     const yearInput = this.querySelector("#target-year");
-    if (!this.isEdit) {
-      yearInput.min = new Date().getFullYear();
-      setRangeMessages(yearInput, {
-        underflow: `The target year must be ${yearInput.min} or later.`,
-      });
-    }
+    yearInput.min = new Date().getFullYear();
+    setRangeMessages(yearInput, {
+      underflow: `The target year must be ${yearInput.min} or later.`,
+    });
+
     const co2Input = this.querySelector("#co2-emissions");
     co2Input.min = 0.01;
     setRangeMessages(co2Input, {
@@ -112,8 +102,6 @@ class TargetForm extends AppComponent {
         overflow: "The value cannot exceed 100 %.",
       });
     }
-
-    this.applyTarget();
 
     this.form.addEventListener("submit", (event) => {
       event.preventDefault();
@@ -146,32 +134,11 @@ class TargetForm extends AppComponent {
 
       this.submitBtn.disabled = true;
       this.dispatchEvent(
-        new CustomEvent("target-submit", {
-          detail: { ...data, isEdit: this.isEdit },
-          bubbles: true,
-        }),
+        new CustomEvent("target-submit", { detail: data, bubbles: true }),
       );
     });
   }
 
-  //  appel par la page parente
-
-  fill(target) {
-    this.pendingTarget = target; // on la garde en mémoire
-    this.applyTarget(); // on essaie tout de suite
-  }
-
-  applyTarget() {
-    const target = this.pendingTarget;
-    const co2 = this.querySelector("#co2-emissions");
-    if (!target || !co2) return; // formulaire pas encore prêt : on attend
-
-    co2.value = target.co2Emissions ?? "";
-    this.querySelector("#pm25-emissions").value = target.pm25Emissions ?? "";
-    this.querySelector("#forest-area").value = target.forestArea ?? "";
-    this.querySelector("#renewable-energy-share").value =
-      target.renewableEnergyShare ?? "";
-  }
 
   showError(message = "Unable to save the target. Please try again.") {
     this.feedback.innerHTML = /*html*/ `
@@ -188,8 +155,5 @@ class TargetForm extends AppComponent {
     this.feedback.innerHTML = "";
   }
 }
-
-
-
 
 customElements.define("target-form", TargetForm);

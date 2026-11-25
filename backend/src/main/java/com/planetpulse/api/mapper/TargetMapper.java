@@ -11,4 +11,6 @@ public interface TargetMapper {
     @Mapping(target = "idTarget", ignore = true)
     Targets toEntity(TargetCreateRequest request);
 
+    @Mapping(target = "countryName", source = "countryName")
+    TargetByIdCountryResponse toByCountryResponse(Targets target, String countryName);
 }

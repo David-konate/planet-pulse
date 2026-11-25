@@ -24,3 +24,4 @@ export async function getTargetsByCountryId(countryId) {
 
   return response.json();
 }
+

@@ -29,10 +29,8 @@ class AddTargetsPage extends AppComponent {
 
     if (countryId && countryName) {
       this.country = { id: Number(countryId), name: countryName };
-      titleElement.textContent = `Add Target for ${countryName}`;
-    } else {
-      titleElement.textContent = "Add Target";
     }
+    titleElement.textContent = `Add Target for ${countryName ?? ""}`;
 
     targetForm.addEventListener("target-submit", async (event) => {
       if (!this.country) {
@@ -43,25 +41,25 @@ class AddTargetsPage extends AppComponent {
         return;
       }
 
-      const targetData = {
-        countryId: this.country.id,
-        ...event.detail,
-      };
+      // isEdit est ajouté par TargetForm : on l'écarte pour ne pas l'envoyer à l'API
+      const { isEdit, ...data } = event.detail;
 
       try {
-        await createTarget(targetData);
-        feedback.replaceChildren(
-          new SuccessMessage("Target saved successfully."),
-        );
-        targetForm.reset();
+        await createTarget({ countryId: this.country.id, ...data });
       } catch (error) {
         console.error(error);
         feedback.replaceChildren(
           new ErrorMessage("Failed to save the target. Please try again."),
         );
-      } finally {
         targetForm.setBusy(false);
+        return;
       }
+
+      feedback.replaceChildren(
+        new SuccessMessage("Target saved successfully."),
+      );
+      targetForm.reset();
+      targetForm.setBusy(false);
     });
   }
 }

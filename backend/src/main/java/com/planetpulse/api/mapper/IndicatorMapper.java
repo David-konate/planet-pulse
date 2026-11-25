@@ -12,7 +12,7 @@ import org.mapstruct.Mapping;
 public interface IndicatorMapper {
 
     @Mapping(target = "idIndicator", ignore = true)
-    @Mapping(target = "country", source = "country")
+    @Mapping(target = "country", expression = "java(country)")
     Indicator toEntity(IndicatorCreateRequest request, Country country);
 
     // entity -> dto: the country id is taken inside the country object

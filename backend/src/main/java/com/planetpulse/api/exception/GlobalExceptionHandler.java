@@ -13,6 +13,7 @@ import com.planetpulse.api.exception.targets.TargetExistsException;
 import com.planetpulse.api.exception.notes.NoteCountryNotFoundException;
 
 
+import com.planetpulse.api.exception.targets.TargetNotFoundException;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +40,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<Map<String, Object>> handleNotTargetRecording(NotTargetRecordingException ex) {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST)   // 400
                 .body(Map.of("status", 400, "message", ex.getMessage()));
+    }
+
+    @ExceptionHandler(TargetNotFoundException.class)
+    public ResponseEntity<Map<String, Object>> handleTargetNotFound(TargetNotFoundException ex) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND)   // 404
+                .body(Map.of("status", 404, "message", ex.getMessage()));
     }
 
 
