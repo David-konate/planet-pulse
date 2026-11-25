@@ -13,6 +13,7 @@ import com.planetpulse.api.mapper.IndicatorMapper;
 import com.planetpulse.api.repository.CountryRepository;
 import com.planetpulse.api.repository.IndicatorRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Arrays;
 import java.util.List;
@@ -30,6 +31,7 @@ public class IndicatorService {
         this.indicatorMapper = indicatorMapper;
     }
 
+    @Transactional
     public IndicatorDto addIndicator(IndicatorCreateRequest request) {
 
         // RULE: The year must not be in the future
@@ -50,6 +52,17 @@ public class IndicatorService {
         Indicator indicator = indicatorMapper.toEntity(request, country);
         Indicator saved = indicatorRepository.save(indicator);
         return indicatorMapper.toDto(saved);
+    }
+
+    @Transactional
+    public List<IndicatorDto> getIndicatorsByCountry(Integer countryId) {
+        // Rule: the country must exist
+        if (!countryRepository.existsById(countryId)) {
+            throw new CountryNotFoundException(countryId);
+        }
+        List<Indicator> indicators =
+                indicatorRepository.findByCountryIdCountryOrderByYearIndicatorDesc(countryId);
+        return indicatorMapper.toDtos(indicators);
     }
 
     // The list of indicators used to build the form

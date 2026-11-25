@@ -49,12 +49,31 @@ class CountriesPage extends AppComponent {
         this.attachChild(this.querySelector('#import-zone'), 'import-button', {
             imported: importStatus.imported,
             importedCount: importStatus.count,
-            onImport: importCountries,
+            onImport: () => this.handleImport(),
         });
 
         const content = this.querySelector('#countries-content');
         if (content) {
             this.attachChild(content, 'country-list', { countries: this.state.countries });
+        }
+    }
+    //Import the countries and update the state
+    async handleImport() {
+        const result = await importCountries();
+        await this.refreshCountries();
+        return result;
+    }
+    //Reload the countries from the backend and display them again
+    async refreshCountries() {
+        const content = this.querySelector('#countries-content');
+        if (!content) return;
+
+        try {
+            const countries = await getCountries();
+            content.replaceChildren();
+            this.attachChild(content, 'country-list', { countries });
+        } catch (error) {
+            console.error(error);
         }
     }
 }

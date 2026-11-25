@@ -7,6 +7,7 @@ class CountryItem extends AppComponent {
     const { id, countryName, flagUrl, region } = this.props;
     const safeId = escapeHtml(String(id));
 
+<<<<<<< HEAD
     return /*html*/ `
         <div class="card h-100 text-center p-3 position-relative" data-id="${safeId}">
           <img src="${escapeHtml(safeUrl(flagUrl))}" alt="" class="country-flag" loading="lazy">
@@ -27,6 +28,21 @@ class CountryItem extends AppComponent {
         </div>
     `;
   }
+=======
+    template() {
+        const { id, countryName, flagUrl, region } = this.props;
+
+        return /*html*/`
+            <a href="../indicator/country-indicators.html?country=${escapeHtml(String(id))}" class="card h-100 text-center text-decoration-none p-3" data-id="${escapeHtml(String(id))}">
+              <img src="${escapeHtml(safeUrl(flagUrl))}" alt="" class="country-flag" loading="lazy">
+              <div class="card-body p-0 pt-3">
+                <h2 class="card-title h6 mb-1">${escapeHtml(countryName)}</h2>
+                <p class="card-text small mb-0">${escapeHtml(region)}</p>
+              </div>
+            </a>
+        `;
+    }
+>>>>>>> origin/develop
 }
 
 customElements.define('country-item', CountryItem);

@@ -2,6 +2,10 @@
 @import url('styles.css');
 @import url('../js/components/Header/AppHeader.css');
 @import url('./countries-items.css');
+<<<<<<< HEAD
 @import url('./targets-list.css');
 @import url('./button/button-target.css');
 @import url('./button/button-edit-target.css');
+=======
+@import url('./import-countries-button.css');
+>>>>>>> origin/develop
