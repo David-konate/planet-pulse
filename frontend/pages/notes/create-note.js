@@ -123,9 +123,6 @@ class MonitoringNoteForm extends AppComponents {
             // Prevent the default page reload
             event.preventDefault();
 
-            // Clear any previous message
-            this.#clearMessage();
-
             // Retrieve form data
             const formData = new FormData(form);
 
@@ -165,7 +162,9 @@ class MonitoringNoteForm extends AppComponents {
 
             } catch (error) {
                 // Display a user-friendly error message
-                const message = error.message === "Failed to fetch"
+
+
+                const message = error instanceof TypeError
                     ? "Unable to connect to the server. Please try again later."
                     : error.message;
 
@@ -181,23 +180,7 @@ class MonitoringNoteForm extends AppComponents {
         });
     }
 
-    // Display a Bootstrap alert message
-    #showMessage(text, type) {
-        const box = this.querySelector("#message");
 
-        // Add the Bootstrap alert classes
-        box.className = `alert alert-${type}`;
-
-        // Display the message safely as text
-        box.textContent = text;
-    }
-
-    // Clear the Bootstrap alert message
-    #clearMessage() {
-        const box = this.querySelector("#message");
-        box.className = "";
-        box.textContent = "";
-    }
 }
 
 // Register the custom HTML element
