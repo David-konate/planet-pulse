@@ -5,14 +5,26 @@ import { createNote } from "../../../services/note-services.js";
 import { ErrorMessage } from "../messages/ErrorMessage.js";
 import { SuccessMessage } from "../messages/SuccessMessage.js";
 
+
+
 // Convert MM-DD-YYYY into YYYY-MM-DD for Java
 function convertDate(date) {
     const [month, day, year] = date.split("-");
     return `${year}-${month}-${day}`;
 }
 
+
+
+
 // Define the NoteForm component
 class NoteForm extends AppComponent {
+
+    beforeRender() {
+        const iso = new URLSearchParams(window.location.search).get("iso");
+        this.state{}
+        
+    };
+
 
     template() {
         return /*html*/ `
@@ -140,7 +152,7 @@ class NoteForm extends AppComponent {
 
             // Create an object containing the note data
             const noteData = {
-                countryId: 1,
+                countryIso: "FR",
                 noteTitle: formData.get("note_title"),
                 noteDate: convertDate(date),
                 noteContent: formData.get("note_content"),
