@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CountryRepository extends JpaRepository<Country, Integer> {
 
@@ -17,7 +18,6 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
         JOIN s.region r
         ORDER BY c.countryName
         """)
-
     Optional<Country> findByIso(String iso);
     List<CountryListResponse> findAllForList();
 }

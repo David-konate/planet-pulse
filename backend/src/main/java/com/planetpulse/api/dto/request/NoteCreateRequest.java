@@ -32,5 +32,6 @@ public record NoteCreateRequest(
         String noteContent
 
 ) {
-    //
+        //public Integer getIdCountry() {
+
 }

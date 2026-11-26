@@ -7,6 +7,7 @@
 package com.planetpulse.api.service;
 
 import com.planetpulse.api.dto.request.NoteCreateRequest;
+import com.planetpulse.api.entity.Country;
 import com.planetpulse.api.entity.Note;
 import com.planetpulse.api.mapper.NoteMapper;
 import com.planetpulse.api.repository.CountryRepository;
@@ -18,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-
+// Facade server that goes in the back
 @Service
 @Transactional(readOnly = true)
 public class NoteService {
@@ -39,20 +40,18 @@ public class NoteService {
     @Transactional
     public NoteCreateRequest createNote(NoteCreateRequest request) {
 
-
-        countryRepository.findById(request.countryId())
-                .orElseThrow(() -> new NoteCountryNotFoundException(
-                        "Country not found: " + request.countryId()
-                ));
+        String iso = request.countryIso().toUpperCase();
+        Country country = countryRepository.findByIso(iso)
+                .orElseThrow(() -> new NoteCountryNotFoundException("Country not found: " + iso));
 
         //Mapper change data to object Note
         //Convert the request into a Note object
         Note note = mapper.toEntity(request);
         // Set the country ID
-        note.setCountryId(request.countryId());
+        note.setCountryId(country.getIdCountry());
         // Set the current date and time
         note.setNoteTimestamp(LocalDateTime.now().withNano(0));
-        // Set a condition : if the user do not enter a date sett the current date
+        // Set a condition : if the user do not enter a date set the current date
         note.setNoteDate(
                 request.noteDate() != null
                         ? request.noteDate()
@@ -64,7 +63,7 @@ public class NoteService {
         System.out.println("Note created: timestamp="
                 + saved.getNoteTimestamp()
                 + ", country="
-                + saved.getCountryId());
+                + iso);
 
         // to change with method to saved when a dto of response
         return request;
