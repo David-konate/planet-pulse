@@ -18,6 +18,8 @@ class MonitoringNoteForm extends AppComponents {
             <main class="container py-4">
                 <h1>Create a Note</h1>
 
+                <div id="message"></div>
+
                 <div class="form-field" id="form-content">
                     <form id="note-form">
 
@@ -146,14 +148,34 @@ class MonitoringNoteForm extends AppComponents {
             //console.log("Form submitted:", noteData);
 
             try {
-                const createdNote = await createNote(noteData);
-                console.log("Note created successfully:", createdNote);
+    // Send the note to the backend
+    const createdNote = await createNote(noteData);
 
-            } catch (error) {
-                console.log("Error creating note:", error);
-                
-            }
+    // Display a success message
+    this.#showMessage("Note created successfully!", "success");
+
+    console.log("Note created successfully:", createdNote);
+
+} catch (error) {
+    // Display an error message
+    this.#showMessage(error.message, "danger");
+
+    console.log("Error creating note:", error);
+}
+  
+
         });
+    }
+
+    // Display a Bootstrap alert message
+    #showMessage(text, type) {
+        const box = this.querySelector("#message");
+
+        // Add the Bootstrap alert classes
+        box.className = `alert alert-${type}`;
+
+        // Display the message safely as text
+        box.textContent = text;
     }
 }
 
