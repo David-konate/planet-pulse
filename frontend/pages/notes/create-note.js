@@ -2,6 +2,8 @@
 import AppComponents from "../../js/components/lib/AppComponents.js";
 import "../../js/utils/validation.js";
 import { createNote } from "../../services/note-services.js";
+import { ErrorMessage } from "../../js/components/messages/ErrorMessage.js";
+import { SuccessMessage } from "../../js/components/messages/SuccessMessage.js";
 
 // Convert MM-DD-YYYY into YYYY-MM-DD for Java
 function convertDate(date) {
@@ -121,6 +123,9 @@ class MonitoringNoteForm extends AppComponents {
             // Prevent the default page reload
             event.preventDefault();
 
+            // Clear any previous message
+            this.#clearMessage();
+
             // Retrieve form data
             const formData = new FormData(form);
 
@@ -148,21 +153,30 @@ class MonitoringNoteForm extends AppComponents {
             //console.log("Form submitted:", noteData);
 
             try {
-    // Send the note to the backend
-    const createdNote = await createNote(noteData);
+                // Send the note to the backend
+                const createdNote = await createNote(noteData);
 
-    // Display a success message
-    this.#showMessage("Note created successfully!", "success");
+                // Display a success alert
+                this.querySelector("#message").replaceChildren(
+                    SuccessMessage("Note created successfully!")
+                );
 
-    console.log("Note created successfully:", createdNote);
+                console.log("Note created successfully:", createdNote);
 
-} catch (error) {
-    // Display an error message
-    this.#showMessage(error.message, "danger");
+            } catch (error) {
+                // Display a user-friendly error message
+                const message = error.message === "Failed to fetch"
+                    ? "Unable to connect to the server. Please try again later."
+                    : error.message;
 
-    console.log("Error creating note:", error);
-}
-  
+                // Display an error alert
+                this.querySelector("#message").replaceChildren(
+                    ErrorMessage(message)
+                );
+
+                console.log("Error creating note:", error);
+            }
+
 
         });
     }
@@ -176,6 +190,13 @@ class MonitoringNoteForm extends AppComponents {
 
         // Display the message safely as text
         box.textContent = text;
+    }
+
+    // Clear the Bootstrap alert message
+    #clearMessage() {
+        const box = this.querySelector("#message");
+        box.className = "";
+        box.textContent = "";
     }
 }
 
