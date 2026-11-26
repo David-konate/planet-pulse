@@ -70,7 +70,7 @@ public class CountryImportService {
             Subregion subregion = subregions.computeIfAbsent(dto.subregion(), name ->
                     subregionRepository.findBySubregionIgnoreCase(name).orElseGet(() ->
                             subregionRepository.save(new Subregion(name, region))));
-            
+
             //The subregion name is unique in the database.
             // if one subregion > one region is false: then it stop and the transaction rollback.
             //Prevent the API to attach the subregion to another region.
