@@ -1,12 +1,12 @@
 // frontend/js/router.js
 const routes = [
   {
-    pattern: /^#\/countries\/([a-z0-9-]+)\/targets$/,
+    pattern: /^#\/countries\/([a-z]{2})\/targets$/i,
     load: () => import("../pages/countries/country-targets/targets-page.js"),
     tag: "targets-page",
   },
   {
-    pattern: /^#\/countries\/(\d+)$/,
+    pattern: /^#\/countries\/([a-z]{2})$/i,
     load: () => import("../pages/countries/country-targets/targets-page.js"),
     tag: "country-page",
   },
@@ -16,16 +16,16 @@ const routes = [
     tag: "countries-page",
   },
 
-  {
-    pattern: /^#\/targets\/([a-z0-9-]+)\/add-targets$/,
-    load: () => import("../pages/targets/add-targets/add-targets-page.js"),
-    tag: "add-targets-page",
-  },
-  {
-    pattern: /^#\/targets\/([a-z0-9-]+)\/edit-targets$/,
-    load: () => import("../pages/targets/edit-targets/edit-targets-page.js"),
-    tag: "edit-targets-page",
-  },
+{
+  pattern: /^#\/targets\/([a-z]{2})\/add-targets$/,
+  load: () => import("../pages/targets/add-targets/add-targets-page.js"),
+  tag: "add-targets-page",
+},
+{
+  pattern: /^#\/targets\/([a-z]{2})\/edit-targets$/,
+  load: () => import("../pages/targets/edit-targets/edit-targets-page.js"),
+  tag: "edit-targets-page",
+},
 ];
 
 const DEFAULT_ROUTE = "#/countries";

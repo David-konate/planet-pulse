@@ -7,7 +7,7 @@ import java.math.BigDecimal;
 
 public record TargetResponse(
         Integer idTarget,
-        Integer countryId,
+        String countryIso,
         Integer targetYear,
         BigDecimal co2Emissions,
         BigDecimal pm25Emissions,
@@ -17,7 +17,7 @@ public record TargetResponse(
     public static TargetResponse from(Targets target) {
         return new TargetResponse(
                 target.getIdTarget(),
-                target.getCountryId(),
+                target.getCountryIso(),
                 target.getTargetYear(),
                 target.getCo2Emissions(),
                 target.getPm25Emissions(),

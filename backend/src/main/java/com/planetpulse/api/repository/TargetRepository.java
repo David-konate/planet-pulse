@@ -5,13 +5,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface TargetRepository extends JpaRepository<Targets, Integer> {
 
-    boolean existsByCountryIdAndTargetYear(Integer countryId, Integer targetYear);
+    boolean existsByCountryIsoAndTargetYear(String countryIso, Integer targetYear);
 
-    List<Targets> findByCountryIdOrderByTargetYear(Integer countryId);
-
+    List<Targets> findByCountryIsoOrderByTargetYear(String countryIso);
 }

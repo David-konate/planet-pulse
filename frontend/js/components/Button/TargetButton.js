@@ -26,15 +26,15 @@ class TargetButton extends AppComponent {
       event.preventDefault();
       event.stopPropagation();
 
-      const countryId = this.getAttribute("country-id");
+      const countryIso = this.getAttribute("country-iso");
       const countryName = this.getAttribute("country-name");
-      console.log("target-button: click", { countryId, countryName });
-      if (!countryId || !countryName) {
-        console.error("target-button: missing country-id or country-name");
+      console.log("target-button: click", { countryIso, countryName });
+      if (!countryIso || !countryName) {
+        console.error("target-button: missing country-iso or country-name");
         return;
       }
 
-      goToTargets({ countryId, countryName });
+      goToTargets({ countryIso, countryName });
     });
   }
 }

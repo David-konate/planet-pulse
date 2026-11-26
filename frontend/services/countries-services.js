@@ -21,7 +21,6 @@ export async function importCountries() {
     const response = await fetch(`${API_BASE_URL}/countries/import`, {
         method: 'POST',
     });
-
     if (!response.ok) {
         let message = `Import failed (${response.status})`;
         try {

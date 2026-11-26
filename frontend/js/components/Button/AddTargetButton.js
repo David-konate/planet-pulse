@@ -17,12 +17,13 @@ class AddTargetButton extends AppComponent {
    button.addEventListener("click", (event) => {
      event.stopPropagation();
      const countryName = this.getAttribute("country-name");
-     const countryId = this.getAttribute("country-id");
-     console.log({ countryId, countryName });
+     console.log("add-target-button: click", { countryName });
+     const countryIso = this.getAttribute("country-iso");
+     console.log({ countryIso, countryName });
      history.pushState(
-       { countryId, countryName },
+       { countryIso, countryName },
        "",
-       `#/targets/${slugify(countryName)}/add-targets`,
+       `#/targets/${slugify(countryIso)}/add-targets`,
      );
      window.dispatchEvent(new HashChangeEvent("hashchange"));
    });

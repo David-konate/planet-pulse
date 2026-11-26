@@ -4,6 +4,9 @@ package com.planetpulse.api.entity;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -18,8 +21,9 @@ public class Note {
     @Column(name = "note_timestamp", nullable = false)
     private LocalDateTime noteTimestamp;
 
-    @Column(name = "id_country")
-    private Integer countryId;
+    @Column(name = "iso_country", length = 2, nullable = false)
+    @JdbcTypeCode(SqlTypes.CHAR)
+    private String countryIso;
 
     @Column(name = "note_title")
     private String noteTitle;
@@ -43,12 +47,12 @@ public class Note {
     }
 
 
-    public Integer getCountryId() {
-        return countryId;
+    public String getCountryId() {
+        return countryIso;
     }
 
-    public void setCountryId(Integer countryId) {
-        this.countryId = countryId;
+    public void setCountryId(String countryIso) {
+        this.countryIso = countryIso;
     }
 
 

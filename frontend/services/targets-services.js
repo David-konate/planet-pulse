@@ -1,6 +1,7 @@
 import { API_BASE_URL } from "../config.js";
 
 export async function createTarget(target) {
+  console.log("Creating target:", target);
   const response = await fetch(`${API_BASE_URL}/targets`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -14,8 +15,8 @@ export async function createTarget(target) {
   return result;
 }
 
-export async function getTargetsByCountryId(countryId) {
-  const response = await fetch(`${API_BASE_URL}/targets/country/${countryId}`);
+export async function getTargetsBycountryIso(countryIso) {
+  const response = await fetch(`${API_BASE_URL}/targets/country/${countryIso}`);
 
   if (!response.ok) {
     const body = await response.json().catch(() => null);

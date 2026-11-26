@@ -4,6 +4,7 @@ import com.planetpulse.api.dto.request.TargetCreateRequest;
 import com.planetpulse.api.dto.response.TargetByIdCountryResponse;
 import com.planetpulse.api.service.TargetService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Positive;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +32,10 @@ public class TargetController {
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
     }
 
-    @GetMapping("/country/{countryId}")
-    public ResponseEntity<List<TargetByIdCountryResponse>> getByCountryId(
-            @PathVariable @Positive Integer countryId) {
-        return ResponseEntity.ok(service.getTargetsByCountryId(countryId));
+    @GetMapping("/country/{countryIso}")
+    public ResponseEntity<List<TargetByIdCountryResponse>> getByCountryIso(
+            @PathVariable @Pattern (regexp = "^[A-Za-z]{2}$") String countryIso) {
+        return ResponseEntity.ok(service.getTargetsByCountryIso(countryIso.toUpperCase()));
     }
 
 

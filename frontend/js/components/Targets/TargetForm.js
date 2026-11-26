@@ -110,6 +110,7 @@ class TargetForm extends AppComponent {
 
       const formData = new FormData(this.form);
       const data = {
+        countryIso: this.countryIso,
         targetYear: emptyToNull(formData.get("target_year")),
         co2Emissions: emptyToNull(formData.get("co2_emissions")),
         pm25Emissions: emptyToNull(formData.get("pm25_emissions")),
@@ -119,7 +120,7 @@ class TargetForm extends AppComponent {
         ),
       };
 
-      const { co2Emissions, pm25Emissions, forestArea, renewableEnergyShare } =
+      const { countryIso,co2Emissions, pm25Emissions, forestArea, renewableEnergyShare } =
         data;
 
       if (

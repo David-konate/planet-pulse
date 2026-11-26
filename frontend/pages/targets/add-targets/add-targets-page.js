@@ -22,30 +22,32 @@ class AddTargetsPage extends AppComponent {
   }
 
   afterRender() {
-    const { countryId, countryName } = history.state ?? {};
+    const iso = this.dataset.param ?? "";
     const titleElement = this.querySelector("#page-title");
     const feedback = this.querySelector("#page-feedback");
     const targetForm = this.querySelector("target-form");
 
-    if (countryId && countryName) {
-      this.country = { id: Number(countryId), name: countryName };
+    // the URL is the source of truth; history.state is only used for display
+    if (!/^[A-Za-z]{2}$/.test(iso)) {
+      feedback.replaceChildren(new ErrorMessage("Invalid country."));
+      return;
     }
-    titleElement.textContent = `Add Target for ${countryName ?? ""}`;
+
+    const countryIso = iso.toUpperCase(); // the DB enforces ^[A-Z]{2}$
+    console.log("Adding target for country:", countryIso);
+    const countryName = history.state?.countryName ?? countryIso;
+    this.country = { iso: countryIso, name: countryName };
+
+    titleElement.textContent = `Add Target for ${countryName}`;
 
     targetForm.addEventListener("target-submit", async (event) => {
-      if (!this.country) {
-        feedback.replaceChildren(
-          new ErrorMessage("No country loaded. Please reload the page."),
-        );
-        targetForm.setBusy(false);
-        return;
-      }
-
-      // isEdit est ajouté par TargetForm : on l'écarte pour ne pas l'envoyer à l'API
+      // isEdit is added by TargetForm: drop it so it isn't sent to the API
       const { isEdit, ...data } = event.detail;
 
       try {
-        await createTarget({ countryId: this.country.id, ...data });
+      const payload = { ...data, countryIso };
+console.log("Payload envoyé:", payload);
+await createTarget(payload);
       } catch (error) {
         console.error(error);
         feedback.replaceChildren(

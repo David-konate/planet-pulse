@@ -14,7 +14,8 @@ public class Indicator {
 
     // Many indicator rows belong to one country (foreign key id_country)
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
-    @JoinColumn(name = "id_country")
+    @JoinColumn(name = "iso_country", referencedColumnName = "iso")
+
     private Country country;
     private Integer yearIndicator;
     private BigDecimal co2Emissions;
@@ -22,8 +23,10 @@ public class Indicator {
     private BigDecimal forestArea;
     private BigDecimal pm25Exposure;
 
-    public Indicator(){} // required
+    public Indicator() {
+    } // required
 
+    
     public Integer getIdIndicator() {
         return idIndicator;
     }

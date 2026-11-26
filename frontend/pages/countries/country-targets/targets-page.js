@@ -1,6 +1,6 @@
 import AppComponent from "../../../js/components/lib/AppComponents.js";
 import "../../../js/components/Targets/TargetsTable.js";
-import { getTargetsByCountryId } from "../../../services/targets-services.js";
+import { getTargetsBycountryIso } from "../../../services/targets-services.js";
 import { escapeHtml } from "../../../utils/sanitize.js";
 import { isValidSlug } from "../../../utils/slugify.js";
 import "../../../js/components/Button/AddTargetButton.js";
@@ -15,15 +15,15 @@ class TargetsPage extends AppComponent {
   targets = [];
 
   get country() {
-    return readCountryContext(this.dataset.param); // { countryId, countryName } ou null
+    return readCountryContext(this.dataset.param); // { countryIso, countryName } ou null
   }
 
   get countryName() {
     return this.country?.countryName ?? this.dataset.param;
   }
 
-  get countryId() {
-    return this.country?.countryId;
+  get countryIso() {
+    return this.country?.countryIso ?? this.dataset.param;
   }
  
 
@@ -32,13 +32,13 @@ async beforeRender() {
     this.state = { error: ERRORS.INVALID };
     return;
   }
-  if (this.countryId == null) {
+  if (this.countryIso == null) {
     this.state = { error: ERRORS.MISSING_ID };
     return;
   }
-
+console.log(this.dataset.param, this.countryIso, this.countryName);
   try {
-    const targets = await getTargetsByCountryId(this.countryId);
+    const targets = await getTargetsBycountryIso(this.countryIso);
     this.state = { targets };
   } catch (error) {
     console.error(error);
@@ -48,8 +48,8 @@ async beforeRender() {
   template() {
     const { error, targets } = this.state;
     const countryName = this.countryName;
-    const safeId = escapeHtml(String(this.countryId));
-    console.log(this.countryName);
+    const safeIso = escapeHtml(String(this.countryIso));
+ 
 
     return /*html*/ `
       <main class="container py-4">
@@ -58,14 +58,14 @@ async beforeRender() {
             ? `<div class="alert alert-danger" role="alert">${escapeHtml(error)}</div>
                  <add-target-button
           country-name="${escapeHtml(countryName)}"
-          country-id="${safeId}">
+          country-iso="${safeIso}">
         </add-target-button>`
             : `
         <div class="d-flex justify-content-between align-items-center mb-4">
           <h1 id="targets-title" class="h3 mb-0">Targets for ${escapeHtml(countryName)}</h1>
         <add-target-button
           country-name="${escapeHtml(countryName)}"
-          country-id="${safeId}">
+          country-iso="${safeIso}">
         </add-target-button>
         </div>
           ${
@@ -81,7 +81,7 @@ async beforeRender() {
             </year-countainer>
           <edit-target-button
             country-name="${escapeHtml(countryName)}"
-            country-id="${safeId}"
+            country-iso="${safeIso}"
             year-target="">
           </edit-target-button>
           </div>

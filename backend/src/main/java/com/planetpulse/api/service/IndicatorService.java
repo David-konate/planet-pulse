@@ -42,7 +42,8 @@ public class IndicatorService {
 
         // Rule: the country must exist
         Country country = countryRepository.findById(request.countryId())
-                .orElseThrow(() -> new CountryNotFoundException(request.countryId()));
+                .orElseThrow();
+// .orElseThrow(() -> new CountryNotFoundException(request.countryId()));
 
         // Rule: only one row per country and year
         if (indicatorRepository.existsByCountryIdCountryAndYearIndicator(request.countryId(), request.yearIndicator())) {
@@ -57,9 +58,11 @@ public class IndicatorService {
     @Transactional
     public List<IndicatorDto> getIndicatorsByCountry(Integer countryId) {
         // Rule: the country must exist
-        if (!countryRepository.existsById(countryId)) {
-            throw new CountryNotFoundException(countryId);
-        }
+
+        //commenté pour pas dfaire plant en attedn  ant modif 
+        // if (!countryRepository.existsById(countryId)) {
+        //     throw new CountryNotFoundException(countryId);
+        // }
         List<Indicator> indicators =
                 indicatorRepository.findByCountryIdCountryOrderByYearIndicatorDesc(countryId);
         return indicatorMapper.toDtos(indicators);

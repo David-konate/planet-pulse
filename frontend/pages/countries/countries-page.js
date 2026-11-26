@@ -60,6 +60,7 @@ class CountriesPage extends AppComponent {
     //Import the countries and update the state
     async handleImport() {
         const result = await importCountries();
+        console.log("Import result:", result);
         await this.refreshCountries();
         return result;
     }

@@ -44,7 +44,7 @@ public class TargetService {
         try {
             repository.save(target);
         } catch (DataIntegrityViolationException e) {
-            throw new TargetExistsException(request.countryId(), request.targetYear());
+            throw new TargetExistsException(request.countryIso(), request.targetYear());
         }
 
         // TODO: remplacer par toResponse(saved) quand un DTO de réponse existera
@@ -54,8 +54,8 @@ public class TargetService {
 
 
     private void checkBusinessRulesCreate(TargetCreateRequest request) {
-        if (!countryRepository.existsById(request.countryId())) {
-            throw new CountryNotFoundException(request.countryId());
+        if (!countryRepository.existsByIso(request.countryIso())) {
+            throw new CountryNotFoundException(request.countryIso());
         }
 
         if (request.targetYear() < Year.now().getValue()) {
@@ -69,16 +69,16 @@ public class TargetService {
             throw new NotTargetRecordingException();
         }
 
-        if (repository.existsByCountryIdAndTargetYear(request.countryId(), request.targetYear())) {
-            throw new TargetExistsException(request.countryId(), request.targetYear());
+        if (repository.existsByCountryIsoAndTargetYear(request.countryIso(), request.targetYear())) {
+            throw new TargetExistsException(request.countryIso(), request.targetYear());
         }
     }
 
-    public List<TargetByIdCountryResponse> getTargetsByCountryId(Integer countryId) {
-        Country country = countryRepository.findById(countryId)
-                .orElseThrow(() -> new CountryNotFoundException(countryId));
+    public List<TargetByIdCountryResponse> getTargetsByCountryIso(String countryIso) {
+        Country country = countryRepository.findByIso(countryIso)
+            .orElseThrow(() -> new CountryNotFoundException(countryIso));
 
-        List<Targets> targets = repository.findByCountryIdOrderByTargetYear(countryId);
+        List<Targets> targets = repository.findByCountryIsoOrderByTargetYear(countryIso);
 
         if (targets.isEmpty()) {
             throw new TargetNotFoundException(country.getCountryName());
