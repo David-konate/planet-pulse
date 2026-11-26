@@ -6,16 +6,13 @@ class ImportButton extends AppComponent {
     template() {
 
         return /*html*/`
-            <span class="import-btn-wrapper d-inline-block">
-                <button class="btn btn-primary" type="button"> Import countries </button>
-            </span>
+            <button class="btn btn-primary" type="button"> Import countries </button>
             <p class="import-message small mb-0 fade" role="status"></p>
         `;
     }
 
     afterRender() {
         // Get references to the button and message elements
-        this.wrapper = this.querySelector('.import-btn-wrapper');
         this.button = this.querySelector('button');
         this.message = this.querySelector('.import-message');
 
@@ -29,15 +26,23 @@ class ImportButton extends AppComponent {
     }
 
     // called by the browser when the component is removed from the page
-    // prevent the memory leak of the tooltip (it keeps a reference to the button)
     disconnectedCallback() {
         clearTimeout(this.hideTimer);
-        this.tooltip?.dispose();
+    }
+
+    // helpt to the button keeps the keyboard focus and is announced as "unavailable" by screen readers
+    isDisabled() {
+        return this.button.getAttribute('aria-disabled') === 'true';
+    }
+
+    setDisabled(disabled) {
+        this.button.setAttribute('aria-disabled', String(disabled));
     }
 
     async handleClick() {
         const { onImport } = this.props;
-        if (!onImport) return;
+        // blocking the import if the button is disabled or if no callback is provided
+        if (!onImport || this.isDisabled()) return;
 
         this.button.disabled = true; // avoid the double click
         this.button.textContent = 'The import is loading...';
@@ -51,24 +56,21 @@ class ImportButton extends AppComponent {
             console.error(error);
             if (error.status === 409) {
                 this.markAsImported(error.message);
+                this.showMessage(error.message, 'text-warning', 4000);
                 return;
             }
 
             const text = error.status ? error.message : 'The server is unreachable';
             this.button.disabled = false;
             this.button.textContent = "Import countries";
-            this.showMessage(text, 'text-danger');
+            this.showMessage(text, 'text-danger', 4000);
         }
     }
 
     // it desact the button when the import is a success
-    markAsImported(tooltipText){
-        this.button.disabled = true;
-        this.button.textContent = "Countries imported";
-
-        this.wrapper.tabIndex = 0;
-        this.tooltip = bootstrap.Tooltip.getOrCreateInstance(this.wrapper, { title: tooltipText });
-        this.tooltip.setContent({ '.tooltip-inner': tooltipText }); // update the text if called again
+    markAsImported(text){
+        this.setDisabled(true);
+        this.button.textContent = text;
     }
 
     // autoHideMs > 0 : the message disappears after this delay (in milliseconds)

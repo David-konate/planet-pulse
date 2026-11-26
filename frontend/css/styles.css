@@ -104,10 +104,6 @@ h1, h2, h3, h4, h5, h6 {
   --bs-btn-disabled-border-color: var(--color-teal);
 }
 
-.import-btn-wrapper:has(.btn:disabled) {
-  cursor: not-allowed;
-}
-
 /* === CARDS === */
 .card {
   --bs-card-border-width: 3px;
