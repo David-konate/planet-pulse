@@ -1,4 +1,4 @@
-import { slugify } from "../../../utils/slugify.js";
+import { goToTargets } from "../../../utils/navigation.js";
 import AppComponent from "../lib/AppComponents.js";
 
 class TargetButton extends AppComponent {
@@ -22,20 +22,20 @@ class TargetButton extends AppComponent {
   }
 
   afterRender() {
-    const button = this.querySelector("#target-button");
+    this.querySelector("#target-button").addEventListener("click", (event) => {
+      event.preventDefault();
+      event.stopPropagation();
 
-button.addEventListener("click", (event) => {
-  event.stopPropagation();
-  const countryName = this.getAttribute("country-name");
-  const countryId = this.getAttribute("country-id");
-history.pushState(
-  { countryId, countryName },
-  "",
-  `#/countries/${slugify(countryName)}/targets`,
-);
-window.dispatchEvent(new HashChangeEvent("hashchange"));
+      const countryId = this.getAttribute("country-id");
+      const countryName = this.getAttribute("country-name");
+      console.log("target-button: click", { countryId, countryName });
+      if (!countryId || !countryName) {
+        console.error("target-button: missing country-id or country-name");
+        return;
+      }
 
-});
+      goToTargets({ countryId, countryName });
+    });
   }
 }
 

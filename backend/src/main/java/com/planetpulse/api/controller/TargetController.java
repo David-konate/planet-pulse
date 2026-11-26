@@ -1,6 +1,7 @@
 package com.planetpulse.api.controller;
 
 import com.planetpulse.api.dto.request.TargetCreateRequest;
+import com.planetpulse.api.dto.response.TargetByIdCountryResponse;
 import com.planetpulse.api.service.TargetService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Positive;

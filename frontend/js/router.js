@@ -34,14 +34,21 @@ const outlet = document.getElementById("app");
 let renderId = 0; // identifie le rendu en cours
 
 function showMessage(text) {
-  const div = document.createElement("div");
-  div.className = "container py-4";
-  div.innerHTML = `
-    <div class="alert alert-warning" role="alert"></div>
-    <a href="${DEFAULT_ROUTE}" class="btn btn-link px-0">&larr; Back to countries</a>
-  `;
-  div.querySelector(".alert").textContent = text; // textContent : jamais d'HTML injecté
-  outlet.replaceChildren(div);
+  const container = document.createElement("div");
+  container.className = "container py-4";
+
+  const alert = document.createElement("div");
+  alert.className = "alert alert-warning";
+  alert.setAttribute("role", "alert");
+  alert.textContent = text; // text only, never parsed as HTML
+
+  const link = document.createElement("a");
+  link.href = DEFAULT_ROUTE;
+  link.className = "btn btn-link px-0";
+  link.textContent = "← Back to countries";
+
+  container.append(alert, link);
+  outlet.replaceChildren(container);
 }
 
 async function renderRoute() {

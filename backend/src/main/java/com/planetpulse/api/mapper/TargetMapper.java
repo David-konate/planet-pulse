@@ -1,6 +1,7 @@
 package com.planetpulse.api.mapper;
 
 import com.planetpulse.api.dto.request.TargetCreateRequest;
+import com.planetpulse.api.dto.response.TargetByIdCountryResponse;
 import com.planetpulse.api.entity.Targets;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

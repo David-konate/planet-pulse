@@ -1,5 +1,6 @@
 package com.planetpulse.api.service;
 
+import com.planetpulse.api.dto.response.TargetByIdCountryResponse;
 import com.planetpulse.api.dto.request.TargetCreateRequest;
 import com.planetpulse.api.entity.Country;
 import com.planetpulse.api.entity.Targets;
@@ -52,21 +53,6 @@ public class TargetService {
 
 
 
-    public List<TargetByIdCountryResponse> getTargetsByCountryId(Integer countryId) {
-        Country country = countryRepository.findById(countryId)
-                .orElseThrow(() -> new CountryNotFoundException(countryId));
-
-        List<Targets> targets = repository.findByCountryIdOrderByTargetYear(countryId);
-
-        if (targets.isEmpty()) {
-            throw new TargetNotFoundException(country.getCountryName());
-        }
-
-        return targets.stream()
-                .map(target -> mapper.toByCountryResponse(target, country.getCountryName()))
-                .toList();
-    }
-
     private void checkBusinessRulesCreate(TargetCreateRequest request) {
         if (!countryRepository.existsById(request.countryId())) {
             throw new CountryNotFoundException(request.countryId());
@@ -88,7 +74,20 @@ public class TargetService {
         }
     }
 
+    public List<TargetByIdCountryResponse> getTargetsByCountryId(Integer countryId) {
+        Country country = countryRepository.findById(countryId)
+                .orElseThrow(() -> new CountryNotFoundException(countryId));
 
+        List<Targets> targets = repository.findByCountryIdOrderByTargetYear(countryId);
+
+        if (targets.isEmpty()) {
+            throw new TargetNotFoundException(country.getCountryName());
+        }
+
+        return targets.stream()
+                .map(target -> mapper.toByCountryResponse(target, country.getCountryName()))
+                .toList();
+    }
 
 
 

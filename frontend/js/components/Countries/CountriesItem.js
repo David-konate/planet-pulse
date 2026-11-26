@@ -6,6 +6,7 @@ class CountryItem extends AppComponent {
   template() {
     const { id, countryName, flagUrl, region } = this.props;
     const safeId = escapeHtml(String(id));
+   
 
     return /*html*/ `
         <div class="card h-100 text-center p-3 position-relative" data-id="${safeId}">

@@ -142,8 +142,10 @@ class TargetForm extends AppComponent {
 
 
   showError(message = "Unable to save the target. Please try again.") {
-    this.feedback.innerHTML = /*html*/ `
-    <div class="alert alert-danger" role="alert">${message}</div>`;
+    this.feedback.replaceChildren(
+      document.createElement("div")
+    ).classList.add("alert", "alert-danger");
+    this.feedback.lastChild.textContent = message;
   }
 
   setBusy(isBusy) {
@@ -153,7 +155,7 @@ class TargetForm extends AppComponent {
   reset() {
     this.form.reset();
     this.errorDiv.classList.add("d-none");
-    this.feedback.innerHTML = "";
+    this.feedback.replaceChildren();
   }
 }
 
