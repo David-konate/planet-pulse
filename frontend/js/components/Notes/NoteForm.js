@@ -21,16 +21,24 @@ class NoteForm extends AppComponent {
 
     beforeRender() {
         const iso = new URLSearchParams(window.location.search).get("iso");
-        this.state{}
-        
+        const regexIso = /^[A-Za-z]{2}$/;
+        // ternaire : if and else for simple condition otherwise a loop is better 
+
+          //                             if    else
+            //const ternaire = 1+1 === 2 ? true : false
+        this.state = {countryIso :regexIso.test(iso ?? "") ? iso.toUpperCase() : null};
+
+        //this.state = {
+        //iso: iso && regexIso.test(iso) ? iso.toUpperCase() : null
     };
+     
 
 
     template() {
         return /*html*/ `
             <main class="container py-4">
                 <h1>Create a Note</h1>
-
+                <p>country:${this.state.countryIso ?? "No Country Selected"}</p>
                 <div id="message"></div>
 
                 <div class="form-field" id="form-content">
@@ -134,6 +142,14 @@ class NoteForm extends AppComponent {
             // Prevent the default page reload
             event.preventDefault();
 
+            // A note must be linked to a country
+            if (!this.state.countryIso) {
+                this.querySelector("#message").replaceChildren(
+                    ErrorMessage("Please select a country first.")
+                );
+                return;
+            }
+
             // Retrieve form data
             const formData = new FormData(form);
 
@@ -152,7 +168,7 @@ class NoteForm extends AppComponent {
 
             // Create an object containing the note data
             const noteData = {
-                countryIso: "FR",
+                countryIso: this.state.countryIso,
                 noteTitle: formData.get("note_title"),
                 noteDate: convertDate(date),
                 noteContent: formData.get("note_content"),

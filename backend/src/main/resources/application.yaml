@@ -20,6 +20,3 @@ logging:
 restcountries:
   base-url: ${API_URL}
   api-key: ${API_KEY}
-
-  server:
-    port=8081:
