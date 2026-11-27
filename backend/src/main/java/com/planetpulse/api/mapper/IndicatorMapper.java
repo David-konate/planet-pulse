@@ -18,7 +18,7 @@ public interface IndicatorMapper {
     Indicator toEntity(IndicatorCreateRequest request, Country country);
 
     // entity -> dto: the country id is taken inside the country object
-    @Mapping(target = "countryId", source = "country.idCountry")
+    @Mapping(target = "countryIso", source = "country.iso")
     IndicatorDto toDto(Indicator indicator);
 
     List<IndicatorDto> toDtos(List<Indicator> indicators);

@@ -30,6 +30,7 @@ public class RestCountriesService {
     public List<RestCountryDto> fetchAll() {
         List<RestCountryDto> countries = new ArrayList<>();
         int offset = 0;
+        int expectedTotal = -1; //it's not known until the API give it.
         boolean more = true;
 
         try {
@@ -52,14 +53,29 @@ public class RestCountriesService {
 
                 List<RestCountryDto> objects = page.data().objects();
                 countries.addAll(objects);
+                offset += objects.size();
+
+                RestCountriesPage.Meta meta = page.data().meta();
+                if (meta != null && meta.total() > 0) {
+                    expectedTotal = meta.total();
+                }
 
                 //An empty page mean there is nothing left, even if "more" say true:
-                more = page.data().meta() != null && page.data().meta().more() && !objects.isEmpty();
-                offset += objects.size();
+                more = !objects.isEmpty()
+                        && (expectedTotal > 0 ? offset < expectedTotal : meta != null && meta.more());
             }
         } catch (RestClientException exception) {
             log.error("REST countries call has failed at offset {}", offset, exception);
             throw new ExternalApiException("Could not fetch the countries from REST Countries.", exception);
+        }
+
+        //To avoid the silent partial import error
+        if (expectedTotal <= 0) {
+            throw new ExternalApiException("REST Countries did not give the total: the import cannot be verified");
+        }
+        if (countries.size() != expectedTotal) {
+            throw new ExternalApiException("Incomplete data from REST Countries: received"
+                    + countries.size() + "of " + expectedTotal + " countries");
         }
 
         return countries;

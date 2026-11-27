@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 
 public record IndicatorDto(
         Integer idIndicator,
-        Integer countryId,
+        String countryIso,
         Integer yearIndicator,
         BigDecimal co2Emissions,
         BigDecimal renewableEnergy,

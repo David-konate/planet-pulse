@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface IndicatorRepository extends JpaRepository<Indicator, Integer> {
 
-    boolean existsByCountryIdCountryAndYearIndicator(Integer idCountry, Integer yearIndicator);
-    List<Indicator> findByCountryIdCountryOrderByYearIndicatorDesc(Integer idCountry);
+    boolean existsByCountryIsoAndYearIndicator(String iso, Integer yearIndicator);
+
+    List<Indicator> findByCountryIsoOrderByYearIndicatorDesc(String iso);
 }

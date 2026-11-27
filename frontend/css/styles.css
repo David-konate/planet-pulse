@@ -105,6 +105,7 @@ h1, h2, h3, h4, h5, h6 {
   --bs-btn-disabled-border-color: var(--color-teal);
 }
 
+<<<<<<< HEAD
 
 
 
@@ -152,6 +153,8 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 
+=======
+>>>>>>> develop
 /* === CARDS === */
 .card {
   --bs-card-border-width: 3px;

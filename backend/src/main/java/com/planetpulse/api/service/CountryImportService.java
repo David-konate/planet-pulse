@@ -5,6 +5,7 @@ import com.planetpulse.api.entity.Country;
 import com.planetpulse.api.entity.Region;
 import com.planetpulse.api.entity.Subregion;
 import com.planetpulse.api.exception.countries.CountriesAlreadyImportedException;
+import com.planetpulse.api.exception.countries.ExternalApiException;
 import com.planetpulse.api.repository.CountryRepository;
 import com.planetpulse.api.repository.RegionRepository;
 import com.planetpulse.api.repository.SubregionRepository;
@@ -57,7 +58,7 @@ public class CountryImportService {
         for (RestCountryDto dto : dtos) {
             Set<ConstraintViolation<RestCountryDto>> violations = validator.validate(dto);
             if (!violations.isEmpty()) {
-                log.info("Country skipped: {} -> {}", dto,
+                log.warn("Country skipped: {} -> {}", dto,
                         violations.stream().map(ConstraintViolation::getMessage).toList());
                 continue; // incomplete or inconsistent country: ignored
             }
@@ -70,10 +71,13 @@ public class CountryImportService {
                     subregionRepository.findBySubregionIgnoreCase(name).orElseGet(() ->
                             subregionRepository.save(new Subregion(name, region))));
 
-            //The subregion name is unique in the database, so an existing one is reused: warn if its region differs
-            if (!Objects.equals(subregion.getRegion().getId(), region.getId())){
-                log.warn("Subregion '{}' already belongs to another region than '{}'",
-                        subregion.getSubregion(), region.getRegion());
+            //The subregion name is unique in the database.
+            // if one subregion > one region is false: then it stop and the transaction rollback.
+            //Prevent the API to attach the subregion to another region.
+            if (!subregion.getRegion().getRegion().equalsIgnoreCase(region.getRegion())){
+                throw new ExternalApiException("Subregion " + subregion.getSubregion()
+                        + "belongs to two regions: " + subregion.getRegion().getRegion()
+                        + " and " + region.getRegion());
             }
 
             Country country = new Country();

@@ -3,3 +3,8 @@
 .import-message.fade {
     transition: opacity .6s ease;
 }
+
+.btn[aria-disabled="true"] {
+  opacity: var(--bs-btn-disabled-opacity);
+  cursor: not-allowed;
+}

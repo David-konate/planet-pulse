@@ -4,44 +4,43 @@ import { addIndicator, getIndicatorTypes } from '../../../services/indicatorServ
 class IndicatorForm extends AppComponent {
 
     beforeRender() {
-        
-    const params = new URLSearchParams(window.location.search);
-    const id = params.get('countryId');
 
+        const params = new URLSearchParams(window.location.search);
+        const iso = params.get('iso') ?? params.get('countryIso');
 
-    this.state = {
-        countryId: /^\d+$/.test(id ?? '') ? Number(id) : null,
+        this.state = {
+        countryIso: /^[A-Z]{2}$/.test(iso) ? iso : null,
         indicators: []
     };
+        
     }
 
     template() {
         return /*html*/`
             <h1 class="h3 mb-3">Add indicator values</h1>
-            <p>Country: <strong>${this.state.countryId ?? 'not selected'}</strong></p>
 
-            <div id="message"></div>
+        <div id="message"></div>
 
-            <div class="card">
-                <div class="card-body">
-                    <form id="form" novalidate>
-                        <!-- The indicator fields are added here when they are loaded -->
-                        <div id="fields" class="row g-3">
-                            <div class="col-12 col-md-6">
-                                <label for="year" class="form-label">Year *</label>
-                                <input id="year" type="number" class="form-control">
-                            </div>
+        <div class="card">
+            <div class="card-body">
+                <form id="form" novalidate>
+                    <!-- The indicator fields are added here when they are loaded -->
+                    <div id="fields" class="row g-3">
+                        <div class="col-12 col-md-6">
+                            <label for="year" class="form-label">Year *</label>
+                            <input id="year" type="number" class="form-control">
                         </div>
+                    </div>
 
-                        <div class="d-flex gap-2 mt-3">
-                            <button type="submit" id="save" class="btn btn-primary" disabled>
-                                <i class="bi bi-check-lg"></i> Save
-                            </button>
-                            <button type="button" id="cancel" class="btn btn-secondary">Reset</button>
-                        </div>
-                    </form>
-                </div>
+                    <div class="d-flex gap-2 mt-3">
+                        <button type="submit" id="save" class="btn btn-primary" disabled>
+                            <i class="bi bi-check-lg"></i> Save
+                        </button>
+                        <button type="button" id="cancel" class="btn btn-secondary">Reset</button>
+                    </div>
+                </form>
             </div>
+        </div>
         `;
     }
 
@@ -101,7 +100,7 @@ class IndicatorForm extends AppComponent {
             return text === '' ? null : Number(text);
         };
 
-        const data = { countryId: this.state.countryId, yearIndicator: read('year') };
+        const data = { countryIso: this.state.countryIso, yearIndicator: read('year') };
         this.state.indicators.forEach((indicator) => {
             data[indicator.field] = read(indicator.field);
         });
@@ -110,7 +109,7 @@ class IndicatorForm extends AppComponent {
 
     // Returns an error message, or null if everything is valid
     #validate(data) {
-        if (!data.countryId) return 'The country is missing.';
+        if (!data.countryIso) return 'The country is missing.';
         if (!Number.isInteger(data.yearIndicator)) return 'The year is required and must be a whole number.';
 
         const filled = this.state.indicators.filter((indicator) => data[indicator.field] !== null);
