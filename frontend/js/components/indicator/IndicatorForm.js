@@ -6,7 +6,7 @@ class IndicatorForm extends AppComponent {
     beforeRender() {
 
         const params = new URLSearchParams(window.location.search);
-        const iso = params.get('country') ?? params.get('countryIso');
+        const iso = params.get('iso') ?? params.get('countryIso');
 
         this.state = {
         countryIso: /^[A-Z]{2}$/.test(iso) ? iso : null,
