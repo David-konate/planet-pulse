@@ -26,10 +26,10 @@ export async function addIndicator(data) {
     return response.json();
 }
 
-export async function getIndicatorsByCountry(countryId) {
+export async function getIndicatorsByCountry(countryIso) {
     let response;
     try {
-        response = await fetch(`${API_URL}?countryId=${countryId}`);
+        response = await fetch(`${API_URL}?countryIso=${countryIso}`);
     } catch {
         throw new Error('The server is not reachable. Please try again later.');
     }
