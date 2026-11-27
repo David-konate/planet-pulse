@@ -19,7 +19,5 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
         ORDER BY c.countryName
         """)
     List<CountryListResponse> findAllForList();
-
     Optional<Country> findByIso(String iso);
-    boolean existsByIso(String iso);
 }
