@@ -8,13 +8,13 @@ const format = (value, unit = "") =>
 
 const definition = {
   co2Emissions:
-    "Unité de masse égale à 1 000 kilogrammes. Elle mesure la quantité totale de dioxyde de carbone émise dans l'atmosphère par les activités du pays (énergie, transport, industrie) sur une période donnée.", 
+    "A unit of mass equal to 1,000 kilograms (one metric ton). It measures the total amount of carbon dioxide released into the atmosphere by a country's activities (energy, transport, industry) over a given period.",
   pm25Emissions:
-    "Unité de concentration qui mesure la masse de particules fines (diamètre inférieur à 2,5 micromètres) présente dans un mètre cube d'air. Plus cette valeur est basse, meilleure est la qualité de l'air.",
+    "A concentration unit that measures the mass of fine particulate matter (particles smaller than 2.5 micrometers) present in one cubic meter of air. The lower the value, the better the air quality.",
   forestArea:
-    "Unité de superficie qui mesure la proportion de la superficie terrestre totale du pays recouverte par des forêts. Cet indicateur permet de suivre la déforestation ou les efforts de reboisement.",
+    "A land area indicator that measures the proportion of a country's total land area covered by forests. This indicator helps monitor deforestation and reforestation efforts.",
   renewableEnergyShare:
-    "Part que représentent les énergies renouvelables (solaire, éolien, hydraulique, etc.) dans la consommation ou la production totale d'énergie du pays."
+    "The proportion of renewable energy sources (solar, wind, hydropower, etc.) in a country's total energy consumption or production."
 };
 
 class TargetsTable extends AppComponent {
