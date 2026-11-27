@@ -20,4 +20,5 @@ public interface CountryRepository extends JpaRepository<Country, Integer> {
         """)
     List<CountryListResponse> findAllForList();
     Optional<Country> findByIso(String iso);
+    Boolean existsByIso(String iso);
 }

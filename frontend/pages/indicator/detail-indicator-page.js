@@ -7,7 +7,7 @@ class DetailIndicatorPage extends AppComponent {
 
     beforeRender() {
         // The country code comes from the URL: detail-indicator.html?country=5
-        const code = new URLSearchParams(window.location.search).get('country');
+        const code = new URLSearchParams(window.location.search).get('iso');
         // Only accept a two-letter country code
         this.state = { countryIso: /^[A-Z]{2}$/.test(code) ? code : null };
     }

@@ -15,7 +15,7 @@ class DetailIndicator extends AppComponent {
             <div id="table">Loading indicators...</div>
 
             <div class="mt-3">
-                <a class="btn btn-primary" href="./add-indicator.html?country=${countryId}">
+                <a class="btn btn-primary" href="./add-indicator.html?iso=${countryId}">
                     <i class="bi bi-plus-lg"></i> Add indicators
                 </a>
             </div>

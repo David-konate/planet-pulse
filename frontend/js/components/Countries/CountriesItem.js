@@ -15,7 +15,7 @@ class CountryItem extends AppComponent {
                 <p class="card-text small mb-0">${escapeHtml(region)}</p>
               </div>
               <div class="d-flex justify-content-center gap-2 mt-3">
-                <a class="btn btn-outline-primary btn-sm" href="/frontend/pages/indicator/detail-indicator.html?country=${countryIso}">Indicators</a>
+                <a class="btn btn-outline-primary btn-sm" href="/frontend/pages/indicator/detail-indicator.html?iso=${countryIso}">Indicators</a>
                
               </div>
             </div>
