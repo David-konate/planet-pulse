@@ -14,7 +14,7 @@ class TargetsPage extends AppComponent {
   targets = [];
 
   get country() {
-    return readCountryContext(this.dataset.param); // { countryIso, countryName } ou null
+    return readCountryContext(this.dataset.param);
   }
 
   get countryName() {

@@ -40,7 +40,7 @@ class TargetsTable extends AppComponent {
                   <div class="fw-semibold">CO2</div>
                   <div class="d-flex justify-content-center align-items-center gap-1 p-2">
                     <div>${escapeHtml(format(target.co2Emissions))}</div>
-                    <button type="button" data-value="co2Emissions"  class="input-group-text">t</button>
+                    <button type="button" data-value="co2Emissions"  class=" input-group-text">t</button>
                   </div>
                 </li>
                 <li class="list-group-item">
