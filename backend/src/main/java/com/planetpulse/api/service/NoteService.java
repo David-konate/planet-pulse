@@ -13,6 +13,8 @@ import com.planetpulse.api.mapper.NoteMapper;
 import com.planetpulse.api.repository.CountryRepository;
 import com.planetpulse.api.repository.NoteRepository;
 import com.planetpulse.api.exception.notes.NoteCountryNotFoundException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,6 +29,7 @@ public class NoteService {
     private final NoteRepository repository;
     private final CountryRepository countryRepository;
     private final NoteMapper mapper;
+    private static final Logger log = LoggerFactory.getLogger(NoteService.class);
 
     public NoteService(
             NoteRepository repository,
@@ -60,7 +63,9 @@ public class NoteService {
         // Save the note
         Note saved = repository.save(note);
 
-        System.out.println("Note created: timestamp="
+
+
+        log.info("Note created: timestamp="
                 + saved.getNoteTimestamp()
                 + ", country="
                 + iso);

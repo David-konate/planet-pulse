@@ -12,7 +12,6 @@ import com.planetpulse.api.exception.indicator.IndicatorAlreadyExistsException;
 import com.planetpulse.api.mapper.IndicatorMapper;
 import com.planetpulse.api.repository.CountryRepository;
 import com.planetpulse.api.repository.IndicatorRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
