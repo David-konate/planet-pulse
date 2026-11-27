@@ -1,6 +1,6 @@
 
 import AppComponent from "../lib/AppComponents.js";
-import "../../utils/validation.js";
+import "../../../utils/validation.js";
 import { createNote } from "../../../services/note-services.js";
 import { ErrorMessage } from "../messages/ErrorMessage.js";
 import { SuccessMessage } from "../messages/SuccessMessage.js";
