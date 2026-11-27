@@ -47,11 +47,11 @@ public class Note {
     }
 
 
-    public String getCountryId() {
+    public String getCountryIso() {
         return countryIso;
     }
 
-    public void setCountryId(String countryIso) {
+    public void setCountryIso(String countryIso) {
         this.countryIso = countryIso;
     }
 

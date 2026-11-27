@@ -50,8 +50,8 @@ public class NoteService {
         //Mapper change data to object Note
         //Convert the request into a Note object
         Note note = mapper.toEntity(request);
-        // Set the country ID
-        note.setCountryId(country.getIdCountry());
+        // Set the country ISO
+        note.setCountryIso(country.getIso());
         // Set the current date and time
         note.setNoteTimestamp(LocalDateTime.now().withNano(0));
         // Set a condition : if the user do not enter a date set the current date
