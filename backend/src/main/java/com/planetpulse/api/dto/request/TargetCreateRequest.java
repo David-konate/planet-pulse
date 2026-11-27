@@ -11,9 +11,9 @@ import java.math.BigDecimal;
 
 public record TargetCreateRequest(
 
-        @JsonProperty("countryId")
+        @JsonProperty("countryIso")
         @NotNull(message = "Cannot create a target that is not associated with a country")
-        Integer countryId,
+        String countryIso,
 
         @JsonProperty("targetYear")
         @NotNull(message = "A target must be associated with a year.")

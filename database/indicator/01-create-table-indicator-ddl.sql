@@ -3,7 +3,7 @@
 CREATE TABLE t_indicators
 (
     id_indicator     INT GENERATED ALWAYS AS IDENTITY,
-    id_country       INT      NOT NULL,
+    iso_country      CHAR(2)  NOT NULL,
     year_indicator             INTEGER NOT NULL,
     co2_emissions    DECIMAL(15, 2), 
     renewable_energy DECIMAL(5, 2),  
@@ -11,7 +11,7 @@ CREATE TABLE t_indicators
     pm25_exposure    DECIMAL(15, 2),  --
 
     CONSTRAINT pk_indicators PRIMARY KEY (id_indicator),
-    CONSTRAINT uk_indicators_country_year UNIQUE (id_country, year_indicator),
+    CONSTRAINT uk_indicators_country_year UNIQUE (iso_country, year_indicator),
     CONSTRAINT ck_indicators_co2_emissions     CHECK (co2_emissions >= 0),
     CONSTRAINT ck_indicators_renewable_energy  CHECK (renewable_energy BETWEEN 0 AND 100),
     CONSTRAINT ck_indicators_forest_area       CHECK (forest_area BETWEEN 0 AND 100),
@@ -22,5 +22,5 @@ CREATE TABLE t_indicators
         OR forest_area IS NOT NULL OR pm25_exposure IS NOT NULL
     ),
 
-    CONSTRAINT fk_indicators_country FOREIGN KEY (id_country) REFERENCES t_countries (id_country)
+    CONSTRAINT fk_indicators_country FOREIGN KEY (iso_country) REFERENCES t_countries (iso)
 );

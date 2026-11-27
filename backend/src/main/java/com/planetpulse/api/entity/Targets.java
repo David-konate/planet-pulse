@@ -4,12 +4,15 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
+
 @Entity
 @Table( name = "t_targets",
 
         uniqueConstraints = @UniqueConstraint(
-                name = "uk_target_country_year",
-                columnNames = {"id_country", "year_"}
+                name = "uk_targets_country_year",
+                columnNames = {"iso_country", "target_year"}
         ))
 
 public class Targets {
@@ -20,8 +23,9 @@ public class Targets {
     private Integer idTarget;
 
 
-    @Column(name = "id_country")
-    private Integer countryId;
+    @Column(name = "iso_country", length = 2, nullable = false)
+@JdbcTypeCode(SqlTypes.CHAR)
+private String countryIso;
 
     @Column(name = "target_year")   // garde ici le nom réel de la colonne en base
     private Integer targetYear;
@@ -49,12 +53,12 @@ public class Targets {
         this.idTarget = idTarget;
     }
 
-    public Integer getCountryId() {
-        return countryId;
+    public String getCountryIso() {
+        return countryIso;
     }
 
-    public void setCountryId(Integer countryId) {
-        this.countryId = countryId;
+    public void setCountryIso(String countryIso) {
+        this.countryIso = countryIso;
     }
 
     public Integer getTargetYear() {

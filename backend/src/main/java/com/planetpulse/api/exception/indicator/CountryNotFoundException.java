@@ -2,8 +2,10 @@ package com.planetpulse.api.exception.indicator;
 
 public class CountryNotFoundException extends RuntimeException{
 
-    public CountryNotFoundException(String iso) {
+    public CountryNotFoundException(String countryIso) {
 
-        super("This country "+ iso + " does not exist.");
+        super("This country " + countryIso + " does not exist.");
     }
+    
+    
 }

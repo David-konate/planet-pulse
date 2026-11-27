@@ -10,8 +10,11 @@ Run them **in this order**. A script that references another table
 
 | Order | File | What it does |
 |---|---|---|
-| 1 | `01-create-table-countries-region-subregion-ddl.sql` | creates `t_regions`, `t_subregions` and `t_countries` |
-| … | `02-….sql` | *(add your script here)* |
+| 0 | `00-drop-table-dml-test.sql` | *(optional)* drops all the tables, to start again from a clean database |
+| 1 | `countries/01-create-table-countries-region-subregion-ddl.sql` | creates `t_regions`, `t_subregions` and `t_countries` |
+| 2 | `indicator/01-create-table-indicator-ddl.sql` | creates `t_indicators` (FK `iso_country` > `t_countries.iso`) |
+| 3 | `notes/01-create-table-notes-ddl.sql` | creates `t_notes` (FK `iso_country` > `t_countries.iso`) |
+| 4 | `targets/01-create-table-target.sql` | creates `t_targets` (FK `iso_country` > `t_countries.iso`) |
 
 
 ### Adding a script

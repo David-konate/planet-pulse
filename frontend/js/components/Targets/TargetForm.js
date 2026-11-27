@@ -3,13 +3,12 @@ import { setRangeMessages } from "../../../utils/setRangeMessages.js";
 import { emptyToNull } from "../../../utils/emptyToNull.js";
 
 class TargetForm extends AppComponent {
-    beforeRender() {
+  beforeRender() {
     this.form = null;
     this.feedback = null;
     this.errorDiv = null;
     this.submitBtn = null;
   }
-
 
   template() {
     return /*html*/ `
@@ -30,6 +29,7 @@ class TargetForm extends AppComponent {
                      step="0.01" placeholder="Total CO2 emissions">
               <span class="input-group-text">t</span>
             </div>
+            
           </div>
 
           <div class="mb-3">
@@ -69,7 +69,6 @@ class TargetForm extends AppComponent {
     `;
   }
 
-
   afterRender() {
     this.form = this.querySelector("#target-form");
     this.feedback = this.querySelector("#form-feedback");
@@ -82,6 +81,7 @@ class TargetForm extends AppComponent {
     setRangeMessages(yearInput, {
       underflow: `The target year must be ${yearInput.min} or later.`,
     });
+
     const co2Input = this.querySelector("#co2-emissions");
     co2Input.min = 0.01;
     setRangeMessages(co2Input, {
@@ -110,6 +110,7 @@ class TargetForm extends AppComponent {
 
       const formData = new FormData(this.form);
       const data = {
+        countryIso: this.countryIso,
         targetYear: emptyToNull(formData.get("target_year")),
         co2Emissions: emptyToNull(formData.get("co2_emissions")),
         pm25Emissions: emptyToNull(formData.get("pm25_emissions")),
@@ -119,7 +120,7 @@ class TargetForm extends AppComponent {
         ),
       };
 
-      const { co2Emissions, pm25Emissions, forestArea, renewableEnergyShare } =
+      const { countryIso,co2Emissions, pm25Emissions, forestArea, renewableEnergyShare } =
         data;
 
       if (
@@ -140,21 +141,23 @@ class TargetForm extends AppComponent {
     });
   }
 
-  // --- API publique, appelée par la page parente ---
-
-
 
   showError(message = "Unable to save the target. Please try again.") {
-    this.feedback.innerHTML = /*html*/ `
-    <div class="alert alert-danger" role="alert">${message}</div>`;
+    this.feedback.replaceChildren(
+      document.createElement("div")
+    ).classList.add("alert", "alert-danger");
+    this.feedback.lastChild.textContent = message;
   }
 
   setBusy(isBusy) {
     this.submitBtn.disabled = isBusy;
   }
+
+  reset() {
+    this.form.reset();
+    this.errorDiv.classList.add("d-none");
+    this.feedback.replaceChildren();
+  }
 }
-
-
-
 
 customElements.define("target-form", TargetForm);
