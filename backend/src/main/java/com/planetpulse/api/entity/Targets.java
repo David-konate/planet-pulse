@@ -11,8 +11,8 @@ import org.hibernate.type.SqlTypes;
 @Table( name = "t_targets",
 
         uniqueConstraints = @UniqueConstraint(
-                name = "uk_target_country_year",
-                columnNames = {"iso_country", "year_"}
+                name = "uk_targets_country_year",
+                columnNames = {"iso_country", "target_year"}
         ))
 
 public class Targets {

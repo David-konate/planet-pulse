@@ -1,7 +1,7 @@
 
 CREATE TABLE t_targets (
                            id_target              INT GENERATED ALWAYS AS IDENTITY,
-                           id_country             INT           NOT NULL,
+                           iso_country            CHAR(2)       NOT NULL,
                            target_year            INTEGER       NOT NULL,
                            co2_emissions          NUMERIC(15,2),
                            pm25_emissions         NUMERIC(15,2),
@@ -11,7 +11,7 @@ CREATE TABLE t_targets (
                            CONSTRAINT pk_targets PRIMARY KEY (id_target),
 
                            CONSTRAINT fk_targets_country
-                               FOREIGN KEY (id_country) REFERENCES t_countries (id_country),
+                               FOREIGN KEY (iso_country) REFERENCES t_countries (iso),
 
                            CONSTRAINT chk_targets_co2_emissions  CHECK (co2_emissions > 0),
                            CONSTRAINT chk_targets_pm25_emissions CHECK (pm25_emissions > 0),
@@ -22,5 +22,5 @@ CREATE TABLE t_targets (
                            CONSTRAINT chk_targets_at_least_one_field
                                CHECK (num_nonnulls(co2_emissions, pm25_emissions, forest_area, renewable_energy_share) >= 1),
 
-                           CONSTRAINT uk_targets_country_year UNIQUE (id_country, target_year)
+                           CONSTRAINT uk_targets_country_year UNIQUE (iso_country, target_year)
 );
