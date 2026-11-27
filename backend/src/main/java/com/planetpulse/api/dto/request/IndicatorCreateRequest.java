@@ -9,10 +9,9 @@ import java.math.BigDecimal;
 @AtLeastOneIndicator
 public record IndicatorCreateRequest(
 
-        @JsonProperty("countryId")
-        @NotNull(message = "The country is required.")
-        @Positive(message = "The country is not valid.")
-        Integer countryId,
+        @NotBlank(message = "The country is required.")
+        @Pattern(regexp = "[A-Z]{2}", message = "The country code must be 2 capital letters.")
+        String countryIso,
 
         // Year range to confirm with the PO
         @JsonProperty("yearIndicator")

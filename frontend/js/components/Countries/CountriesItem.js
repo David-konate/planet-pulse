@@ -5,15 +5,20 @@ class CountryItem extends AppComponent {
 
     template() {
         const { iso, countryName, flagUrl, region } = this.props;
+        const countryIso = escapeHtml(iso);
 
         return /*html*/`
-            <a href="/countries/${escapeHtml(iso)}" class="card h-100 text-center text-decoration-none p-3" data-iso="${escapeHtml(iso)}">
+            <div class="card h-100 text-center p-3" data-iso="${countryIso}">
               <img src="${escapeHtml(safeUrl(flagUrl))}" alt="" class="country-flag" loading="lazy">
               <div class="card-body p-0 pt-3">
                 <h2 class="card-title h6 mb-1">${escapeHtml(countryName)}</h2>
                 <p class="card-text small mb-0">${escapeHtml(region)}</p>
               </div>
-            </a>
+              <div class="d-flex justify-content-center gap-2 mt-3">
+                <a class="btn btn-outline-primary btn-sm" href="/frontend/pages/indicator/detail-indicator.html?iso=${countryIso}">Indicators</a>
+               
+              </div>
+            </div>
         `;
     }
 }
