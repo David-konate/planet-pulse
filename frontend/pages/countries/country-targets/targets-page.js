@@ -6,7 +6,6 @@ import { isValidSlug } from "../../../utils/slugify.js";
 import "../../../js/components/Button/AddTargetButton.js";
 import { readCountryContext } from "../../../utils/navigation.js";
 
-
 const ERRORS = {
   INVALID: "Invalid country.",
 };
@@ -25,37 +24,36 @@ class TargetsPage extends AppComponent {
   get countryIso() {
     return this.country?.countryIso ?? this.dataset.param;
   }
- 
 
-async beforeRender() {
-  if (!isValidSlug(this.dataset.param)) {
-    this.state = { error: ERRORS.INVALID };
-    return;
+  async beforeRender() {
+    if (!isValidSlug(this.dataset.param)) {
+      this.state = { error: ERRORS.INVALID };
+      return;
+    }
+    if (this.countryIso == null) {
+      this.state = { error: ERRORS.MISSING_ID };
+      return;
+    }
+    try {
+      const targets = await getTargetsBycountryIso(this.countryIso);
+      this.state = { targets };
+    } catch (error) {
+      console.error(error);
+      this.state = { error: error.message };
+    }
   }
-  if (this.countryIso == null) {
-    this.state = { error: ERRORS.MISSING_ID };
-    return;
-  }
-console.log(this.dataset.param, this.countryIso, this.countryName);
-  try {
-    const targets = await getTargetsBycountryIso(this.countryIso);
-    this.state = { targets };
-  } catch (error) {
-    console.error(error);
-    this.state = { error: error.message };
-  }
-}
   template() {
     const { error, targets } = this.state;
     const countryName = this.countryName;
     const safeIso = escapeHtml(String(this.countryIso));
- 
 
     return /*html*/ `
       <main class="container py-4">
+      <infos id="infos-values">
+      </infos>
         ${
           error
-            ? `<div class="alert alert-danger" role="alert">${escapeHtml(error)}</div>
+            ? `<div class="alert alert-info" role="alert">${escapeHtml(error)}</div>
                  <add-target-button
           country-name="${escapeHtml(countryName)}"
           country-iso="${safeIso}">
@@ -73,19 +71,8 @@ console.log(this.dataset.param, this.countryIso, this.countryName);
               ? `<p class="text-muted">No target yet for this country.</p>`
               : `
             <div class="card text-center">
-          <div class="card-header d-flex justify-content-around align-items-center gap-2">
-            <year-countainer class="d-flex justify-content-center">
-                <label for="year-select" class="visually-hidden">Target year</label>
-                <select id="year-select" class="form-select form-select-sm fw-bold text-center w-auto">
-                </select>
-            </year-countainer>
-          <edit-target-button
-            country-name="${escapeHtml(countryName)}"
-            country-iso="${safeIso}"
-            year-target="">
-          </edit-target-button>
-          </div>
-              <div id="targets-table"></div>
+              <div class="accordion" id="accordion-targets"></div> 
+            
             </div>`
           }`
         }
@@ -96,25 +83,17 @@ console.log(this.dataset.param, this.countryIso, this.countryName);
   afterRender() {
     const { error, targets } = this.state;
     if (error) return;
-
-    const countryName = history.state?.countryName ?? this.dataset.param;
-    document.title = `${countryName} - PlanetPulse`;
+    const countryName = this.countryName;
+    document.title = `${countryName} Targets - PlanetPulse`;
 
     if (targets.length === 0) return;
 
     this.targets = [...targets].sort((a, b) => a.targetYear - b.targetYear);
 
-    const select = this.querySelector("#year-select");
-   const options = this.targets.map((t) => {
-     const year = String(t.targetYear);
-     return new Option(year, year); // new Option(text, value)
-   });
+    const dataset = this.targets.map((target, index) => ({ target, open : index === 0 })); 
+    const conteneur = this.querySelector("#accordion-targets");
+    this.attachChildren(conteneur, "targets-table", dataset);
 
-   select.replaceChildren(...options);
-
-    select.addEventListener("change", () => this.showTarget(select.value));
-
-    this.showTarget(select.value);
   }
 
   showTarget(year) {

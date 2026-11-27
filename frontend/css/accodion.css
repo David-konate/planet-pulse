@@ -1,0 +1,42 @@
+
+#accordion-targets {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+  padding: var(--space-md);
+}
+
+#accordion-targets .accordion-item {
+  border: 2px solid var(--color-blue);
+  border-radius: 6px;
+  overflow: hidden; /* le bouton hérite des coins arrondis de l'item */
+}
+
+.accordion-header {
+  margin: 0;
+}
+
+.accordion-body {
+  --bs-accordion-body-padding-x: 1.6rem; /* aligné sur le bouton */
+  --bs-accordion-body-padding-y: var(--space-md);
+}
+
+.accordion-body .list-group {
+  --bs-list-group-border-color: rgba(23, 105, 154, 0.2); /* --color-blue, discret */
+}
+
+.accordion-body .list-group-item > .fw-semibold {
+  color: var(--color-teal);
+}
+
+.accordion-body .list-group-item .d-flex > div {
+  font-weight: 600;
+}
+
+.accordion-body .input-group-text {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  color: var(--color-teal);
+  font-size: 0.875rem;
+}
