@@ -34,7 +34,6 @@ class AddTargetsPage extends AppComponent {
     }
 
     const countryIso = iso.toUpperCase(); // the DB enforces ^[A-Z]{2}$
-    console.log("Adding target for country:", countryIso);
     const countryName = history.state?.countryName ?? countryIso;
     this.country = { iso: countryIso, name: countryName };
 
@@ -46,7 +45,6 @@ class AddTargetsPage extends AppComponent {
 
       try {
       const payload = { ...data, countryIso };
-      console.log("Payload envoyé:", payload);
       await createTarget(payload);
       } catch (error) {
         console.error(error);

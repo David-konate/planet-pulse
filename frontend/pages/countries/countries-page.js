@@ -34,8 +34,7 @@ class CountriesPage extends AppComponent {
            <main class="container pt-5 pb-4 pt-md-4">
               <h1 class="h1 text-center mb-4">${MESSAGES.PAGE_TITLE}</h1>
               <div id="import-zone" class="mb-4"></div>
-              ${
-                error
+              ${error
                   ? `<div class="alert alert-danger" role="alert">${error}</div>`
                   : `<div id="countries-content"></div>`
               }
