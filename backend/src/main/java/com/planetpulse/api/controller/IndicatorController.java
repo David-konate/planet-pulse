@@ -33,7 +33,7 @@ public class IndicatorController {
     }
 
     @GetMapping
-    public List<IndicatorDto> getByCountry(@RequestParam Integer countryId) {
-        return indicatorService.getIndicatorsByCountry(countryId);
+    public List<IndicatorDto> getByCountry(@RequestParam String countryIso) {
+        return indicatorService.getIndicatorsByCountry(countryIso);
     }
 }

@@ -41,12 +41,11 @@ public class IndicatorService {
         }
 
         // Rule: the country must exist
-        Country country = countryRepository.findById(request.countryId())
-                .orElseThrow(() -> new CountryNotFoundException(request.countryId()));
+        Country country = countryRepository.findByIso(request.countryIso())
+                .orElseThrow(() -> new CountryNotFoundException(request.countryIso()));
 
-        // Rule: only one row per country and year
-        if (indicatorRepository.existsByCountryIdCountryAndYearIndicator(request.countryId(), request.yearIndicator())) {
-            throw new IndicatorAlreadyExistsException(country.getIdCountry(), request.yearIndicator());
+        if (indicatorRepository.existsByCountryIsoAndYearIndicator(request.countryIso(), request.yearIndicator())) {
+            throw new IndicatorAlreadyExistsException(request.countryIso(), request.yearIndicator());
         }
 
         Indicator indicator = indicatorMapper.toEntity(request, country);
@@ -55,14 +54,12 @@ public class IndicatorService {
     }
 
     @Transactional
-    public List<IndicatorDto> getIndicatorsByCountry(Integer countryId) {
-        // Rule: the country must exist
-        if (!countryRepository.existsById(countryId)) {
-            throw new CountryNotFoundException(countryId);
+    public List<IndicatorDto> getIndicatorsByCountry(String iso) {
+
+        if (!countryRepository.existsByIso(iso)) {
+            throw new CountryNotFoundException(iso);
         }
-        List<Indicator> indicators =
-                indicatorRepository.findByCountryIdCountryOrderByYearIndicatorDesc(countryId);
-        return indicatorMapper.toDtos(indicators);
+        return indicatorMapper.toDtos(indicatorRepository.findByCountryIsoOrderByYearIndicatorDesc(iso));
     }
 
     // The list of indicators used to build the form
