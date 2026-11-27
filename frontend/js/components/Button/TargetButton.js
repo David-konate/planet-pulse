@@ -28,7 +28,6 @@ class TargetButton extends AppComponent {
 
       const countryIso = this.getAttribute("country-iso");
       const countryName = this.getAttribute("country-name");
-      console.log("target-button: click", { countryIso, countryName });
       if (!countryIso || !countryName) {
         console.error("target-button: missing country-iso or country-name");
         return;

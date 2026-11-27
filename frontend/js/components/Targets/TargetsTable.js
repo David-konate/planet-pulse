@@ -23,7 +23,6 @@ class TargetsTable extends AppComponent {
     const idTitre = `target-${target.targetYear}`;
     const idCollapse = `collapse-${target.targetYear}`;
     const open = this.props.open ?? false;
-    console.log(this.props)
 
 
     return /*html*/ `

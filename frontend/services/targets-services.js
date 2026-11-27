@@ -1,7 +1,6 @@
 import { API_BASE_URL } from "../config.js";
 
 export async function createTarget(target) {
-  console.log("Creating target:", target);
   const response = await fetch(`${API_BASE_URL}/targets`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -11,7 +10,6 @@ export async function createTarget(target) {
     throw new Error(`Unable to create target (HTTP ${response.status})`);
   }
   const result = await response.json();
-  console.log("Target created:", result);
   return result;
 }
 

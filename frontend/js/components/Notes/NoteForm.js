@@ -183,7 +183,6 @@ class NoteForm extends AppComponent {
                     SuccessMessage("Note created successfully!")
                 );
 
-                console.log("Note created successfully:", createdNote);
 
             } catch (error) {
                 // Display a user-friendly error message
@@ -196,7 +195,6 @@ class NoteForm extends AppComponent {
                     ErrorMessage(message)
                 );
 
-                console.log("Error creating note:", error);
             }
         });
     }

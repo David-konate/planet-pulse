@@ -17,9 +17,7 @@ class AddTargetButton extends AppComponent {
    button.addEventListener("click", (event) => {
      event.stopPropagation();
      const countryName = this.getAttribute("country-name");
-     console.log("add-target-button: click", { countryName });
      const countryIso = this.getAttribute("country-iso");
-     console.log({ countryIso, countryName });
      history.pushState(
        { countryIso, countryName },
        "",
