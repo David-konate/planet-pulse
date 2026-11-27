@@ -5,6 +5,7 @@ package com.planetpulse.api.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
@@ -16,7 +17,8 @@ public record NoteCreateRequest(
 
         // Country Id associate to the note
         @NotNull(message = "Please select a Country.")
-        Integer countryId,
+        @Pattern(regexp = "[A-Z]{2}", message = "ISO code must be 2 uppercase letters.")
+        String countryIso,
 
 
         @NotBlank(message = "Please enter a title.")
@@ -30,5 +32,6 @@ public record NoteCreateRequest(
         String noteContent
 
 ) {
-    //
+        //public Integer getIdCountry() {
+
 }
